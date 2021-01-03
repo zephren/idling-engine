@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/idling-engine/static/js/main.40a8bf1e.chunk.js",
-    "main.js.map": "/idling-engine/static/js/main.40a8bf1e.chunk.js.map",
+    "main.js": "/idling-engine/static/js/main.c1fa050c.chunk.js",
+    "main.js.map": "/idling-engine/static/js/main.c1fa050c.chunk.js.map",
     "runtime-main.js": "/idling-engine/static/js/runtime-main.5e4761ea.js",
     "runtime-main.js.map": "/idling-engine/static/js/runtime-main.5e4761ea.js.map",
     "static/js/2.65217335.chunk.js": "/idling-engine/static/js/2.65217335.chunk.js",
@@ -426,6 +426,6 @@
   "entrypoints": [
     "static/js/runtime-main.5e4761ea.js",
     "static/js/2.65217335.chunk.js",
-    "static/js/main.40a8bf1e.chunk.js"
+    "static/js/main.c1fa050c.chunk.js"
   ]
 }

@@ -1,16 +1,18 @@
 import { Text } from "./Text";
 import { Button } from "./Button";
-import { Container } from "./Container";
 import { Element, useNode } from "@craftjs/core";
+import { Card as MUICard, CardActions, CardContent } from "@material-ui/core";
+import { useSetupComponent } from "../../config/useSetupComponent";
 
 export const CardTop = ({ children }: any) => {
   const {
     connectors: { connect },
   } = useNode();
+
   return (
-    <div ref={connect} className="text-only">
+    <CardContent ref={connect} className="text-only">
       {children}
-    </div>
+    </CardContent>
   );
 };
 
@@ -25,7 +27,8 @@ export const CardBottom = ({ children }: any) => {
   const {
     connectors: { connect },
   } = useNode();
-  return <div ref={connect}>{children}</div>;
+
+  return <CardActions ref={connect}>{children}</CardActions>;
 };
 
 CardBottom.craft = {
@@ -35,9 +38,11 @@ CardBottom.craft = {
   },
 };
 
-export const Card = ({ background, padding = 20 }: any) => {
+export const Card = () => {
+  const { refFn, componentClassName } = useSetupComponent();
+
   return (
-    <Container background={background} padding={padding}>
+    <MUICard ref={refFn} className={componentClassName}>
       <Element id="text" is={CardTop} canvas>
         <Text text="Title" fontSize={20} />
         <Text text="Subtitle" fontSize={15} />
@@ -47,6 +52,6 @@ export const Card = ({ background, padding = 20 }: any) => {
           Hi!
         </Button>
       </Element>
-    </Container>
+    </MUICard>
   );
 };

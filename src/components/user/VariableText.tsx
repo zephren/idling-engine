@@ -1,5 +1,6 @@
 import { useNode } from "@craftjs/core";
 import { useContext } from "react";
+import { useSetupComponent } from "../../config/useSetupComponent";
 import { Context } from "../../lib/context";
 import { game } from "../../lib/game";
 import { Settings } from "../Settings";
@@ -7,17 +8,12 @@ import { StringSetting } from "../Settings/SettingTypes";
 import { SliderSetting } from "../Settings/SliderSetting";
 
 export const VariableText = ({ dataProperty, fontSize }: any) => {
-  const {
-    connectors: { connect, drag },
-  } = useNode((state) => ({
-    selected: state.events.selected,
-    dragged: state.events.dragged,
-  }));
+  const { refFn, componentClassName } = useSetupComponent();
 
   useContext(Context);
 
   return (
-    <span ref={(ref) => connect(drag(ref))} style={{ fontSize }}>
+    <span ref={refFn} className={componentClassName} style={{ fontSize }}>
       {game.data[dataProperty] ?? "##NO VALUE##"}
     </span>
   );

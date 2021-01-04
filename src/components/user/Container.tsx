@@ -1,15 +1,15 @@
 import { Container as MUIContainer, Input } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
+import { useSetupComponent } from "../../config/useSetupComponent";
 
 export const Container = ({ background, padding, children }: any) => {
-  const {
-    connectors: { connect, drag },
-  } = useNode();
+  const { refFn, componentClassName } = useSetupComponent();
 
   return (
     <MUIContainer
-      ref={(ref: any) => connect(drag(ref))}
+      ref={refFn}
       style={{ background, padding }}
+      className={componentClassName}
     >
       {children}
     </MUIContainer>

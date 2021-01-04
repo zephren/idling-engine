@@ -14,7 +14,7 @@ import { HashRouter } from "react-router-dom";
 function Content() {
   const { query } = useEditor();
 
-  console.log("Loading game data");
+  console.debug("Loading game data");
   const gameData = loadGameData() || {};
   const layoutData = gameData.layout;
 
@@ -29,7 +29,9 @@ function Content() {
           <Frame data={layoutData}>
             {/*This is the default layout*/}
             <Element is={Container} padding={5} background="#eee" canvas>
-              <Text text={"Start dragging components in (and delete me)"} />
+              <Text
+                text={"Start dragging components in (and delete this one)"}
+              />
             </Element>
           </Frame>
         </HashRouter>

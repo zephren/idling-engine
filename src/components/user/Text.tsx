@@ -1,38 +1,26 @@
-import { useEditor, useNode } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 import { FormControl, FormLabel, Slider } from "@material-ui/core";
 import ContentEditable from "react-contenteditable";
-import { componentClass, useSharedStyles } from "../../config/sharedStyle";
+import { useSetupComponent } from "../../config/useSetupComponent";
 
 export const Text = ({ text, fontSize }: any) => {
-  const {
-    connectors: { connect, drag },
-    selected,
-    actions: { setProp },
-  } = useNode((state) => ({
-    selected: state.events.selected,
-    dragged: state.events.dragged,
-  }));
-
-  const { enabled } = useEditor((state) => ({
-    enabled: state.options.enabled,
-  }));
-
-  const sharedClasses = useSharedStyles();
+  const { refFn, selected, componentClassName } = useSetupComponent();
 
   return (
-    <span ref={(ref) => connect(drag(ref))}>
+    <span ref={refFn}>
       <ContentEditable
         disabled={!selected}
         html={text}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ""))
-          )
+        onChange={
+          (e) => null
+          // setProp(
+          //   (props) =>
+          //     (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ""))
+          // )
         }
         tagName="span"
         style={{ fontSize: `${fontSize}px` }}
-        className={componentClass(enabled, selected, sharedClasses)}
+        className={componentClassName}
       />
       {/* {selected && (
         <div>

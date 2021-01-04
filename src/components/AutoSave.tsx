@@ -7,7 +7,6 @@ export const AutoSave = () => {
     console.debug("Starting autosave");
 
     const interval = setInterval(() => {
-      console.log("Saving layout");
       saveLayout();
     }, 10000);
 

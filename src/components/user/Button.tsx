@@ -5,6 +5,7 @@ import { Settings } from "../Settings";
 import { StringSetting } from "../Settings/SettingTypes";
 import { game } from "../../lib/game";
 import { DropdownSetting } from "../Settings/DropdownSetting";
+import { useSetupComponent } from "../../config/useSetupComponent";
 
 export const Button = ({
   size,
@@ -14,13 +15,12 @@ export const Button = ({
   onClickAction,
   actionContext,
 }: any) => {
-  const {
-    connectors: { connect, drag },
-  } = useNode();
+  const { refFn, componentClassName } = useSetupComponent();
 
   return (
     <MaterialButton
-      ref={(ref) => connect(drag(ref))}
+      ref={refFn}
+      className={componentClassName}
       size={size}
       variant={variant}
       color={color}

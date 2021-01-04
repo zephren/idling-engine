@@ -3,8 +3,8 @@ import { makeStyles, Theme } from "@material-ui/core";
 export const useSharedStyles = makeStyles((theme: Theme) => ({
   componentEditing: {
     boxShadow: "inset 0em 0em 0em 2px red",
-    paddingTop: "1em !important",
-    paddingBottom: "1em !important",
+    minHeight: "5px",
+    minWidth: "5px",
   },
   componentSelected: {
     boxShadow: "inset 0em 0em 0em 2px green",

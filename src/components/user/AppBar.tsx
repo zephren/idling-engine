@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useSetupComponent } from "../../config/useSetupComponent";
 import { Context } from "../../lib/context";
 import { ToolBarTabs } from "./ToolBarTabs";
 
@@ -26,10 +27,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export function AppBar({ tabs }: any) {
-  const {
-    connectors: { connect, drag },
-  } = useNode();
   const classes = useStyles();
+  const { refFn, componentClassName } = useSetupComponent({
+    additionalClasses: [classes.root],
+  });
+
   const history = useHistory();
 
   const [updateValue, update] = useState(true);
@@ -37,7 +39,7 @@ export function AppBar({ tabs }: any) {
 
   return (
     <div
-      ref={(ref) => connect(drag(ref))}
+      ref={refFn}
       className={classes.root}
       onClick={() => {
         setTimeout(() => {
@@ -46,7 +48,7 @@ export function AppBar({ tabs }: any) {
         });
       }}
     >
-      <MUIAppBar position="static">
+      <MUIAppBar position="static" className={componentClassName}>
         <Toolbar>
           <ToolBarTabs
             path={history.location.pathname}

@@ -4,11 +4,11 @@ export function saveLayout() {
   const { editorQuery } = store;
 
   if (!editorQuery) {
-    console.log("store.editorQuery not set");
+    console.error("store.editorQuery not set");
     return;
   }
 
-  console.log("Saving layout");
+  console.debug("Saving layout");
 
   localStorage.gameData = JSON.stringify({
     id: Math.random(),

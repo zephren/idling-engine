@@ -15,6 +15,7 @@ import { StringSetting } from "../Settings/SettingTypes";
 import { game } from "../../lib/game";
 import { Button } from "./Button";
 import { Context } from "../../lib/context";
+import { useSetupComponent } from "../../config/useSetupComponent";
 
 const TableRows = ({ items, columnNames }: any) => {
   const rows = [];
@@ -57,9 +58,7 @@ const TableRows = ({ items, columnNames }: any) => {
 };
 
 export const Table = ({ columnNames = [], itemSource }: any) => {
-  const {
-    connectors: { connect, drag },
-  } = useNode();
+  const { refFn, componentClassName } = useSetupComponent();
 
   useContext(Context);
 
@@ -74,8 +73,7 @@ export const Table = ({ columnNames = [], itemSource }: any) => {
   const items = itemSourceFunction ? itemSourceFunction() : [];
 
   return (
-    <div ref={(ref) => connect(drag(ref))}>
-      Table!
+    <div ref={refFn} className={componentClassName}>
       <TableContainer>
         <MUITable size="small">
           <TableHead>

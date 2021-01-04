@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./lib/log";
 import { Edit, Play, Code } from "./views";
 import { Context, store } from "./lib/context";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
@@ -34,7 +35,7 @@ export default class App extends Component {
             editorQuery: store.editorQuery,
           }}
         >
-          <BrowserRouter>
+          <BrowserRouter basename="/idling-engine">
             <div>
               <OptionsDrawer />
               <Header />

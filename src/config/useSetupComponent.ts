@@ -1,5 +1,7 @@
 import { useEditor, useNode } from "@craftjs/core";
 import { makeStyles, Theme } from "@material-ui/core";
+import { useContext } from "react";
+import { Context, store } from "../lib/context";
 
 export const useSharedStyles = makeStyles((theme: Theme) => ({
   componentEditing: {
@@ -20,7 +22,9 @@ function componentClass(
 ) {
   return [
     ...additonalClasses,
-    editing ? sharedClasses.componentEditing : "",
+    editing && store.state.highlightComponents
+      ? sharedClasses.componentEditing
+      : "",
     selected ? sharedClasses.componentSelected : "",
   ].join(" ");
 }
@@ -31,6 +35,8 @@ type Properties = {
 
 export function useSetupComponent(properties: Properties = {}) {
   const { additionalClasses = [] } = properties;
+
+  const store = useContext(Context);
 
   const {
     connectors: { connect, drag },
@@ -61,5 +67,6 @@ export function useSetupComponent(properties: Properties = {}) {
     enabled,
     // sharedClasses,
     componentClassName,
+    store,
   };
 }

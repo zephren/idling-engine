@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./lib/log";
-import { Edit, Play, Code } from "./views";
+import { Edit, Play, Code, Documentation } from "./views";
 import { Context, store } from "./lib/context";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
@@ -56,6 +56,12 @@ export default class App extends Component {
                   path="/play"
                   render={() => {
                     return <Play />;
+                  }}
+                />
+                <Route
+                  path="/documentation"
+                  render={() => {
+                    return <Documentation />;
                   }}
                 />
                 <Route path="/">

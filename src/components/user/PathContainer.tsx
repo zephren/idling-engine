@@ -5,8 +5,6 @@ import {
 } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
 import { useHistory } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../lib/context";
 import { Settings } from "../Settings";
 import { StringSetting } from "../Settings/SettingTypes";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -26,8 +24,6 @@ export const PathContainer = ({ path, children }: any) => {
   const { refFn, enabled, componentClassName } = useSetupComponent({
     additionalClasses: [classes.main],
   });
-
-  useContext(Context);
 
   const visible = history.location.pathname.includes(path);
 

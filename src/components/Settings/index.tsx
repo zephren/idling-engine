@@ -10,11 +10,11 @@ export const Settings = ({ config, properties, setProp }: any) => {
   const settingsRows = [];
 
   for (const configItem of config) {
-    const { property, name, ...remainingProps } = configItem;
+    const { property, ...remainingProps } = configItem;
     const value = properties[property];
 
     settingsRows.push(
-      <TableRow key={name}>
+      <TableRow key={property}>
         <TableCell component="td" scope="row">
           {property}
         </TableCell>

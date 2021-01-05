@@ -38,6 +38,13 @@ export const Header = () => {
       >
         Play
       </Button>
+      <Button
+        onClick={() => {
+          history.push("/documentation");
+        }}
+      >
+        Documentation
+      </Button>
     </div>
   );
 };

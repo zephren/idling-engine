@@ -1,7 +1,5 @@
 import { useNode } from "@craftjs/core";
-import { useContext } from "react";
 import { useSetupComponent } from "../../config/useSetupComponent";
-import { Context } from "../../lib/context";
 import { game } from "../../lib/game";
 import { Settings } from "../Settings";
 import { StringSetting } from "../Settings/SettingTypes";
@@ -9,8 +7,6 @@ import { SliderSetting } from "../Settings/SliderSetting";
 
 export const VariableText = ({ dataProperty, fontSize }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
-
-  useContext(Context);
 
   return (
     <span ref={refFn} className={componentClassName} style={{ fontSize }}>

@@ -1,9 +1,11 @@
 import { Element, useEditor } from "@craftjs/core";
+import { store } from "../lib/context";
 import {
   Box,
   Typography,
   Grid,
   Button as MaterialButton,
+  Switch,
 } from "@material-ui/core";
 import { AppBar, PathContainer } from "./user";
 import { Button } from "./user/Button";
@@ -27,6 +29,15 @@ export const Toolbox = () => {
       >
         <Box pb={2}>
           <Typography>Drag to add</Typography>
+          Highlight components
+          <Switch
+            checked={store.state.highlightComponents}
+            onChange={() => {
+              store.state.highlightComponents = !store.state
+                .highlightComponents;
+              store.update();
+            }}
+          />
         </Box>
         <Grid container direction="column" item>
           <MaterialButton
@@ -59,14 +70,14 @@ export const Toolbox = () => {
             Container
           </MaterialButton>
         </Grid>
-        <Grid container direction="column" item>
+        {/* <Grid container direction="column" item>
           <MaterialButton
             ref={(ref) => connectors.create(ref, <Card />)}
             variant="contained"
           >
             Card
           </MaterialButton>
-        </Grid>
+        </Grid> */}
         <Grid container direction="column" item>
           <MaterialButton
             ref={(ref) => connectors.create(ref, <VariableText />)}

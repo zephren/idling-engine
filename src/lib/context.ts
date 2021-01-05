@@ -3,6 +3,7 @@ import React from "react";
 export const store = {
   state: {
     drawerOpen: false,
+    highlightComponents: false,
   },
   editorQuery: null as any,
   update: () => {

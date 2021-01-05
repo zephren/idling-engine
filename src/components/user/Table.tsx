@@ -14,8 +14,8 @@ import { CustomRepeatSetting } from "../Settings/CustomRepeatSetting";
 import { StringSetting } from "../Settings/SettingTypes";
 import { game } from "../../lib/game";
 import { Button } from "./Button";
-import { Context } from "../../lib/context";
 import { useSetupComponent } from "../../config/useSetupComponent";
+import { Dropdown } from "../Controls/Dropdown";
 
 const TableRows = ({ items, columnNames }: any) => {
   const rows = [];
@@ -32,7 +32,7 @@ const TableRows = ({ items, columnNames }: any) => {
         case "string":
           cells.push(<TableCell key={name}>{itemProperty}</TableCell>);
           break;
-        case "textFromFunction":
+        case "variableString":
           cells.push(<TableCell key={name}>{itemProperty.data()}</TableCell>);
           break;
         case "button":
@@ -60,8 +60,6 @@ const TableRows = ({ items, columnNames }: any) => {
 export const Table = ({ columnNames = [], itemSource }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
 
-  useContext(Context);
-
   const headerRow = [];
 
   for (const column of columnNames) {
@@ -87,6 +85,7 @@ export const Table = ({ columnNames = [], itemSource }: any) => {
 };
 
 const ColumnSetting = ({ item, update }: any) => {
+  console.log(item.type);
   return (
     <div style={{ marginBottom: "1em" }}>
       <TextField
@@ -107,9 +106,13 @@ const ColumnSetting = ({ item, update }: any) => {
           update();
         }}
       />
-      <TextField
-        fullWidth
-        value={item.type}
+      <Dropdown
+        value={item.type || ""}
+        items={[
+          { name: "String", value: "string" },
+          { name: "Button", value: "button" },
+          { name: "Variable String", value: "variableString" },
+        ]}
         label="Type"
         onChange={(event: any) => {
           item.type = event.target.value;

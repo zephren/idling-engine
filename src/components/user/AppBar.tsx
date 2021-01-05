@@ -8,10 +8,9 @@ import {
   Theme,
   Toolbar,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSetupComponent } from "../../config/useSetupComponent";
-import { Context } from "../../lib/context";
 import { ToolBarTabs } from "./ToolBarTabs";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,14 +27,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function AppBar({ tabs }: any) {
   const classes = useStyles();
-  const { refFn, componentClassName } = useSetupComponent({
+  const { refFn, componentClassName, store } = useSetupComponent({
     additionalClasses: [classes.root],
   });
 
   const history = useHistory();
 
   const [updateValue, update] = useState(true);
-  const store = useContext(Context);
 
   return (
     <div

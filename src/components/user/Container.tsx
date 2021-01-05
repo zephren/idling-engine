@@ -11,7 +11,7 @@ export const Container = ({ background, padding, children }: any) => {
       style={{ background, padding }}
       className={componentClassName}
     >
-      {children}
+      <div>{children}</div>
     </MUIContainer>
   );
 };

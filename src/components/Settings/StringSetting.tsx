@@ -6,7 +6,9 @@ export const StringSetting = ({ property, value, setProp }: any) => {
       fullWidth
       value={value}
       onChange={(event: any) => {
-        setProp((props: any) => (props[property] = event.target.value));
+        setProp((props: any) => {
+          props[property] = event.target.value;
+        });
       }}
     />
   );

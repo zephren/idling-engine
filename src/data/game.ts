@@ -76,6 +76,20 @@ export function executeCode() {
     finalCode += file.code + "\n\n";
   }
 
+  const lines = finalCode.split("\n");
+  const numberWidth = Math.floor(Math.log(lines.length));
+
+  console.log(
+    lines
+      .map((line, index) => {
+        const numberedLine = `${(index + 1)
+          .toString()
+          .padEnd(numberWidth)} ${line}`;
+        return numberedLine;
+      })
+      .join("\n")
+  );
+
   try {
     // Stop anything currently executing
     if (currentTimeout) {

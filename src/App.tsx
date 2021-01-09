@@ -6,7 +6,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { Header } from "./components/Header";
 import { theme } from "./config/theme";
-import { executeCode, setUpdateUIFunction } from "./lib/game";
+import { executeCode, setUpdateUIFunction } from "./data/game";
 import { OptionsDrawer } from "./components/OptionsDrawer";
 
 export default class App extends Component {

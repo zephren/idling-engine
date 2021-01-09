@@ -11,11 +11,12 @@ import { components } from "../lib/components";
 import { loadGameData } from "../lib/loadGameData";
 import { HashRouter } from "react-router-dom";
 
+const gameData = loadGameData() || {};
+
 function Content() {
   const { query } = useEditor();
 
   console.debug("Loading game data");
-  const gameData = loadGameData() || {};
   const layoutData = gameData.layout;
 
   // Setting the editor query data here so that it can be used elsewhere,
@@ -24,7 +25,7 @@ function Content() {
 
   return (
     <Grid container>
-      <Grid item xs>
+      <Grid item xs style={{ background: "#eee" }}>
         <HashRouter>
           <Frame data={layoutData}>
             {/*This is the default layout*/}

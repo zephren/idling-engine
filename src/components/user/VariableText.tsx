@@ -1,8 +1,8 @@
 import { useNode } from "@craftjs/core";
 import { useSetupComponent } from "../../config/useSetupComponent";
-import { game } from "../../lib/game";
+import { game } from "../../data/game";
 import { Settings } from "../Settings";
-import { StringSetting } from "../Settings/SettingTypes";
+import { StringSetting } from "../Settings";
 import { SliderSetting } from "../Settings/SliderSetting";
 
 export const VariableText = ({ dataProperty, fontSize }: any) => {

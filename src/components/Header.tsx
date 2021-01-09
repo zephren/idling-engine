@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { store } from "../lib/context";
-import { saveLayout } from "../lib/saveLayout";
+import { saveGameData } from "../lib/saveGameData";
 
 export const Header = () => {
   const history = useHistory();
@@ -32,7 +32,7 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          saveLayout();
+          saveGameData();
           history.push("/play");
         }}
       >

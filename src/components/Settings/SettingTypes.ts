@@ -1,1 +1,0 @@
-export { StringSetting } from "./StringSetting";

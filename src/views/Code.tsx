@@ -2,12 +2,13 @@ import AceEditor from "react-ace";
 import "ace-builds/webpack-resolver";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
+import beautify from "ace-builds/src-noconflict/ext-beautify";
 
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../lib/context";
-import { executeCode } from "../lib/game";
+import { executeCode } from "../data/game";
 
 const initialCode = `
 
@@ -99,6 +100,7 @@ export function Code() {
       >
         + New File
       </Button>
+      ctrl+shift+b - beautify
       <Switch>
         {files.map((file: any) => {
           return (
@@ -107,18 +109,28 @@ export function Code() {
               path={`/code/${file.name}`}
               render={() => {
                 return (
-                  <AceEditor
-                    mode="javascript"
-                    theme="monokai"
-                    onChange={(code: string) => {
-                      file.code = code;
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      top: "73px",
+                      bottom: "0px",
                     }}
-                    name="Code Editor"
-                    editorProps={{ $blockScrolling: true }}
-                    style={{ width: "100%", fontSize: "1em" }}
-                    value={file.code}
-                    tabSize={2}
-                  />
+                  >
+                    <AceEditor
+                      mode="javascript"
+                      theme="monokai"
+                      onChange={(code: string) => {
+                        file.code = code;
+                      }}
+                      name="Code Editor"
+                      editorProps={{ $blockScrolling: true }}
+                      style={{ width: "100%", height: "100%", fontSize: "1em" }}
+                      value={file.code}
+                      tabSize={2}
+                      commands={beautify.commands}
+                    />
+                  </div>
                 );
               }}
             />

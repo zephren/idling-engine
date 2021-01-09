@@ -1,6 +1,7 @@
 import { store } from "./context";
+import { componentProperties } from "../data/componentProperties";
 
-export function saveLayout() {
+export function saveGameData() {
   const { editorQuery } = store;
 
   if (!editorQuery) {
@@ -8,10 +9,11 @@ export function saveLayout() {
     return;
   }
 
-  console.debug("Saving layout");
+  console.debug("Saving game data");
 
   localStorage.gameData = JSON.stringify({
     id: Math.random(),
     layout: editorQuery.serialize(),
+    componentProperties,
   });
 }

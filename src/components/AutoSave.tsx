@@ -8,7 +8,7 @@ export const AutoSave = () => {
 
     const interval = setInterval(() => {
       saveGameData();
-    }, 10000);
+    }, 2000);
 
     return () => {
       console.debug("Stopping autosave");

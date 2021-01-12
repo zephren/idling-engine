@@ -61,7 +61,11 @@ let currentTimeout: any = null;
 // Tick
 function tick() {
   currentTimeout = setTimeout(() => {
-    game.tick();
+    try {
+      game.tick();
+    } catch (err) {
+      console.error(err);
+    }
     tick();
   }, game.settings.tickInterval);
 }

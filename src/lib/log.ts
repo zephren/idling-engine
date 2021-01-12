@@ -11,7 +11,7 @@ const c = console as any;
 const co = { ...console };
 
 c.logLevels = LogLevels;
-c.logLevel = LogLevels.INFO;
+c.logLevel = LogLevels.DEBUG;
 
 c.debug = (...args: any) => {
   if (c.logLevel <= LogLevels.DEBUG) {

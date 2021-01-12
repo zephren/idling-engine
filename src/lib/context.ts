@@ -1,9 +1,13 @@
 import React from "react";
 
+const highlightComponents = true;
+
 export const store = {
   state: {
-    drawerOpen: false,
-    highlightComponents: false,
+    optionsDrawerOpen: false,
+    styleDrawerOpen: false,
+    highlightComponents,
+    previoushighlightComponents: highlightComponents,
   },
   editorQuery: null as any,
   update: () => {

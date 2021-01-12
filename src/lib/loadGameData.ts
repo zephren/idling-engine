@@ -2,6 +2,7 @@ import {
   componentProperties,
   ComponentPropertiesMap,
 } from "../data/componentProperties";
+import { data } from "../data/data";
 
 function loadComponentProperties(
   newComponentProperties: ComponentPropertiesMap
@@ -33,6 +34,10 @@ function initializeComponentProperties() {
 
     const { styles, allowedStyleProperties } = properties;
 
+    styles.base = {
+      ...styles.base,
+    };
+
     for (const propertyName in allowedStyleProperties) {
       const value = allowedStyleProperties[propertyName];
 
@@ -45,22 +50,27 @@ function initializeComponentProperties() {
 
 export function loadGameData() {
   try {
-    let { gameData } = localStorage;
+    let storedGameData = localStorage.gameData;
 
-    if (gameData) {
-      gameData = JSON.parse(gameData);
+    if (storedGameData) {
+      storedGameData = JSON.parse(storedGameData);
 
       initializeComponentProperties();
 
-      if (gameData.componentProperties) {
-        loadComponentProperties(gameData.componentProperties);
+      if (storedGameData.componentProperties) {
+        loadComponentProperties(storedGameData.componentProperties);
       }
 
-      return gameData;
+      data.gameData = storedGameData;
+
+      return storedGameData;
     }
 
-    return null;
+    console.warn("No game data loaded");
   } catch (err) {
-    return null;
+    console.error(err);
   }
+
+  data.gameData = {};
+  return null;
 }

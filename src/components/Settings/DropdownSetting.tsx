@@ -1,7 +1,18 @@
-import { MenuItem, Select } from "@material-ui/core";
 import { Dropdown } from "../Controls/Dropdown";
 
-export const DropdownSetting = ({ property, value, itemsFn, setProp }: any) => {
+interface Props {
+  property: any;
+  value: any;
+  itemsFn: () => { name: string; value: any }[];
+  setProp: any;
+}
+
+export const DropdownSetting = ({
+  property,
+  value,
+  itemsFn,
+  setProp,
+}: Props) => {
   return (
     <Dropdown
       value={value || ""}

@@ -1,16 +1,25 @@
 import "./gridProperties";
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { componentProperties } from "../../../data/componentProperties";
-import { GridSettings } from "./GridSettings";
+import { GridContainerSettings, GridItemSettings } from "./GridSettings";
 
-const { styles } = componentProperties.Grid;
+// const { styles } = componentProperties.Grid;
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 
 export const GridContainer = ({ children }: any) => {
-  const { refFn, componentClassName } = useSetupComponent();
+  const classes = useStyles();
+  const { refFn, componentClassName } = useSetupComponent({
+    additionalClasses: [classes.root],
+  });
 
   return (
-    <Grid container ref={refFn} className={componentClassName}>
+    <Grid container ref={refFn} className={componentClassName} spacing={2}>
       {children}
     </Grid>
   );
@@ -19,6 +28,23 @@ export const GridContainer = ({ children }: any) => {
 GridContainer.craft = {
   props: {},
   related: {
-    settings: GridSettings,
+    settings: GridContainerSettings,
+  },
+};
+
+export const GridItem = ({ children, size }: any) => {
+  const { refFn, componentClassName } = useSetupComponent();
+
+  return (
+    <Grid item xs={size} ref={refFn} className={componentClassName}>
+      <Paper style={componentProperties.GridItem.styles.base}>{children}</Paper>
+    </Grid>
+  );
+};
+
+GridItem.craft = {
+  props: componentProperties.GridItem.default,
+  related: {
+    settings: GridItemSettings,
   },
 };

@@ -7,9 +7,8 @@ import {
   Button as MaterialButton,
   Switch,
 } from "@material-ui/core";
-import { AppBar, GridContainer, PathContainer } from "./user";
+import { AppBar, GridContainer, GridItem, PathContainer } from "./user";
 import { Button } from "./user/Button";
-import { Card } from "./user/Card";
 import { Container } from "./user/Container";
 import { Text } from "./user/Text";
 import { VariableText } from "./user/VariableText";
@@ -125,10 +124,40 @@ export const Toolbox = () => {
         </Grid>
         <Grid container direction="column" item>
           <MaterialButton
-            ref={(ref) => connectors.create(ref, <GridContainer />)}
+            ref={(ref) =>
+              connectors.create(
+                ref,
+                <Element is={GridContainer} canvas>
+                  <Element is={GridItem} canvas>
+                    <Text text="Grid Item" />
+                  </Element>
+                  <Element is={GridItem} canvas>
+                    <Text text="Grid Item" />
+                  </Element>
+                </Element>
+              )
+            }
             variant="contained"
           >
             Grid Container
+          </MaterialButton>
+        </Grid>
+        <Grid container direction="column" item>
+          <MaterialButton
+            ref={(ref) =>
+              connectors.create(
+                ref,
+                <Element is={GridItem} canvas>
+                  <Text text="Grid Item" />
+                </Element>
+              )
+            }
+            variant="contained"
+            onClick={() => {
+              setSelectedComponent("GridItem");
+            }}
+          >
+            Grid Item
           </MaterialButton>
         </Grid>
       </Grid>
@@ -148,6 +177,10 @@ const propertyConfigDefinitions: {
   },
   padding: {
     property: "padding",
+    type: StringSetting,
+  },
+  height: {
+    property: "height",
     type: StringSetting,
   },
 };

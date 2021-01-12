@@ -10,14 +10,22 @@ import { AutoSave } from "../components/AutoSave";
 import { components } from "../lib/components";
 import { loadGameData } from "../lib/loadGameData";
 import { HashRouter } from "react-router-dom";
-
-const gameData = loadGameData() || {};
+import { data } from "../data/data";
+import { saveGameData } from "../lib/saveGameData";
+import { useEffect } from "react";
 
 function Content() {
   const { query } = useEditor();
 
-  console.debug("Loading game data");
-  const layoutData = gameData.layout;
+  useEffect(() => {
+    return () => {
+      saveGameData();
+    };
+  }, []);
+
+  if (!data.gameData) {
+    loadGameData();
+  }
 
   // Setting the editor query data here so that it can be used elsewhere,
   // including outside of the editor context
@@ -27,7 +35,7 @@ function Content() {
     <Grid container>
       <Grid item xs style={{ background: "#eee" }}>
         <HashRouter>
-          <Frame data={layoutData}>
+          <Frame data={data.gameData.layout}>
             {/*This is the default layout*/}
             <Element is={Container} padding={5} background="#eee" canvas>
               <Text

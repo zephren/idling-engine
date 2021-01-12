@@ -3,13 +3,12 @@ import { useSetupComponent } from "../../config/useSetupComponent";
 import { game } from "../../data/game";
 import { Settings } from "../Settings";
 import { StringSetting } from "../Settings";
-import { SliderSetting } from "../Settings/SliderSetting";
 
-export const VariableText = ({ dataProperty, fontSize }: any) => {
+export const VariableText = ({ dataProperty }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
 
   return (
-    <span ref={refFn} className={componentClassName} style={{ fontSize }}>
+    <span ref={refFn} className={componentClassName}>
       {game.data[dataProperty] ?? "##NO VALUE##"}
     </span>
   );
@@ -18,19 +17,15 @@ export const VariableText = ({ dataProperty, fontSize }: any) => {
 const TextSettings = () => {
   const {
     actions: { setProp },
-    ...properties
+    props,
   } = useNode((node) => ({
-    dataProperty: node.data.props.dataProperty,
-    fontSize: node.data.props.fontSize,
+    props: node.data.props,
   }));
 
   return (
     <Settings
-      config={[
-        { type: StringSetting, property: "dataProperty" },
-        { type: SliderSetting, property: "fontSize", min: 1, max: 50, step: 7 },
-      ]}
-      properties={properties}
+      config={[{ type: StringSetting, property: "dataProperty" }]}
+      properties={props}
       setProp={setProp}
     />
   );

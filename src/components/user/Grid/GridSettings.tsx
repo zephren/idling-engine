@@ -4,7 +4,13 @@ import { StringSetting } from "../../Settings";
 import { game } from "../../../data/game";
 import { DropdownSetting } from "../../Settings/DropdownSetting";
 
-export const GridSettings = () => {
+const sizes = [
+  { name: "3", value: 3 },
+  { name: "4", value: 4 },
+  { name: "6", value: 6 },
+];
+
+export const GridContainerSettings = () => {
   const {
     actions: { setProp },
     props,
@@ -23,6 +29,29 @@ export const GridSettings = () => {
         {
           type: StringSetting,
           property: "text",
+        },
+      ]}
+      properties={props}
+      setProp={setProp}
+    />
+  );
+};
+
+export const GridItemSettings = () => {
+  const {
+    actions: { setProp },
+    props,
+  } = useNode((node) => ({
+    props: node.data.props,
+  }));
+
+  return (
+    <Settings
+      config={[
+        {
+          type: DropdownSetting,
+          property: "size",
+          itemsFn: () => sizes,
         },
       ]}
       properties={props}

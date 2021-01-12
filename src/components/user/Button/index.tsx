@@ -5,6 +5,8 @@ import { game } from "../../../data/game";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { ButtonSettings } from "./ButtonSettings";
 import { componentProperties } from "../../../data/componentProperties";
+import { useCustomStyle } from "../../../config/useCustomStyle";
+import { customStyles } from "../../../data/customStyles";
 
 const { styles } = componentProperties.Button;
 
@@ -17,10 +19,11 @@ export const Button = ({
   actionContext,
 }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
+  const style = useCustomStyle(styles.base, customStyles.button.style1);
 
   return (
     <MaterialButton
-      style={styles.base}
+      style={style}
       ref={refFn}
       className={componentClassName}
       size={size}

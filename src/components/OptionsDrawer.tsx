@@ -80,9 +80,9 @@ export const OptionsDrawer = () => {
   return (
     <div>
       <Drawer
-        open={store.state.drawerOpen}
+        open={store.state.optionsDrawerOpen}
         onClose={() => {
-          store.state.drawerOpen = false;
+          store.state.optionsDrawerOpen = false;
           store.update();
         }}
       >

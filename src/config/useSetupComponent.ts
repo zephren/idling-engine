@@ -5,9 +5,10 @@ import { Context, store } from "../lib/context";
 
 export const useSharedStyles = makeStyles((theme: Theme) => ({
   componentEditing: {
-    boxShadow: "inset 0em 0em 0em 2px red",
+    boxShadow: "inset 0em 0em 0em 2px rgba(255, 50, 50, 1)",
     minHeight: "5px",
     minWidth: "5px",
+    padding: "10px!important",
   },
   componentSelected: {
     boxShadow: "inset 0em 0em 0em 2px green",

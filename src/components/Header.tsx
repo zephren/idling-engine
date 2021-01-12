@@ -1,16 +1,20 @@
 import { Button } from "@material-ui/core";
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { store } from "../lib/context";
+import { Context, store } from "../lib/context";
 import { saveGameData } from "../lib/saveGameData";
 
 export const Header = () => {
   const history = useHistory();
+  const path = history.location.pathname;
+
+  useContext(Context);
 
   return (
     <div>
       <Button
         onClick={() => {
-          store.state.drawerOpen = true;
+          store.state.optionsDrawerOpen = true;
           store.update();
         }}
       >
@@ -20,6 +24,8 @@ export const Header = () => {
         onClick={() => {
           history.push("/edit");
         }}
+        variant={path.includes("/edit") ? "contained" : undefined}
+        color="primary"
       >
         Edit
       </Button>
@@ -27,14 +33,29 @@ export const Header = () => {
         onClick={() => {
           history.push("/code");
         }}
+        variant={path.includes("/code") ? "contained" : undefined}
+        color="primary"
       >
         Code
+      </Button>
+      <Button
+        onClick={() => {
+          store.state.styleDrawerOpen = true;
+          store.state.previoushighlightComponents =
+            store.state.highlightComponents;
+          store.state.highlightComponents = false;
+          store.update();
+        }}
+      >
+        Styling
       </Button>
       <Button
         onClick={() => {
           saveGameData();
           history.push("/play");
         }}
+        variant={path.includes("/play") ? "contained" : undefined}
+        color="primary"
       >
         Play
       </Button>
@@ -42,6 +63,8 @@ export const Header = () => {
         onClick={() => {
           history.push("/documentation");
         }}
+        variant={path.includes("/documentation") ? "contained" : undefined}
+        color="primary"
       >
         Documentation
       </Button>

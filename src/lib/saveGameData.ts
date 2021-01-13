@@ -1,5 +1,6 @@
 import { store } from "./context";
 import { componentProperties } from "../data/componentProperties";
+import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 
 export function saveGameData() {
@@ -16,6 +17,7 @@ export function saveGameData() {
     id: Math.random(),
     layout: editorQuery.serialize(),
     componentProperties,
+    customStyles,
   };
 
   localStorage.gameData = JSON.stringify(data.gameData);

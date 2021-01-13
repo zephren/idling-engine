@@ -2,6 +2,7 @@ import {
   componentProperties,
   ComponentPropertiesMap,
 } from "../data/componentProperties";
+import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 
 function loadComponentProperties(
@@ -59,6 +60,10 @@ export function loadGameData() {
 
       if (storedGameData.componentProperties) {
         loadComponentProperties(storedGameData.componentProperties);
+      }
+
+      if (storedGameData.customStyles) {
+        Object.assign(customStyles, storedGameData.customStyles);
       }
 
       data.gameData = storedGameData;

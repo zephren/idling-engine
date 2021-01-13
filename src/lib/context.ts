@@ -1,13 +1,13 @@
 import React from "react";
 
-const highlightComponents = true;
-
 export const store = {
   state: {
+    localSettings: {
+      highlightComponents: true,
+      previousHighlightComponents: true,
+      styleDrawerOpen: false,
+    },
     optionsDrawerOpen: false,
-    styleDrawerOpen: false,
-    highlightComponents,
-    previoushighlightComponents: highlightComponents,
   },
   editorQuery: null as any,
   update: () => {

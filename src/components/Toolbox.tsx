@@ -16,6 +16,7 @@ import { Table } from "./user/Table";
 import { useState } from "react";
 import { Settings, StringSetting } from "./Settings";
 import { componentProperties } from "../data/componentProperties";
+import { saveLocalSettings } from "../lib/localSettings";
 
 export const Toolbox = () => {
   const { connectors } = useEditor();
@@ -35,10 +36,13 @@ export const Toolbox = () => {
           <Typography>Drag to add</Typography>
           Highlight components
           <Switch
-            checked={store.state.highlightComponents}
+            checked={store.state.localSettings.highlightComponents}
             onChange={() => {
-              store.state.highlightComponents = !store.state
-                .highlightComponents;
+              store.state.localSettings.highlightComponents = !store.state
+                .localSettings.highlightComponents;
+
+              saveLocalSettings();
+
               store.update();
             }}
           />

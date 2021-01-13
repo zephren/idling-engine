@@ -10,6 +10,7 @@ export { CustomRepeatSetting } from "./CustomRepeatSetting";
 export { DropdownSetting } from "./DropdownSetting";
 export { SliderSetting } from "./SliderSetting";
 export { StringSetting } from "./StringSetting";
+export { StyleSetting } from "./StyleSetting";
 
 export const Settings = ({ config, properties, setProp }: any) => {
   const settingsRows = [];

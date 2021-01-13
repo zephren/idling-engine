@@ -9,6 +9,7 @@ import { theme } from "./config/theme";
 import { executeCode, setUpdateUIFunction } from "./data/game";
 import { OptionsDrawer } from "./components/OptionsDrawer";
 import { StyleDrawer } from "./components/StyleDrawer";
+import { loadLocalSettings } from "./lib/localSettings";
 
 export default class App extends Component {
   componentDidMount() {
@@ -18,6 +19,8 @@ export default class App extends Component {
 
     setUpdateUIFunction(store.update);
     executeCode();
+
+    loadLocalSettings();
   }
 
   update = () => {

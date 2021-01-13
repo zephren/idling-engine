@@ -1,17 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-} from "@material-ui/core";
+import { Button, Drawer, Typography } from "@material-ui/core";
 import LoopIcon from "@material-ui/icons/Loop";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 // import { useHistory } from "react-router-dom";
@@ -19,6 +6,8 @@ import { store } from "../lib/context";
 import { useState } from "react";
 import { Settings, StringSetting } from "./Settings";
 import { customStyles } from "../data/customStyles";
+import { Dropdown } from "./Controls/Dropdown";
+import * as components from "./user";
 
 // const propertyConfigDefinitions: {
 //   [key: string]: any;
@@ -38,37 +27,81 @@ import { customStyles } from "../data/customStyles";
 // };
 
 export const StyleDrawer = () => {
+  const [selectedComponent, setSelectedComponent] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState("");
+
+  let component: any = null;
+  if (selectedComponent) {
+    component = customStyles[selectedComponent];
+  }
+
   return (
     <div>
       <Drawer
-        open={store.state.styleDrawerOpen}
+        open={store.state.localSettings.styleDrawerOpen}
         onClose={() => {
-          store.state.styleDrawerOpen = false;
-          store.state.highlightComponents =
-            store.state.previoushighlightComponents;
+          store.state.localSettings.styleDrawerOpen = false;
+          store.state.localSettings.highlightComponents =
+            store.state.localSettings.previousHighlightComponents;
           store.update();
         }}
         anchor="right"
         BackdropProps={{ invisible: true }}
       >
-        <Settings
-          config={[
-            {
-              property: "padding",
-              type: StringSetting,
-            },
-          ]}
-          properties={customStyles.button.style1}
-          setProp={(callback: (props: any) => void) => {
-            const newProps = Object.assign({}, customStyles.button.style1, {
-              customId: Math.random(),
-            });
-            callback(newProps);
-            customStyles.button.style1 = newProps;
-            console.log(newProps);
-            store.update();
-          }}
-        />
+        <div style={{ padding: "1em" }}>
+          <Typography variant="h4">Style Components</Typography>
+          <Dropdown
+            value={selectedComponent}
+            items={Object.keys(components)}
+            label="Component"
+            onChange={(event: any) => {
+              customStyles[event.target.value] =
+                customStyles[event.target.value] || {};
+              setSelectedComponent(event.target.value);
+            }}
+          />
+          {component && (
+            <>
+              <Dropdown
+                value={selectedStyle}
+                items={Object.keys(component)}
+                label="Styles"
+                onChange={(event: any) => {
+                  setSelectedStyle(event.target.value);
+                }}
+              />
+              <Button
+                onClick={(event) => {
+                  component[`New Style ${Math.random()}`] = {};
+                }}
+              >
+                Add Style
+              </Button>
+            </>
+          )}
+
+          {component && selectedStyle && (
+            <Settings
+              config={[
+                {
+                  property: "padding",
+                  type: StringSetting,
+                },
+              ]}
+              properties={component[selectedStyle]}
+              setProp={(callback: (props: any) => void) => {
+                // Important to assign it a new Id
+                const newProps = Object.assign({}, component[selectedStyle], {
+                  customId: Math.random(),
+                });
+                callback(newProps);
+                component[selectedStyle] = newProps;
+
+                store.update();
+              }}
+            />
+          )}
+        </div>
       </Drawer>
     </div>
   );

@@ -12,13 +12,18 @@ export function useCustomStyle(base: any, customStyle: any) {
   // Already have a style and the customId is different
   // Don't have a style and we have a custom style
   if (
-    (style && customStyle.customId !== style.customId) ||
+    (style && customStyle && customStyle.customId !== style.customId) ||
     (!style && customStyle)
   ) {
     setStyle({
       ...base,
       ...customStyle,
     });
+  }
+
+  // If the customStyle is reset
+  if (style && !customStyle) {
+    setStyle(null);
   }
 
   return style;

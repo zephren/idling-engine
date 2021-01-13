@@ -17,9 +17,16 @@ export const Button = ({
   text,
   onClickAction,
   actionContext,
+  customStyleName,
 }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
-  const style = useCustomStyle(styles.base, customStyles.button.style1);
+
+  let customStyle = null;
+  if (customStyleName) {
+    customStyle = customStyles.Button[customStyleName];
+  }
+
+  const style = useCustomStyle(styles.base, customStyle);
 
   return (
     <MaterialButton

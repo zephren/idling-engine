@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Context, store } from "../lib/context";
+import { saveLocalSettings } from "../lib/localSettings";
 import { saveGameData } from "../lib/saveGameData";
 
 export const Header = () => {
@@ -40,10 +41,13 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          store.state.styleDrawerOpen = true;
-          store.state.previoushighlightComponents =
-            store.state.highlightComponents;
-          store.state.highlightComponents = false;
+          store.state.localSettings.styleDrawerOpen = true;
+          store.state.localSettings.previousHighlightComponents =
+            store.state.localSettings.highlightComponents;
+          store.state.localSettings.highlightComponents = false;
+
+          saveLocalSettings();
+
           store.update();
         }}
       >

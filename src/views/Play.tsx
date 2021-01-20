@@ -21,7 +21,7 @@ export function Play() {
   }, [history]);
 
   return (
-    <div>
+    <div style={{ background: "#eee" }}>
       <Editor resolver={components} enabled={false}>
         <HashRouter>
           <Frame data={data.gameData.layout}></Frame>

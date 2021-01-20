@@ -1,12 +1,14 @@
 import { useNode } from "@craftjs/core";
 import { Tab as MUITab, Tabs } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { game } from "../../data/game";
 
 interface Tab {
   name: string;
   default?: boolean;
   path: RegExp;
   to: string;
+  visibilitySource: string;
 }
 
 interface Props {
@@ -65,6 +67,12 @@ export function ToolBarTabs({ path, tabs, className }: Props) {
       className={className}
     >
       {tabs.map((tab: Tab) => {
+        if (tab.visibilitySource) {
+          if (!game.visibilitySources[tab.visibilitySource]()) {
+            return null;
+          }
+        }
+
         return <MUITab key={tab.name} label={tab.name} className={className} />;
       })}
     </Tabs>

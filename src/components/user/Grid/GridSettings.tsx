@@ -1,7 +1,6 @@
 import { useNode } from "@craftjs/core";
-import { Settings } from "../../Settings";
-import { StringSetting } from "../../Settings";
 import { game } from "../../../data/game";
+import { Settings, StyleSetting } from "../../Settings";
 import { DropdownSetting } from "../../Settings/DropdownSetting";
 
 const sizes = [
@@ -13,8 +12,10 @@ const sizes = [
 export const GridContainerSettings = () => {
   const {
     actions: { setProp },
+    componentName,
     props,
   } = useNode((node) => ({
+    componentName: node.data.name,
     props: node.data.props,
   }));
 
@@ -23,12 +24,8 @@ export const GridContainerSettings = () => {
       config={[
         {
           type: DropdownSetting,
-          property: "onClickAction",
-          itemsFn: () => Object.keys(game.actions),
-        },
-        {
-          type: StringSetting,
-          property: "text",
+          property: "visibilitySource",
+          itemsFn: () => Object.keys(game.visibilitySources),
         },
       ]}
       properties={props}
@@ -40,8 +37,10 @@ export const GridContainerSettings = () => {
 export const GridItemSettings = () => {
   const {
     actions: { setProp },
+    componentName,
     props,
   } = useNode((node) => ({
+    componentName: node.data.name,
     props: node.data.props,
   }));
 
@@ -49,9 +48,19 @@ export const GridItemSettings = () => {
     <Settings
       config={[
         {
+          type: StyleSetting,
+          property: "customStyleName",
+          componentName,
+        },
+        {
           type: DropdownSetting,
           property: "size",
           itemsFn: () => sizes,
+        },
+        {
+          type: DropdownSetting,
+          property: "visibilitySource",
+          itemsFn: () => Object.keys(game.visibilitySources),
         },
       ]}
       properties={props}

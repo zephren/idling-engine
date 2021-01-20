@@ -5,11 +5,13 @@ import {
 } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
 import { useHistory } from "react-router-dom";
-import { Settings } from "../Settings";
+import { Settings, StyleSetting } from "../Settings";
 import { StringSetting } from "../Settings";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useSetupComponent } from "../../config/useSetupComponent";
+import { useCustomStyle } from "../../config/useCustomStyle";
+import { customStyles } from "../../data/customStyles";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -17,7 +19,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const PathContainer = ({ path, children }: any) => {
+export const PathContainer = ({ path, children, customStyleName }: any) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -27,13 +29,19 @@ export const PathContainer = ({ path, children }: any) => {
 
   const visible = history.location.pathname.includes(path);
 
+  const style = useCustomStyle(
+    PathContainer.baseStyle,
+    customStyles.PathContainer,
+    customStyleName
+  );
+
   return (
-    <MUIContainer ref={refFn} className={componentClassName}>
-      <div style={{ float: "right", height: "0em" }}>
-        {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </div>
+    <MUIContainer ref={refFn} className={componentClassName} style={style}>
       {enabled && (
         <div>
+          <div style={{ float: "right", height: "0em" }}>
+            {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+          </div>
           {path} : {history.location.pathname}
         </div>
       )}
@@ -42,18 +50,37 @@ export const PathContainer = ({ path, children }: any) => {
   );
 };
 
+PathContainer.styleProperties = [
+  {
+    property: "margin",
+    type: StringSetting,
+  },
+];
+
 const PathContainerSettings = () => {
   const {
     actions: { setProp },
-    ...properties
+    componentName,
+    props,
   } = useNode((node) => ({
-    path: node.data.props.path,
+    componentName: node.data.name,
+    props: node.data.props,
   }));
 
   return (
     <Settings
-      config={[{ type: StringSetting, property: "path" }]}
-      properties={properties}
+      config={[
+        {
+          type: StyleSetting,
+          property: "customStyleName",
+          componentName,
+        },
+        {
+          type: StringSetting,
+          property: "path",
+        },
+      ]}
+      properties={props}
       setProp={setProp}
     />
   );
@@ -66,4 +93,8 @@ PathContainer.craft = {
   related: {
     settings: PathContainerSettings,
   },
+};
+
+PathContainer.baseStyle = {
+  margin: "0em",
 };

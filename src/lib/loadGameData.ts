@@ -1,50 +1,17 @@
-import {
-  componentProperties,
-  ComponentPropertiesMap,
-} from "../data/componentProperties";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
+import { components } from "../components/user/components";
 
-function loadComponentProperties(
-  newComponentProperties: ComponentPropertiesMap
-) {
-  for (const componentName in componentProperties) {
-    const properties = componentProperties[componentName];
-    const newProperties = newComponentProperties[componentName];
+function loadComponentProperties(baseStyles: any) {
+  for (const componentName in baseStyles) {
+    const component = components[componentName];
+    const baseStyle = baseStyles[componentName];
 
-    if (newProperties) {
-      const { styles } = newProperties;
-
-      if (styles) {
-        properties.styles.base = {
-          ...properties.styles.base,
-          ...styles.base,
-        };
-
-        for (const style in styles) {
-          // Once additional styles are implemented apply them to the styles object
-        }
-      }
-    }
-  }
-}
-
-function initializeComponentProperties() {
-  for (const componentName in componentProperties) {
-    const properties = componentProperties[componentName];
-
-    const { styles, allowedStyleProperties } = properties;
-
-    styles.base = {
-      ...styles.base,
-    };
-
-    for (const propertyName in allowedStyleProperties) {
-      const value = allowedStyleProperties[propertyName];
-
-      if (value) {
-        styles.base[propertyName] = value;
-      }
+    if (component && baseStyle) {
+      component.baseStyle = {
+        ...component.baseStyle,
+        ...baseStyle,
+      };
     }
   }
 }
@@ -56,10 +23,8 @@ export function loadGameData() {
     if (storedGameData) {
       storedGameData = JSON.parse(storedGameData);
 
-      initializeComponentProperties();
-
-      if (storedGameData.componentProperties) {
-        loadComponentProperties(storedGameData.componentProperties);
+      if (storedGameData.baseStyles) {
+        loadComponentProperties(storedGameData.baseStyles);
       }
 
       if (storedGameData.customStyles) {

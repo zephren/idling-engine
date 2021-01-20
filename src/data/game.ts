@@ -24,6 +24,9 @@ export const game = {
   // Data sources
   dataSources: {} as AnyObject,
 
+  // Visibility sources
+  visibilitySources: {} as AnyObject,
+
   // Configure
   configure: (settings: AnyObject) => {
     console.log("game.configure not defined");

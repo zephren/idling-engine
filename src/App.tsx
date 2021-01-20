@@ -11,6 +11,8 @@ import { OptionsDrawer } from "./components/OptionsDrawer";
 import { StyleDrawer } from "./components/StyleDrawer";
 import { loadLocalSettings } from "./lib/localSettings";
 
+loadLocalSettings();
+
 export default class App extends Component {
   componentDidMount() {
     // This allows components to update the state
@@ -19,8 +21,6 @@ export default class App extends Component {
 
     setUpdateUIFunction(store.update);
     executeCode();
-
-    loadLocalSettings();
   }
 
   update = () => {

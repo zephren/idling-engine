@@ -4,7 +4,7 @@ export const StringSetting = ({ property, value, setProp }: any) => {
   return (
     <TextField
       fullWidth
-      value={value}
+      value={value || ""}
       onChange={(event: any) => {
         setProp((props: any) => {
           props[property] = event.target.value;

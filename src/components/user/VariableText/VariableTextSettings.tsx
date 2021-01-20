@@ -1,10 +1,7 @@
 import { useNode } from "@craftjs/core";
-import { Settings, StyleSetting } from "../../Settings";
-import { StringSetting } from "../../Settings";
-import { game } from "../../../data/game";
-import { DropdownSetting } from "../../Settings/DropdownSetting";
+import { Settings, StringSetting, StyleSetting } from "../../Settings";
 
-export const ButtonSettings = () => {
+export const VariableTextSettings = () => {
   const {
     actions: { setProp },
     componentName,
@@ -23,13 +20,8 @@ export const ButtonSettings = () => {
           componentName,
         },
         {
-          type: DropdownSetting,
-          property: "onClickAction",
-          itemsFn: () => Object.keys(game.actions),
-        },
-        {
           type: StringSetting,
-          property: "text",
+          property: "dataProperty",
         },
       ]}
       properties={props}

@@ -1,15 +1,21 @@
 import { Button } from "@material-ui/core";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Context, store } from "../lib/context";
-import { saveLocalSettings } from "../lib/localSettings";
 import { saveGameData } from "../lib/saveGameData";
+import { openStyleDrawer } from "../actions/styleDrawer";
 
 export const Header = () => {
   const history = useHistory();
   const path = history.location.pathname;
+  const [updateValue, update] = useState(false);
 
   useContext(Context);
+
+  function navigate(path: string) {
+    history.push(path);
+    update(!updateValue);
+  }
 
   return (
     <div>
@@ -23,7 +29,7 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          history.push("/edit");
+          navigate("/edit");
         }}
         variant={path.includes("/edit") ? "contained" : undefined}
         color="primary"
@@ -32,7 +38,7 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          history.push("/code");
+          navigate("/code");
         }}
         variant={path.includes("/code") ? "contained" : undefined}
         color="primary"
@@ -41,14 +47,7 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          store.state.localSettings.styleDrawerOpen = true;
-          store.state.localSettings.previousHighlightComponents =
-            store.state.localSettings.highlightComponents;
-          store.state.localSettings.highlightComponents = false;
-
-          saveLocalSettings();
-
-          store.update();
+          openStyleDrawer();
         }}
       >
         Styling
@@ -56,7 +55,7 @@ export const Header = () => {
       <Button
         onClick={() => {
           saveGameData();
-          history.push("/play");
+          navigate("/play");
         }}
         variant={path.includes("/play") ? "contained" : undefined}
         color="primary"
@@ -65,7 +64,7 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          history.push("/documentation");
+          navigate("/documentation");
         }}
         variant={path.includes("/documentation") ? "contained" : undefined}
         color="primary"

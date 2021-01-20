@@ -1,7 +1,7 @@
 import { store } from "./context";
-import { componentProperties } from "../data/componentProperties";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
+import { components } from "../components/user/components";
 
 export function saveGameData() {
   const { editorQuery } = store;
@@ -13,10 +13,19 @@ export function saveGameData() {
 
   console.debug("Saving game data");
 
+  const baseStyles: any = {};
+
+  for (const componentName in components) {
+    // Kinda hacky but works
+    const component = (components as any)[componentName];
+
+    baseStyles[componentName] = component.baseStyle;
+  }
+
   data.gameData = {
     id: Math.random(),
     layout: editorQuery.serialize(),
-    componentProperties,
+    baseStyles,
     customStyles,
   };
 

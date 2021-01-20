@@ -1,7 +1,16 @@
 import { useState } from "react";
 
-export function useCustomStyle(base: any, customStyle: any) {
+export function useCustomStyle(
+  base: any,
+  styleGroup: any,
+  customStyleName: string
+) {
   const [style, setStyle] = useState(null as any);
+
+  let customStyle = null;
+  if (customStyleName) {
+    customStyle = styleGroup[customStyleName];
+  }
 
   // console.log(
   //   "style && customStyle.customId !== style.customId",
@@ -26,5 +35,6 @@ export function useCustomStyle(base: any, customStyle: any) {
     setStyle(null);
   }
 
-  return style;
+  // Return the base style if nothing else
+  return style || base;
 }

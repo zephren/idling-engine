@@ -1,18 +1,21 @@
-import "./containerProperties";
 import { Container as MUIContainer } from "@material-ui/core";
 import { useSetupComponent } from "../../../config/useSetupComponent";
-import { componentProperties } from "../../../data/componentProperties";
+import { checkVisibility } from "../../../lib/checkVisibility";
 import { ContainerSettings } from "./ContainerSettings";
 
-const { styles } = componentProperties.Container;
+export const Container = ({ children, visibilitySource }: any) => {
+  const { refFn, componentClassName, enabled } = useSetupComponent();
 
-export const Container = ({ children }: any) => {
-  const { refFn, componentClassName } = useSetupComponent();
+  const extraStyle = checkVisibility(visibilitySource, enabled);
+
+  if (!extraStyle) {
+    return null;
+  }
 
   return (
     <MUIContainer
       ref={refFn}
-      style={styles.base}
+      style={{ ...Container.baseStyle, ...extraStyle }}
       className={componentClassName}
     >
       {children}
@@ -27,4 +30,8 @@ Container.craft = {
   related: {
     settings: ContainerSettings,
   },
+};
+
+Container.baseStyle = {
+  padding: "0em",
 };

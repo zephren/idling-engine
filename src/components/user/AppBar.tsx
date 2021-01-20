@@ -11,6 +11,9 @@ import {
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSetupComponent } from "../../config/useSetupComponent";
+import { game } from "../../data/game";
+import { DropdownSetting, Settings, StringSetting } from "../Settings";
+import { SwitchSetting } from "../Settings/SwitchSetting";
 import { ToolBarTabs } from "./ToolBarTabs";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -63,55 +66,95 @@ export function AppBar({ tabs }: any) {
 const AppBarSettings = () => {
   const {
     actions: { setProp },
+    props,
     triggerUpdate,
     tabs,
   } = useNode((node) => ({
+    props: node.data.props,
     triggerUpdate: !!node.data.props.triggerUpdate,
     tabs: node.data.props.tabs,
   }));
 
-  const updateTab = (tab: any, property: string, value: any) => {
-    tab[property] = value;
+  const setDefault = (defaultTab: any) => {
+    for (const tab of tabs) {
+      tab.default = false;
+    }
+
+    defaultTab.default = true;
 
     return setProp((props: any) => {
       props.triggerUpdate = !triggerUpdate;
     });
   };
 
-  const setDefault = (tab: any) => {
-    for (const tab of tabs) {
-      tab.default = false;
-    }
-
-    updateTab(tab, "default", true);
-  };
+  const visibilitySources = Object.keys(game.visibilitySources);
 
   return (
     <div>
       {tabs.map((tab: any, index: number) => {
         return (
-          <div key={index}>
-            <TextField
-              label="Name"
-              value={tab.name}
-              onChange={(event) => updateTab(tab, "name", event.target.value)}
-            />
-            <TextField
-              label="Path"
-              value={tab.path}
-              onChange={(event) => updateTab(tab, "path", event.target.value)}
-            />
-            <TextField
-              label="To"
-              value={tab.to}
-              onChange={(event) => updateTab(tab, "to", event.target.value)}
-            />
-            <Switch
-              checked={tab.default || false}
-              onChange={() => setDefault(tab)}
-            />
-          </div>
+          <Settings
+            config={[
+              {
+                type: StringSetting,
+                property: "name",
+              },
+              {
+                type: StringSetting,
+                property: "path",
+              },
+              {
+                type: StringSetting,
+                property: "to",
+              },
+              {
+                type: DropdownSetting,
+                property: "visibilitySource",
+                itemsFn: () => visibilitySources,
+              },
+              {
+                type: SwitchSetting,
+                property: "default",
+                onChange: () => setDefault(tab),
+              },
+            ]}
+            properties={tab}
+            setProp={(callback: any) => {
+              // Custom set prop function
+              // Call the callback with the tab as the "props" we want to update
+              callback(tab);
+
+              // Then call the actual setProp to trigger the update
+              setProp((props: any) => {
+                props.triggerUpdate = !triggerUpdate;
+              });
+            }}
+          />
         );
+
+        // return (
+        //   <div key={index}>
+        //     <TextField
+        //       label="Name"
+        //       value={tab.name}
+        //       onChange={(event) => updateTab(tab, "name", event.target.value)}
+        //     />
+        //     <TextField
+        //       label="Path"
+        //       value={tab.path}
+        //       onChange={(event) => updateTab(tab, "path", event.target.value)}
+        //     />
+        //     <TextField
+        //       label="To"
+        //       value={tab.to}
+        //       onChange={(event) => updateTab(tab, "to", event.target.value)}
+        //     />
+        //     <Switch
+        //       checked={tab.default || false}
+        //       onChange={() => setDefault(tab)}
+        //     />
+        //   </div>
+        // );
       })}
       <Button
         onClick={() => {

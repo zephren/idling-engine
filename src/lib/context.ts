@@ -6,6 +6,8 @@ export const store = {
       highlightComponents: true,
       previousHighlightComponents: true,
       styleDrawerOpen: false,
+      styleDrawerComponentName: "",
+      styleDrawerStyleId: "",
     },
     optionsDrawerOpen: false,
   },

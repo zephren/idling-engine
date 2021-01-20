@@ -1,10 +1,18 @@
-import { useNode } from "@craftjs/core";
-import { FormControl, FormLabel, Slider } from "@material-ui/core";
 import ContentEditable from "react-contenteditable";
-import { useSetupComponent } from "../../config/useSetupComponent";
+import { useCustomStyle } from "../../../config/useCustomStyle";
+import { useSetupComponent } from "../../../config/useSetupComponent";
+import { customStyles } from "../../../data/customStyles";
+import { TextSettings } from "./TextSettings";
+import { StringSetting } from "../../Settings";
 
-export const Text = ({ text, fontSize }: any) => {
+export const Text = ({ text, customStyleName }: any) => {
   const { refFn, selected, componentClassName } = useSetupComponent();
+
+  const style = useCustomStyle(
+    Text.baseStyle,
+    customStyles.Text,
+    customStyleName
+  );
 
   return (
     <span ref={refFn}>
@@ -19,7 +27,7 @@ export const Text = ({ text, fontSize }: any) => {
           // )
         }
         tagName="span"
-        style={{ fontSize: `${fontSize}px` }}
+        style={style}
         className={componentClassName}
       />
       {/* {selected && (
@@ -43,36 +51,9 @@ export const Text = ({ text, fontSize }: any) => {
   );
 };
 
-const TextSettings = () => {
-  const {
-    actions: { setProp },
-    fontSize,
-  } = useNode((node) => ({
-    fontSize: node.data.props.fontSize,
-  }));
-
-  return (
-    <>
-      <FormControl size="small" component="fieldset">
-        <FormLabel component="legend">Font size</FormLabel>
-        <Slider
-          value={fontSize || 7}
-          step={7}
-          min={1}
-          max={50}
-          onChange={(_, value) => {
-            setProp((props) => (props.fontSize = value));
-          }}
-        />
-      </FormControl>
-    </>
-  );
-};
-
 Text.craft = {
   props: {
-    text: "Hi",
-    fontSize: 20,
+    text: "Text",
   },
   rules: {
     canDrag: (node: any) => true,
@@ -81,3 +62,14 @@ Text.craft = {
     settings: TextSettings,
   },
 };
+
+Text.baseStyle = {
+  margin: "0em",
+};
+
+Text.styleProperties = [
+  {
+    property: "fontSize",
+    type: StringSetting,
+  },
+];

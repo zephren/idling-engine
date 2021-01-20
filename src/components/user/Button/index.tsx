@@ -1,14 +1,11 @@
-import "./buttonProperties";
 import { Button as MaterialButton } from "@material-ui/core";
 import { store } from "../../../lib/context";
 import { game } from "../../../data/game";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { ButtonSettings } from "./ButtonSettings";
-import { componentProperties } from "../../../data/componentProperties";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
-
-const { styles } = componentProperties.Button;
+import { StringSetting } from "../../Settings";
 
 export const Button = ({
   size,
@@ -21,12 +18,11 @@ export const Button = ({
 }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
 
-  let customStyle = null;
-  if (customStyleName) {
-    customStyle = customStyles.Button[customStyleName];
-  }
-
-  const style = useCustomStyle(styles.base, customStyle);
+  const style = useCustomStyle(
+    Button.baseStyle,
+    customStyles.Button,
+    customStyleName
+  );
 
   return (
     <MaterialButton
@@ -51,8 +47,24 @@ export const Button = ({
 };
 
 Button.craft = {
-  props: componentProperties.Button.default,
+  props: {
+    size: "small",
+    variant: "contained",
+    color: "primary",
+    text: "Button",
+  },
   related: {
     settings: ButtonSettings,
   },
 };
+
+Button.baseStyle = {
+  margin: "0em",
+};
+
+Button.styleProperties = [
+  {
+    property: "padding",
+    type: StringSetting,
+  },
+];

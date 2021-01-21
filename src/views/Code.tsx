@@ -22,27 +22,7 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../lib/context";
 import { executeCode } from "../data/game";
 import { v4 as uuid } from "uuid";
-
-const initialCode = `
-
-// You may wish to move each of the following to its own file
-
-game.configure = (settings) => {
-  // Update any game settings here
-  // settings.tickInterval = 5000
-}
-
-game.initialize = () => {
-  // Update any initial game data here
-}
-
-game.tick = () => {
-  // The main function to handle game logic
-};
-
-// Define actions using game.actions ...
-// Define conditionals using game.conditionals ...
-`;
+import { initialCode } from "../data/initial/code";
 
 let files: any = localStorage.gameCode ? JSON.parse(localStorage.gameCode) : [];
 
@@ -99,7 +79,8 @@ export function Code() {
   }, []);
 
   if (files.length === 0) {
-    addFile("main", "//main\n" + initialCode);
+    addFile("main", "//main\n" + initialCode.main);
+    addFile("gameData", "//gameData\n" + initialCode.gameData);
   }
 
   return (

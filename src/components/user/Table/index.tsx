@@ -9,13 +9,13 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { Settings } from "../Settings";
-import { CustomRepeatSetting } from "../Settings/CustomRepeatSetting";
-import { game } from "../../data/game";
-import { Button } from "./Button";
-import { useSetupComponent } from "../../config/useSetupComponent";
-import { Dropdown } from "../Controls/Dropdown";
-import { DropdownSetting } from "../Settings/DropdownSetting";
+import { Settings } from "../../Settings";
+import { CustomRepeatSetting } from "../../Settings/CustomRepeatSetting";
+import { game } from "../../../data/game";
+import { Button } from "../Button";
+import { useSetupComponent } from "../../../config/useSetupComponent";
+import { Dropdown } from "../../Controls/Dropdown";
+import { DropdownSetting } from "../../Settings/DropdownSetting";
 
 const TableRows = ({ items, columnNames }: any) => {
   const rows = [];

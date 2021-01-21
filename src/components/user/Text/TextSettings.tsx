@@ -1,5 +1,5 @@
 import { useNode } from "@craftjs/core";
-import { Settings, StyleSetting } from "../../Settings";
+import { Settings, StringSetting, StyleSetting } from "../../Settings";
 
 export const TextSettings = () => {
   const {
@@ -17,6 +17,11 @@ export const TextSettings = () => {
         {
           type: StyleSetting,
           property: "customStyleName",
+          componentName,
+        },
+        {
+          type: StringSetting,
+          property: "text",
           componentName,
         },
       ]}

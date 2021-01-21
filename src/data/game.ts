@@ -34,17 +34,36 @@ export const game = {
 
   // Initialize
   isInitialized: false,
-  _initialize: (data: any) => {
+
+  _initialize: () => {
     console.log("game.initialize not defined");
   },
+
+  _initializeGameData: () => {
+    console.log("game.initializeGameData not defined");
+  },
+
   get initialize() {
     return this._initialize;
   },
+
   set initialize(fn) {
     this._initialize = () => {
-      console.log("Initializing");
+      console.log("Initializing Game");
       this.isInitialized = true;
-      fn(game.data);
+      fn();
+    };
+  },
+
+  get initializeGameData() {
+    return this._initializeGameData;
+  },
+
+  set initializeGameData(fn) {
+    this._initializeGameData = () => {
+      console.log("Initializing Game Data");
+      this.isInitialized = true;
+      fn();
     };
   },
 
@@ -107,7 +126,7 @@ export function executeCode() {
     eval(finalCode);
 
     if (!game.isInitialized) {
-      game.initialize(game.data);
+      game.initialize();
     }
 
     game.configure(game.settings);

@@ -1,3 +1,4 @@
+import { customStyles } from "../data/customStyles";
 import { store } from "../lib/context";
 import { saveLocalSettings } from "../lib/localSettings";
 
@@ -7,9 +8,12 @@ export function openStyleDrawer(options: any = {}) {
     store.state.localSettings.highlightComponents;
   store.state.localSettings.highlightComponents = false;
 
-  if (options.componentName && options.styleId) {
+  if (options.componentName) {
     store.state.localSettings.styleDrawerComponentName = options.componentName;
-    store.state.localSettings.styleDrawerStyleId = options.styleId;
+    store.state.localSettings.styleDrawerStyleId = options.styleId || "";
+
+    customStyles[options.componentName] =
+      customStyles[options.componentName] || {};
   }
 
   saveLocalSettings();

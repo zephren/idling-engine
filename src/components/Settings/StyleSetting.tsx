@@ -18,8 +18,22 @@ export const StyleSetting = ({
   componentName,
   setProp,
 }: Props) => {
-  if (!customStyles[componentName]) {
-    return "No styles defined...";
+  if (
+    !customStyles[componentName] ||
+    Object.keys(customStyles[componentName]).length === 0
+  ) {
+    return (
+      <Button
+        variant="contained"
+        onClick={() => {
+          openStyleDrawer({
+            componentName,
+          });
+        }}
+      >
+        Define a Style
+      </Button>
+    );
   }
 
   return (

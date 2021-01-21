@@ -1,8 +1,8 @@
-import { Text } from "./Text";
-import { Button } from "./Button";
+import { Text } from "../Text";
+import { Button } from "../Button";
 import { Element, useNode } from "@craftjs/core";
 import { Card as MUICard, CardActions, CardContent } from "@material-ui/core";
-import { useSetupComponent } from "../../config/useSetupComponent";
+import { useSetupComponent } from "../../../config/useSetupComponent";
 
 export const CardTop = ({ children }: any) => {
   const {

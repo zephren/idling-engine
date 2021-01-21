@@ -10,10 +10,10 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSetupComponent } from "../../config/useSetupComponent";
-import { game } from "../../data/game";
-import { DropdownSetting, Settings, StringSetting } from "../Settings";
-import { SwitchSetting } from "../Settings/SwitchSetting";
+import { useSetupComponent } from "../../../config/useSetupComponent";
+import { game } from "../../../data/game";
+import { DropdownSetting, Settings, StringSetting } from "../../Settings";
+import { SwitchSetting } from "../../Settings/SwitchSetting";
 import { ToolBarTabs } from "./ToolBarTabs";
 
 const useStyles = makeStyles((theme: Theme) => ({

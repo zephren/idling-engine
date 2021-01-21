@@ -5,13 +5,13 @@ import {
 } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
 import { useHistory } from "react-router-dom";
-import { Settings, StyleSetting } from "../Settings";
-import { StringSetting } from "../Settings";
+import { Settings, StyleSetting } from "../../Settings";
+import { StringSetting } from "../../Settings";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import { useSetupComponent } from "../../config/useSetupComponent";
-import { useCustomStyle } from "../../config/useCustomStyle";
-import { customStyles } from "../../data/customStyles";
+import { useSetupComponent } from "../../../config/useSetupComponent";
+import { useCustomStyle } from "../../../config/useCustomStyle";
+import { customStyles } from "../../../data/customStyles";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   main: {

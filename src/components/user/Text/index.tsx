@@ -14,41 +14,7 @@ export const Text = ({ text, customStyleName }: any) => {
     customStyleName
   );
 
-  return (
-    <span ref={refFn}>
-      <ContentEditable
-        disabled={!selected}
-        html={text}
-        onChange={
-          (e) => null
-          // setProp(
-          //   (props) =>
-          //     (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ""))
-          // )
-        }
-        tagName="span"
-        style={style}
-        className={componentClassName}
-      />
-      {/* {selected && (
-        <div>
-          <FormControl className="text-additional-settings" size="small">
-            <FormLabel component="legend">Font size</FormLabel>
-            <Slider
-              defaultValue={fontSize}
-              step={1}
-              min={7}
-              max={50}
-              valueLabelDisplay="auto"
-              onChange={(_, value) => {
-                setProp((props) => (props.fontSize = value));
-              }}
-            />
-          </FormControl>
-        </div>
-      )} */}
-    </span>
-  );
+  return <span ref={refFn}>{text}</span>;
 };
 
 Text.craft = {

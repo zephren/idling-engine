@@ -14,7 +14,11 @@ export const Text = ({ text, customStyleName }: any) => {
     customStyleName
   );
 
-  return <span ref={refFn}>{text}</span>;
+  return (
+    <span ref={refFn} className={componentClassName} style={style}>
+      {text}
+    </span>
+  );
 };
 
 Text.craft = {

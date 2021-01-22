@@ -10,6 +10,7 @@ import {
   Checkbox,
   Divider,
   Grid,
+  Input,
   List,
   ListItem,
   ListItemIcon,
@@ -37,14 +38,14 @@ export function Code() {
     localStorage.gameCode = JSON.stringify(files);
   }
 
-  function handleFileClick(fileName: string, index: number) {
+  function handleFileClick(id: string, index: number) {
     if (deletingFiles) {
       const newSelectedFiles = { ...selectedFiles };
       newSelectedFiles[index] = !newSelectedFiles[index];
       setSelectedFiles(newSelectedFiles);
       // update(!updateValue);
     } else {
-      history.push(`/code/${fileName}`);
+      history.push(`/code/${id}`);
     }
   }
 
@@ -105,17 +106,30 @@ export function Code() {
           }}
         >
           {files.map((file: any, index: number) => {
-            const selected = history.location.pathname.includes(file.name);
+            const selected = history.location.pathname.includes(file.id);
+
+            const button = { button: true };
+
             return (
               <ListItem
                 key={file.id}
-                button
+                style={{ cursor: "pointer" }}
                 selected={selected}
                 onClick={() => {
-                  handleFileClick(file.name, index);
+                  handleFileClick(file.id, index);
                 }}
               >
-                <ListItemText primary={file.name} />
+                {selected ? (
+                  <Input
+                    value={file.name}
+                    onChange={(event) => {
+                      file.name = event.target.value;
+                      update(!updateValue);
+                    }}
+                  />
+                ) : (
+                  <ListItemText primary={file.name} />
+                )}
                 {deletingFiles && (
                   <ListItemIcon>
                     {selectedFiles[index] ? (
@@ -165,8 +179,8 @@ export function Code() {
           {files.map((file: any) => {
             return (
               <Route
-                key={file.name}
-                path={`/code/${file.name}`}
+                key={file.id}
+                path={`/code/${file.id}`}
                 render={() => {
                   return (
                     <div
@@ -193,6 +207,7 @@ export function Code() {
                         value={file.code}
                         tabSize={2}
                         commands={beautify.commands}
+                        focus
                       />
                     </div>
                   );
@@ -201,7 +216,7 @@ export function Code() {
             );
           })}
           <Route path="/code">
-            <Redirect to={`/code/${files[0].name}`} />
+            <Redirect to={`/code/${files[0].id}`} />
           </Route>
         </Switch>
       </Grid>

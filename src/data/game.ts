@@ -34,6 +34,7 @@ export const game = {
 
   // Initialize
   isInitialized: false,
+  isGameDataInitialized: false,
 
   _initialize: () => {
     console.log("game.initialize not defined");
@@ -62,7 +63,7 @@ export const game = {
   set initializeGameData(fn) {
     this._initializeGameData = () => {
       console.log("Initializing Game Data");
-      this.isInitialized = true;
+      this.isGameDataInitialized = true;
       fn();
     };
   },
@@ -127,6 +128,10 @@ export function executeCode() {
 
     if (!game.isInitialized) {
       game.initialize();
+    }
+
+    if (!game.isGameDataInitialized) {
+      game.initializeGameData();
     }
 
     game.configure(game.settings);

@@ -5,18 +5,31 @@ import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";
 
-export const VariableText = ({ dataProperty, customStyleName }: any) => {
+export const VariableText = ({
+  dataProperty,
+  subProperty,
+  customStyleName,
+}: any) => {
   const { refFn, componentClassName } = useSetupComponent();
 
   const style = useCustomStyle(
     VariableText.baseStyle,
-    customStyles.Text,
+    customStyles.VariableText,
     customStyleName
   );
 
+  let value = game.data[dataProperty];
+  if (value && subProperty) {
+    value = value[subProperty];
+  }
+
+  if (typeof value === "object") {
+    value = undefined;
+  }
+
   return (
     <span ref={refFn} className={componentClassName} style={style}>
-      {game.data[dataProperty] ?? "##NO VALUE##"}
+      {value ?? "##NO VALUE##"}
     </span>
   );
 };

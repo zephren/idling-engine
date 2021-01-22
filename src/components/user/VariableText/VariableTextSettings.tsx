@@ -23,6 +23,10 @@ export const VariableTextSettings = () => {
           type: StringSetting,
           property: "dataProperty",
         },
+        {
+          type: StringSetting,
+          property: "subProperty",
+        },
       ]}
       properties={props}
       setProp={setProp}

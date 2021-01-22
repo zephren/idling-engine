@@ -3,8 +3,6 @@ import {
   AppBar as MUIAppBar,
   Button,
   makeStyles,
-  Switch,
-  TextField,
   Theme,
   Toolbar,
 } from "@material-ui/core";
@@ -66,7 +64,6 @@ export function AppBar({ tabs }: any) {
 const AppBarSettings = () => {
   const {
     actions: { setProp },
-    props,
     triggerUpdate,
     tabs,
   } = useNode((node) => ({

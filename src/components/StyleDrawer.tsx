@@ -1,6 +1,5 @@
-import { Box, Button, Drawer, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Drawer, Typography } from "@material-ui/core";
 import { store } from "../lib/context";
-import { useEffect, useState } from "react";
 import { Settings, StringSetting } from "./Settings";
 import { customStyles } from "../data/customStyles";
 import { Dropdown } from "./Controls/Dropdown";

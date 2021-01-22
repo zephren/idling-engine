@@ -1,4 +1,3 @@
-import ContentEditable from "react-contenteditable";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { customStyles } from "../../../data/customStyles";
@@ -6,7 +5,7 @@ import { TextSettings } from "./TextSettings";
 import { StringSetting } from "../../Settings";
 
 export const Text = ({ text, customStyleName }: any) => {
-  const { refFn, selected, componentClassName } = useSetupComponent();
+  const { refFn, componentClassName } = useSetupComponent();
 
   const style = useCustomStyle(
     Text.baseStyle,

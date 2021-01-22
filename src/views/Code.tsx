@@ -6,8 +6,6 @@ import beautify from "ace-builds/src-noconflict/ext-beautify";
 
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import {
-  Button,
-  Checkbox,
   Divider,
   Grid,
   Input,
@@ -107,8 +105,6 @@ export function Code() {
         >
           {files.map((file: any, index: number) => {
             const selected = history.location.pathname.includes(file.id);
-
-            const button = { button: true };
 
             return (
               <ListItem

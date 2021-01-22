@@ -12,7 +12,6 @@ const sizes = [
 export const GridContainerSettings = () => {
   const {
     actions: { setProp },
-    componentName,
     props,
   } = useNode((node) => ({
     componentName: node.data.name,

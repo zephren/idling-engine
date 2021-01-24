@@ -3,7 +3,7 @@ import { store } from "../lib/context";
 import { Settings, StringSetting } from "./Settings";
 import { customStyles } from "../data/customStyles";
 import { Dropdown } from "./Controls/Dropdown";
-import * as components from "./user";
+import * as components from "./CustomComponents";
 import { v4 as uuid } from "uuid";
 import { closeStyleDrawer } from "../actions/styleDrawer";
 import { useUpdate } from "../config/useUpdate";
@@ -19,7 +19,7 @@ const supportedComponents: any = {
 export const StyleDrawer = () => {
   const update = useUpdate();
 
-  const {
+  let {
     styleDrawerComponentName: selectedComponent,
     styleDrawerStyleId: selectedStyle,
   } = store.state.localSettings;
@@ -36,6 +36,12 @@ export const StyleDrawer = () => {
   let component: any = null;
   if (selectedComponent) {
     component = customStyles[selectedComponent];
+  }
+
+  // The selectedStyle id doesn't actually exist
+  // Could be an artifact of the localSettings
+  if (!component || !component[selectedStyle]) {
+    selectedStyle = "";
   }
 
   return (

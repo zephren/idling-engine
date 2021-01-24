@@ -15,6 +15,11 @@ export { StyleSetting } from "./StyleSetting";
 export const Settings = ({ config, properties, setProp }: any) => {
   const settingsRows = [];
 
+  if (!properties) {
+    console.error(config, new Error());
+    return null;
+  }
+
   for (const configItem of config) {
     const { property, ...remainingProps } = configItem;
     const value = properties[property];

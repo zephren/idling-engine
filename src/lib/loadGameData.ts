@@ -1,6 +1,6 @@
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../components/user/components";
+import { components } from "../components/CustomComponents/components";
 
 function loadComponentProperties(baseStyles: any) {
   for (const componentName in baseStyles) {

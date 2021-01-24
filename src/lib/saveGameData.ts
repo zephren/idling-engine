@@ -1,7 +1,7 @@
 import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../components/user/components";
+import { components } from "../components/CustomComponents/components";
 
 export function saveGameData() {
   const { editorQuery } = store;

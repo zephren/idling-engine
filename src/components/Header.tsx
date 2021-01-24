@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Context, store } from "../lib/context";
 import { saveGameData } from "../lib/saveGameData";
 import { openStyleDrawer } from "../actions/styleDrawer";
+import MenuIcon from "@material-ui/icons/Menu";
 
 export const Header = () => {
   const history = useHistory();
@@ -25,7 +26,7 @@ export const Header = () => {
           store.update();
         }}
       >
-        Options
+        <MenuIcon />
       </Button>
       <Button
         onClick={() => {

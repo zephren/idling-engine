@@ -1,4 +1,4 @@
-import * as baseComponents from "../components/user";
+import * as baseComponents from "../components/CustomComponents";
 
 export const components = {};
 

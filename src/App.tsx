@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./lib/log";
-import { Edit, Play, Code, Documentation, Styling } from "./views";
+import { Edit, Play, Code, Documentation } from "./views";
 import { Context, store } from "./lib/context";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
@@ -10,6 +10,8 @@ import { executeCode, setUpdateUIFunction } from "./data/game";
 import { OptionsDrawer } from "./components/OptionsDrawer";
 import { StyleDrawer } from "./components/StyleDrawer";
 import { loadLocalSettings } from "./lib/localSettings";
+import { loadGameData } from "./lib/loadGameData";
+import { data } from "./data/data";
 
 loadLocalSettings();
 
@@ -20,6 +22,11 @@ export default class App extends Component {
     store.update = this.update;
 
     setUpdateUIFunction(store.update);
+
+    if (!data.gameData) {
+      loadGameData();
+    }
+
     executeCode();
   }
 
@@ -45,36 +52,10 @@ export default class App extends Component {
               <StyleDrawer />
               <Header />
               <Switch>
-                <Route
-                  path="/edit"
-                  render={() => {
-                    return <Edit />;
-                  }}
-                />
-                <Route
-                  path="/code"
-                  render={() => {
-                    return <Code />;
-                  }}
-                />
-                <Route
-                  path="/styling"
-                  render={() => {
-                    return <Styling />;
-                  }}
-                />
-                <Route
-                  path="/play"
-                  render={() => {
-                    return <Play />;
-                  }}
-                />
-                <Route
-                  path="/documentation"
-                  render={() => {
-                    return <Documentation />;
-                  }}
-                />
+                <Route path="/edit" render={() => <Edit />} />
+                <Route path="/code" render={() => <Code />} />
+                <Route path="/play" render={() => <Play />} />
+                <Route path="/documentation" render={() => <Documentation />} />
                 <Route path="/">
                   <Redirect to="/edit" />
                 </Route>

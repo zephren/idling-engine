@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { saveGameData } from "../lib/saveGameData";
+import { saveGameData } from "../../lib/saveGameData";
 
 export const AutoSave = () => {
   // Did mount / unmount

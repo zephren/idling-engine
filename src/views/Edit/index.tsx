@@ -1,21 +1,22 @@
 import { Paper, Grid } from "@material-ui/core";
-import { store } from "../lib/context";
-import { Toolbox } from "../components/Toolbox";
-import { SettingsPanel } from "../components/SettingsPanel";
+import { store } from "../../lib/context";
+import { Toolbox } from "../../components/Toolbox";
+import { SettingsPanel } from "../../components/SettingsPanel";
 
-import { Container, Text } from "../components/user";
+import { Container, Text } from "../../components/CustomComponents";
 
 import { Editor, Frame, Element, useEditor } from "@craftjs/core";
-import { AutoSave } from "../components/AutoSave";
-import { components } from "../lib/components";
-import { loadGameData } from "../lib/loadGameData";
+import { AutoSave } from "./AutoSave";
+import { components } from "../../lib/components";
 import { HashRouter } from "react-router-dom";
-import { data } from "../data/data";
-import { saveGameData } from "../lib/saveGameData";
+import { data } from "../../data/data";
+import { saveGameData } from "../../lib/saveGameData";
 import { useEffect } from "react";
+import { useSharedStyles } from "../../styles/shared";
 
 function Content() {
   const { query } = useEditor();
+  const classes = useSharedStyles();
 
   useEffect(() => {
     return () => {
@@ -23,21 +24,17 @@ function Content() {
     };
   }, []);
 
-  if (!data.gameData) {
-    loadGameData();
-  }
-
   // Setting the editor query data here so that it can be used elsewhere,
   // including outside of the editor context
   store.editorQuery = query;
 
   return (
     <Grid container>
-      <Grid item xs style={{ background: "#eee" }}>
+      <Grid item xs className={classes.gameArea}>
         <HashRouter>
           <Frame data={data.gameData.layout}>
             {/*This is the default layout*/}
-            <Element is={Container} padding={5} background="#eee" canvas>
+            <Element is={Container} padding={5} canvas>
               <Text
                 text={"Start dragging components in (and delete this one)"}
               />

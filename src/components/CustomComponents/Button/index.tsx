@@ -6,6 +6,8 @@ import { ButtonSettings } from "./ButtonSettings";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
 import { StringSetting } from "../../Settings";
+import { documentation } from "../../../data/documentation";
+import { buttonDocumentation } from "./buttonDocumentation";
 
 export const Button = ({
   size,
@@ -68,3 +70,7 @@ Button.styleProperties = [
     type: StringSetting,
   },
 ];
+
+Button.documentation = buttonDocumentation;
+
+documentation.addComponent(Button);

@@ -8,12 +8,14 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import {
   Divider,
   Grid,
-  Input,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  makeStyles,
   Switch as MUISwitch,
+  TextField,
+  Theme,
 } from "@material-ui/core";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
@@ -25,8 +27,15 @@ import { initialCode } from "../data/initial/code";
 
 let files: any = localStorage.gameCode ? JSON.parse(localStorage.gameCode) : [];
 
+const useStyles = makeStyles((theme: Theme) => ({
+  fileName: {
+    fontSize: theme.typography.fontSize,
+  },
+}));
+
 export function Code() {
   const history = useHistory();
+  const classes = useStyles();
   const [updateValue, update] = useState(false);
   const [deletingFiles, setDeletingFiles] = useState(false);
   const [selectedFiles, setSelectedFiles]: [any, any] = useState({});
@@ -115,17 +124,6 @@ export function Code() {
                   handleFileClick(file.id, index);
                 }}
               >
-                {selected ? (
-                  <Input
-                    value={file.name}
-                    onChange={(event) => {
-                      file.name = event.target.value;
-                      update(!updateValue);
-                    }}
-                  />
-                ) : (
-                  <ListItemText primary={file.name} />
-                )}
                 {deletingFiles && (
                   <ListItemIcon>
                     {selectedFiles[index] ? (
@@ -134,6 +132,23 @@ export function Code() {
                       <CheckBoxOutlineBlankIcon />
                     )}
                   </ListItemIcon>
+                )}
+                {selected ? (
+                  <ListItemText
+                    primary={
+                      <TextField
+                        value={file.name}
+                        onChange={(event) => {
+                          file.name = event.target.value;
+                          update(!updateValue);
+                        }}
+                        size="small"
+                        inputProps={{ className: classes.fileName }}
+                      />
+                    }
+                  />
+                ) : (
+                  <ListItemText primary={file.name} />
                 )}
               </ListItem>
             );
@@ -166,7 +181,7 @@ export function Code() {
             />
           </ListItem>
           <ListItem>
-            <ListItemText primary="ctrl+shift+b - beautify" />
+            <ListItemText primary="Ctrl + Shift + B - Beautify" />
           </ListItem>
         </List>
       </Grid>

@@ -4,6 +4,7 @@ import { StringSetting } from "../../Settings";
 import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";
+import { documentation } from "../../../data/documentation";
 
 export const VariableText = ({
   dataProperty,
@@ -54,3 +55,5 @@ VariableText.styleProperties = [
     type: StringSetting,
   },
 ];
+
+documentation.addComponent(VariableText);

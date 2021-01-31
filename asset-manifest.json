@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.js": "/idling-engine/static/js/main.ab45d575.chunk.js",
-    "main.js.map": "/idling-engine/static/js/main.ab45d575.chunk.js.map",
+    "main.css": "/idling-engine/static/css/main.87e0e224.chunk.css",
+    "main.js": "/idling-engine/static/js/main.c614fd6f.chunk.js",
+    "main.js.map": "/idling-engine/static/js/main.c614fd6f.chunk.js.map",
     "runtime-main.js": "/idling-engine/static/js/runtime-main.5e4761ea.js",
     "runtime-main.js.map": "/idling-engine/static/js/runtime-main.5e4761ea.js.map",
-    "static/js/2.29cb9870.chunk.js": "/idling-engine/static/js/2.29cb9870.chunk.js",
-    "static/js/2.29cb9870.chunk.js.map": "/idling-engine/static/js/2.29cb9870.chunk.js.map",
+    "static/js/2.f7105cc9.chunk.js": "/idling-engine/static/js/2.f7105cc9.chunk.js",
+    "static/js/2.f7105cc9.chunk.js.map": "/idling-engine/static/js/2.f7105cc9.chunk.js.map",
     "mode-livescript.js": "/idling-engine/00f32d088488515ac84b1ffe7fc0ec0d.js",
     "ftl.js": "/idling-engine/024358f71f8096dd8052103dced05dbc.js",
     "mode-terraform.js": "/idling-engine/02a3067bd4d8feab048883fbaff9722c.js",
@@ -421,11 +422,13 @@
     "smarty.js": "/idling-engine/ff6e85bb753b94d4add40e79a70c2875.js",
     "io.js": "/idling-engine/ffb285847c77432bb38e9fbf9789d323.js",
     "index.html": "/idling-engine/index.html",
-    "static/js/2.29cb9870.chunk.js.LICENSE.txt": "/idling-engine/static/js/2.29cb9870.chunk.js.LICENSE.txt"
+    "static/css/main.87e0e224.chunk.css.map": "/idling-engine/static/css/main.87e0e224.chunk.css.map",
+    "static/js/2.f7105cc9.chunk.js.LICENSE.txt": "/idling-engine/static/js/2.f7105cc9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5e4761ea.js",
-    "static/js/2.29cb9870.chunk.js",
-    "static/js/main.ab45d575.chunk.js"
+    "static/js/2.f7105cc9.chunk.js",
+    "static/css/main.87e0e224.chunk.css",
+    "static/js/main.c614fd6f.chunk.js"
   ]
 }

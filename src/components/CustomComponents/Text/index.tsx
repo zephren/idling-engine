@@ -23,6 +23,8 @@ export const Text = ({ text, customStyleName }: any) => {
   );
 };
 
+Text.name = "Text";
+
 Text.craft = {
   props: {
     text: "Text",

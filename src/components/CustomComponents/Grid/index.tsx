@@ -43,6 +43,8 @@ export const GridContainer = ({ children, visibilitySource }: any) => {
   );
 };
 
+GridContainer.componentName = "GridContiainer";
+
 GridContainer.craft = {
   props: {},
   related: {
@@ -82,6 +84,8 @@ export const GridItem = ({
     </Grid>
   );
 };
+
+GridItem.componentName = "GridItem";
 
 GridItem.craft = {
   props: { size: 6 },

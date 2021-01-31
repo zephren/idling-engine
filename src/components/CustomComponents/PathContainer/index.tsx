@@ -89,6 +89,8 @@ const PathContainerSettings = () => {
   );
 };
 
+PathContainer.componentName = "PathContainer";
+
 PathContainer.craft = {
   props: {
     path: "/tab1",

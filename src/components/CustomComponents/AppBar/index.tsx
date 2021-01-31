@@ -168,6 +168,8 @@ const AppBarSettings = () => {
   );
 };
 
+AppBar.componentName = "AppBar";
+
 AppBar.craft = {
   props: {
     tabs: [

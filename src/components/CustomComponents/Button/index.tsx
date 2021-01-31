@@ -48,6 +48,8 @@ export const Button = ({
   );
 };
 
+Button.componentName = "Button";
+
 Button.craft = {
   props: {
     size: "small",

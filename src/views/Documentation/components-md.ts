@@ -5,7 +5,7 @@ export function getComponents() {
     (componentName) => {
       const component = documentation.components[componentName];
 
-      return `[${component.name}](/components/${component.name})`;
+      return `[${component.componentName}](/components/${component.componentName})`;
     }
   );
 

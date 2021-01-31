@@ -201,6 +201,8 @@ const TableSettings = () => {
   );
 };
 
+Table.componentName = "Table";
+
 Table.craft = {
   props: {
     columnNames: [

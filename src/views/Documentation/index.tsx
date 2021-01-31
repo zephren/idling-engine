@@ -43,7 +43,7 @@ export function Documentation() {
                         parts={[
                           ["Documentation", ""],
                           ["Components", "components"],
-                          [component.name, component.name],
+                          [component.componentName, component.componentName],
                         ]}
                       />
                       <ReactMarkdown

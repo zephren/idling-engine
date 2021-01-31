@@ -28,6 +28,8 @@ export const Container = ({ children, visibilitySource }: any) => {
   );
 };
 
+Container.componentName = "Container";
+
 Container.craft = {
   props: {
     padding: "0px",

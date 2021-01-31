@@ -114,7 +114,11 @@ const BaseProperties = ({ component }: any) => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Chip size="small" color="primary" label={component.name} />
+                <Chip
+                  size="small"
+                  color="primary"
+                  label={component.componentName}
+                />
               </Grid>
             </Grid>
           </Box>

@@ -4,8 +4,8 @@ import { documentation } from "./documentation";
 export const components: any = {};
 
 export function registerCustomComponent(Component: any) {
-  console.log(`Registering custom component ${Component.name}`);
-  components[Component.name] = Component;
+  console.log(`Registering custom component ${Component.componentName}`);
+  components[Component.componentName] = Component;
 
   documentation.addComponent(Component);
 }

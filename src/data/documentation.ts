@@ -2,8 +2,8 @@ class Documentation {
   components: any = {};
 
   addComponent(component: any) {
-    this.components[component.name] = {
-      name: component.name,
+    this.components[component.componentName] = {
+      name: component.componentName,
       component,
     };
   }

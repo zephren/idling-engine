@@ -24,6 +24,7 @@ export const StyleSetting = ({
   ) {
     return (
       <Button
+        fullWidth
         variant="contained"
         onClick={() => {
           openStyleDrawer({

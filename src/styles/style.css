@@ -1,0 +1,14 @@
+.markdown-container code {
+  background: #333;
+  color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.markdown-container a {
+  text-decoration: none;
+}
+
+.markdown-container a:visited {
+  color: blue;
+}

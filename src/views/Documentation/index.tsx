@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { documentation } from "../../data/documentation";
 import { Breadcrumbs } from "./Breadcrumbs";
 import index from "./index-md";
+import components from "./components-md";
 
 const renderers = {
   link: (props: any) => {
@@ -26,7 +27,7 @@ export function Documentation() {
     <Container>
       <Paper className={classes.paper}>
         <BrowserRouter basename="/idling-engine/documentation">
-          <div>
+          <div className="markdown-container">
             {/*Components*/}
             <Switch>
               <Route
@@ -53,6 +54,24 @@ export function Documentation() {
                     </>
                   );
                 }}
+              />
+              <Route
+                path="/components"
+                render={() => (
+                  <>
+                    <Breadcrumbs
+                      parts={[
+                        ["Documentation", ""],
+                        ["Components", "components"],
+                      ]}
+                    />
+                    <ReactMarkdown
+                      plugins={[]}
+                      children={components()}
+                      renderers={renderers}
+                    />
+                  </>
+                )}
               />
               {/*Index*/}
               <Route

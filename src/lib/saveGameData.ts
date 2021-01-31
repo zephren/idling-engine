@@ -1,7 +1,7 @@
 import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../components/CustomComponents/components";
+import { components } from "../data/components";
 
 export function saveGameData() {
   const { editorQuery } = store;
@@ -22,11 +22,20 @@ export function saveGameData() {
     baseStyles[componentName] = component.baseStyle;
   }
 
+  // Layout is a string
+  let layout = editorQuery.serialize();
+
+  // If this condition matches, then there was some error
+  if (layout === "{}") {
+    layout = null;
+  }
+
   data.gameData = {
     id: Math.random(),
-    layout: editorQuery.serialize(),
+    layout,
     baseStyles,
     customStyles,
+    customComponents: data.customComponents,
   };
 
   localStorage.gameData = JSON.stringify(data.gameData);

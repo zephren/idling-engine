@@ -5,6 +5,12 @@ import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { StringSetting } from "../../Settings";
 import { checkVisibility } from "../../../lib/checkVisibility";
+import { GridContainerDocumentation } from "./GridContainerDocumentation";
+import { GridItemDocumentation } from "./GridItemDocumentation";
+import { documentation } from "../../../data/documentation";
+import { registerCustomComponent } from "../../../data/components";
+import { Element } from "@craftjs/core";
+import { Text } from "../Text";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -95,3 +101,46 @@ GridItem.styleProperties = [
     type: StringSetting,
   },
 ];
+
+GridContainer.documentation = GridContainerDocumentation;
+GridItem.documentation = GridItemDocumentation;
+
+documentation.addComponent(GridContainer);
+documentation.addComponent(GridItem);
+
+GridContainer.toolboxItem = (connectors: any) => {
+  return {
+    name: "GridContainer",
+    component: GridContainer,
+    ref: (ref: any) =>
+      connectors.create(
+        ref,
+        <Element is={GridContainer} canvas>
+          <Element is={GridItem} canvas>
+            <Text text="Grid Item" />
+          </Element>
+          <Element is={GridItem} canvas>
+            <Text text="Grid Item" />
+          </Element>
+        </Element>
+      ),
+  };
+};
+
+registerCustomComponent(GridContainer);
+
+GridItem.toolboxItem = (connectors: any) => {
+  return {
+    name: "GridItem",
+    component: GridItem,
+    ref: (ref: any) =>
+      connectors.create(
+        ref,
+        <Element is={GridItem} canvas>
+          <Text text="Grid Item" />
+        </Element>
+      ),
+  };
+};
+
+registerCustomComponent(GridItem);

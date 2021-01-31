@@ -39,7 +39,13 @@ export const Header = () => {
       </Button>
       <Button
         onClick={() => {
-          navigate("/code");
+          let file = store.state.localSettings.lastCodeFile;
+
+          if (file) {
+            file = `/${file}`;
+          }
+
+          navigate(`/code${file}`);
         }}
         variant={path.includes("/code") ? "contained" : undefined}
         color="primary"

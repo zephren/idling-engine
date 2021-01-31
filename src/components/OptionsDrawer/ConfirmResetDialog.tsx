@@ -10,7 +10,7 @@ import {
 export const ConfirmResetDialog = ({ onClose }: any) => {
   return (
     <Dialog open={true} onClose={onClose}>
-      <DialogTitle>Reset Game Data</DialogTitle>
+      <DialogTitle>Reset Game Configuration</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Are you sure you want to reset the curret game data?

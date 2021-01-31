@@ -6,8 +6,8 @@ import { ButtonSettings } from "./ButtonSettings";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
 import { StringSetting } from "../../Settings";
-import { documentation } from "../../../data/documentation";
-import { buttonDocumentation } from "./buttonDocumentation";
+import { ButtonDocumentation } from "./ButtonDocumentation";
+import { registerCustomComponent } from "../../../data/components";
 
 export const Button = ({
   size,
@@ -71,6 +71,14 @@ Button.styleProperties = [
   },
 ];
 
-Button.documentation = buttonDocumentation;
+Button.documentation = ButtonDocumentation;
 
-documentation.addComponent(Button);
+Button.toolboxItem = (connectors: any) => {
+  return {
+    name: "Button",
+    component: Button,
+    ref: (ref: any) => connectors.create(ref, <Button />),
+  };
+};
+
+registerCustomComponent(Button);

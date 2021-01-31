@@ -20,10 +20,11 @@ import {
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../lib/context";
-import { executeCode } from "../data/game";
+import { Context, store } from "../lib/context";
+import { executeCode, game } from "../data/game";
 import { v4 as uuid } from "uuid";
 import { initialCode } from "../data/initial/code";
+import { saveLocalSettings } from "../lib/localSettings";
 
 let files: any = localStorage.gameCode ? JSON.parse(localStorage.gameCode) : [];
 
@@ -52,6 +53,8 @@ export function Code() {
       setSelectedFiles(newSelectedFiles);
       // update(!updateValue);
     } else {
+      store.state.localSettings.lastCodeFile = id;
+      saveLocalSettings();
       history.push(`/code/${id}`);
     }
   }
@@ -83,6 +86,7 @@ export function Code() {
       clearInterval(interval);
       save();
       executeCode();
+      game.initialize(game.data);
     };
   }, []);
 

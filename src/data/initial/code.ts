@@ -7,13 +7,15 @@ game.configure = (settings) => {
   // settings.tickInterval = 5000
 }
 
-game.initialize = () => {
+game.initialize = (loadedGameData) => {
   // Code executed when the application starts up
+  game.data = new GameData(loadedGameData);
 }
 
 game.initializeGameData = () => {
-  // Update any initial game data here
-  game.data = new GameData()
+  // Code executed when the resetting the game data
+  game.data = new GameData({});
+  game.update();
 }
 
 game.tick = () => {
@@ -22,13 +24,30 @@ game.tick = () => {
 
 // Define actions using game.actions ...
 // Define conditionals using game.conditionals ...
+
+game.actions.buttonClick = () => {
+  game.data.counter++;
+  game.update();
+}
 `;
 
 const gameData = `
 
 class GameData {
-  constructor() {
-    // Define game properties here
+  constructor(data) {
+    this._updateData(data);
+
+    // Set the data
+    for (const property in data) {
+      this[property] = data[property];
+    }
+  }
+
+  _updateData() {
+    // Use this to update game data as changes are made
+    if (!this.counter) {
+      this.counter = 0;
+    }
   }
 
   // Can use getters as well for use with variableText

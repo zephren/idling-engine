@@ -36,7 +36,7 @@ export const game = {
   isInitialized: false,
   isGameDataInitialized: false,
 
-  _initialize: () => {
+  _initialize: (loadedGameData: any) => {
     console.log("game.initialize not defined");
   },
 
@@ -49,10 +49,10 @@ export const game = {
   },
 
   set initialize(fn) {
-    this._initialize = () => {
+    this._initialize = (loadedGameData: any) => {
       console.log("Initializing Game");
       this.isInitialized = true;
-      fn();
+      fn(loadedGameData);
     };
   },
 
@@ -63,7 +63,7 @@ export const game = {
   set initializeGameData(fn) {
     this._initializeGameData = () => {
       console.log("Initializing Game Data");
-      this.isGameDataInitialized = true;
+      this.isInitialized = true;
       fn();
     };
   },
@@ -126,12 +126,13 @@ export function executeCode() {
     // eslint-disable-next-line no-eval
     eval(finalCode);
 
-    if (!game.isInitialized) {
-      game.initialize();
+    let loadedGameData = {};
+    if (localStorage.savedGameData) {
+      loadedGameData = JSON.parse(localStorage.savedGameData);
     }
-
-    if (!game.isGameDataInitialized) {
-      game.initializeGameData();
+    console.log("loadedGameData", loadedGameData);
+    if (!game.isInitialized) {
+      game.initialize(loadedGameData);
     }
 
     game.configure(game.settings);
@@ -142,5 +143,10 @@ export function executeCode() {
     console.error(err);
   }
 }
+
+setInterval(() => {
+  const savedGameData = JSON.stringify(game.data);
+  localStorage.savedGameData = savedGameData;
+}, 5000);
 
 (window as any).game = game;

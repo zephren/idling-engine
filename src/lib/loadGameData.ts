@@ -1,6 +1,6 @@
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../components/CustomComponents/components";
+import { components } from "../data/components";
 
 function loadComponentProperties(baseStyles: any) {
   for (const componentName in baseStyles) {
@@ -32,6 +32,7 @@ export function loadGameData() {
       }
 
       data.gameData = storedGameData;
+      data.customComponents = storedGameData.customComponents || [];
 
       return storedGameData;
     }
@@ -42,5 +43,6 @@ export function loadGameData() {
   }
 
   data.gameData = {};
+
   return null;
 }

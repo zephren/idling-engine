@@ -1,6 +1,11 @@
+import { Element } from "@craftjs/core";
 import { Container as MUIContainer } from "@material-ui/core";
 import { useSetupComponent } from "../../../config/useSetupComponent";
+import { registerCustomComponent } from "../../../data/components";
+import { documentation } from "../../../data/documentation";
 import { checkVisibility } from "../../../lib/checkVisibility";
+import { Text } from "../Text";
+import { ContainerDocumentation } from "./ContainerDocumentation";
 import { ContainerSettings } from "./ContainerSettings";
 
 export const Container = ({ children, visibilitySource }: any) => {
@@ -35,3 +40,21 @@ Container.craft = {
 Container.baseStyle = {
   padding: "0em",
 };
+
+Container.documentation = ContainerDocumentation;
+
+Container.toolboxItem = (connectors: any) => {
+  return {
+    name: "Container",
+    component: Container,
+    ref: (ref: any) =>
+      connectors.create(
+        ref,
+        <Element is={Container} canvas>
+          <Text text="Container" />
+        </Element>
+      ),
+  };
+};
+
+registerCustomComponent(Container);

@@ -16,6 +16,9 @@ import { Button } from "../Button";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { Dropdown } from "../../Controls/Dropdown";
 import { DropdownSetting } from "../../Settings/DropdownSetting";
+import { documentation } from "../../../data/documentation";
+import { TableDocumentation } from "./TableDocumentation";
+import { registerCustomComponent } from "../../../data/components";
 
 const TableRows = ({ items, columnNames }: any) => {
   const rows = [];
@@ -212,3 +215,15 @@ Table.craft = {
     settings: TableSettings,
   },
 };
+
+Table.documentation = TableDocumentation;
+
+Table.toolboxItem = (connectors: any) => {
+  return {
+    name: "Table",
+    component: Table,
+    ref: (ref: any) => connectors.create(ref, <Table />),
+  };
+};
+
+registerCustomComponent(Table);

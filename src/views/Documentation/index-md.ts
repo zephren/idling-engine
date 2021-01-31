@@ -1,18 +1,10 @@
-import { documentation } from "../../data/documentation";
+import { getComponents } from "./components-md";
 
 export default () => {
-  const componentsDocs = Object.keys(documentation.components).map(
-    (componentName) => {
-      const component = documentation.components[componentName];
-
-      return `[${component.name}](/components/${component.name})`;
-    }
-  );
-
   return `
 # Idling Engine
 
 ## Components
-${componentsDocs.join("\n\n")}
+${getComponents().join("\n\n")}
   `;
 };

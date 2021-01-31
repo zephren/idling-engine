@@ -8,6 +8,7 @@ export const store = {
       styleDrawerOpen: false,
       styleDrawerComponentName: "",
       styleDrawerStyleId: "",
+      lastCodeFile: "",
     },
     optionsDrawerOpen: false,
   },

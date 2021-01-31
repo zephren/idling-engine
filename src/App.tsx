@@ -16,7 +16,11 @@ import { data } from "./data/data";
 loadLocalSettings();
 
 export default class App extends Component {
-  componentDidMount() {
+  state = {
+    customComponentsLoaded: false,
+  };
+
+  async componentDidMount() {
     // This allows components to update the state
     // without being tied to the context
     store.update = this.update;
@@ -28,6 +32,41 @@ export default class App extends Component {
     }
 
     executeCode();
+
+    const loadingPromises = [];
+    const errors: any = {};
+    // http://localhost:9090/main.js
+    for (const customComponent of data.customComponents) {
+      if (!customComponent.url) {
+        continue;
+      }
+
+      const p = new Promise((resolve: any) => {
+        const s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = customComponent.url;
+        s.onload = () => {
+          resolve();
+        };
+        s.onerror = (err) => {
+          console.log(err);
+          errors[customComponent.url] = err;
+          resolve();
+        };
+
+        document.head.append(s);
+      });
+
+      loadingPromises.push(p);
+    }
+
+    await Promise.all(loadingPromises);
+
+    console.log(errors);
+
+    this.setState({
+      customComponentsLoaded: true,
+    });
   }
 
   update = () => {
@@ -36,6 +75,10 @@ export default class App extends Component {
   };
 
   render() {
+    if (!this.state.customComponentsLoaded) {
+      return null;
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />

@@ -7,7 +7,7 @@ import { Container, Text } from "../../components/CustomComponents";
 
 import { Editor, Frame, Element, useEditor } from "@craftjs/core";
 import { AutoSave } from "./AutoSave";
-import { components } from "../../lib/components";
+import { components } from "../../data/components";
 import { HashRouter } from "react-router-dom";
 import { data } from "../../data/data";
 import { saveGameData } from "../../lib/saveGameData";

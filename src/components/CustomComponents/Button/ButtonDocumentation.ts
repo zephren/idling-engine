@@ -7,6 +7,6 @@ const md = `
 This is an action made avaiable from \`game.actions\`. No parameters are passed to the action.
 `;
 
-export const buttonDocumentation = {
+export const ButtonDocumentation = {
   md,
 };

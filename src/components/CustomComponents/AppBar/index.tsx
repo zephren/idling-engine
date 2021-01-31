@@ -9,9 +9,12 @@ import {
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSetupComponent } from "../../../config/useSetupComponent";
+import { registerCustomComponent } from "../../../data/components";
+import { documentation } from "../../../data/documentation";
 import { game } from "../../../data/game";
 import { DropdownSetting, Settings, StringSetting } from "../../Settings";
 import { SwitchSetting } from "../../Settings/SwitchSetting";
+import { AppBarDocumentation } from "./AppBarDocumentation";
 import { ToolBarTabs } from "./ToolBarTabs";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -190,3 +193,15 @@ AppBar.craft = {
     settings: AppBarSettings,
   },
 };
+
+AppBar.documentation = AppBarDocumentation;
+
+AppBar.toolboxItem = (connectors: any) => {
+  return {
+    name: "AppBar",
+    component: AppBar,
+    ref: (ref: any) => connectors.create(ref, <AppBar />),
+  };
+};
+
+registerCustomComponent(AppBar);

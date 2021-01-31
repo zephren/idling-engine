@@ -1,7 +1,7 @@
 import { Editor, Frame } from "@craftjs/core";
 import { useEffect } from "react";
 import { HashRouter, useHistory } from "react-router-dom";
-import { components } from "../lib/components";
+import { components } from "../data/components";
 import { data } from "../data/data";
 import { useSharedStyles } from "../styles/shared";
 

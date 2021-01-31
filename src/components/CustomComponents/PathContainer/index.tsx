@@ -3,7 +3,7 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import { useNode } from "@craftjs/core";
+import { Element, useNode } from "@craftjs/core";
 import { useHistory } from "react-router-dom";
 import { Settings, StyleSetting } from "../../Settings";
 import { StringSetting } from "../../Settings";
@@ -12,6 +12,9 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
+import { documentation } from "../../../data/documentation";
+import { PathContainerDocumentation } from "./PathContainerDocumentation";
+import { registerCustomComponent } from "../../../data/components";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -98,3 +101,16 @@ PathContainer.craft = {
 PathContainer.baseStyle = {
   margin: "0em",
 };
+
+PathContainer.documentation = PathContainerDocumentation;
+
+PathContainer.toolboxItem = (connectors: any) => {
+  return {
+    name: "PathContainer",
+    component: PathContainer,
+    ref: (ref: any) =>
+      connectors.create(ref, <Element is={PathContainer} canvas />),
+  };
+};
+
+registerCustomComponent(PathContainer);

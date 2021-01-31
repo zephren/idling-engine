@@ -26,7 +26,7 @@ export const Settings = ({ config, properties, setProp }: any) => {
 
     settingsRows.push(
       <TableRow key={property}>
-        <TableCell component="td" scope="row">
+        <TableCell component="td" scope="row" style={{ verticalAlign: "top" }}>
           {property}
         </TableCell>
         <TableCell>

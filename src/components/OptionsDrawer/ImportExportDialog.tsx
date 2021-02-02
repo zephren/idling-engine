@@ -43,7 +43,7 @@ export const ImportExportDialog = ({ onClose }: any) => {
         <Button
           onClick={() => {
             const data = JSON.parse(atob(allGameData));
-            console.log(data);
+            console.debug("Imported game data", JSON.stringify(data, null, 2));
             dataStorage.set("gameData", data.gameData);
             window.location.reload();
           }}

@@ -37,7 +37,7 @@ export const VariableText = ({
   );
 };
 
-VariableText.componentName = VariableText;
+VariableText.componentName = "VariableText";
 
 VariableText.craft = {
   props: {},

@@ -1,3 +1,6 @@
+import { dataStorage } from "../lib/dataStorage";
+import { data } from "./data";
+
 interface AnyObject {
   [key: string]: any;
 }
@@ -94,9 +97,7 @@ function tick() {
 }
 
 export function executeCode() {
-  const files: any = localStorage.gameCode
-    ? JSON.parse(localStorage.gameCode)
-    : [];
+  const files: any = data.gameData.codeFiles;
 
   let finalCode = "";
   for (const file of files) {
@@ -126,11 +127,10 @@ export function executeCode() {
     // eslint-disable-next-line no-eval
     eval(finalCode);
 
-    let loadedGameData = {};
-    if (localStorage.savedGameData) {
-      loadedGameData = JSON.parse(localStorage.savedGameData);
-    }
+    let loadedGameData = dataStorage.get("savedGameData", {});
+
     console.log("loadedGameData", loadedGameData);
+
     if (!game.isInitialized) {
       game.initialize(loadedGameData);
     }
@@ -145,8 +145,7 @@ export function executeCode() {
 }
 
 setInterval(() => {
-  const savedGameData = JSON.stringify(game.data);
-  localStorage.savedGameData = savedGameData;
+  dataStorage.set("savedGameData", game.data);
 }, 5000);
 
 (window as any).game = game;

@@ -6,6 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
+import { dataStorage } from "../../lib/dataStorage";
 
 export const ConfirmResetDialog = ({ onClose }: any) => {
   return (
@@ -22,8 +23,7 @@ export const ConfirmResetDialog = ({ onClose }: any) => {
         </Button>
         <Button
           onClick={() => {
-            delete localStorage.gameData;
-            delete localStorage.gameCode;
+            dataStorage.delete("gameData");
             window.location.reload();
           }}
           color="primary"

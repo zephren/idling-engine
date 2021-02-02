@@ -2,6 +2,7 @@ import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 import { components } from "../data/components";
+import { dataStorage } from "./dataStorage";
 
 export function saveGameData() {
   const { editorQuery } = store;
@@ -36,7 +37,8 @@ export function saveGameData() {
     baseStyles,
     customStyles,
     customComponents: data.customComponents,
+    codeFiles: data.gameData.codeFiles,
   };
 
-  localStorage.gameData = JSON.stringify(data.gameData);
+  dataStorage.set("gameData", data.gameData);
 }

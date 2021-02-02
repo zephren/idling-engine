@@ -19,14 +19,16 @@ import {
 } from "@material-ui/core";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import { data } from "../data/data";
 import { useContext, useEffect, useState } from "react";
 import { Context, store } from "../lib/context";
 import { executeCode, game } from "../data/game";
 import { v4 as uuid } from "uuid";
 import { initialCode } from "../data/initial/code";
 import { saveLocalSettings } from "../lib/localSettings";
+import { saveGameData } from "../lib/saveGameData";
 
-let files: any = localStorage.gameCode ? JSON.parse(localStorage.gameCode) : [];
+// let files: any[] = [];
 
 const useStyles = makeStyles((theme: Theme) => ({
   fileName: {
@@ -42,8 +44,15 @@ export function Code() {
   const [selectedFiles, setSelectedFiles]: [any, any] = useState({});
   useContext(Context);
 
+  let files = data.gameData.codeFiles;
+
   function save() {
-    localStorage.gameCode = JSON.stringify(files);
+    saveGameData();
+  }
+
+  function setFiles(newFiles: string[]) {
+    files = newFiles;
+    data.gameData.codeFiles = newFiles;
   }
 
   function handleFileClick(id: string, index: number) {
@@ -60,10 +69,11 @@ export function Code() {
   }
 
   function deleteFiles() {
-    files = files.filter((item: any, index: number) => {
+    const newFiles = files.filter((item: any, index: number) => {
       return !selectedFiles[index];
     });
 
+    setFiles(newFiles);
     setSelectedFiles({});
   }
 
@@ -185,7 +195,7 @@ export function Code() {
             />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Ctrl + Shift + B - Beautify" />
+            <ListItemText primary="Beautify" secondary="Ctrl + Shift + B" />
           </ListItem>
         </List>
       </Grid>

@@ -16,7 +16,6 @@ import { Button } from "../Button";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { Dropdown } from "../../Controls/Dropdown";
 import { DropdownSetting } from "../../Settings/DropdownSetting";
-import { documentation } from "../../../data/documentation";
 import { TableDocumentation } from "./TableDocumentation";
 import { registerCustomComponent } from "../../../data/components";
 

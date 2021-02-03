@@ -26,9 +26,10 @@ export const Settings = ({ config, properties, setProp }: any) => {
 
     settingsRows.push(
       <TableRow key={property}>
-        <TableCell component="td" scope="row" style={{ verticalAlign: "top" }}>
+        <TableCell component="td" scope="row">
           {property}
         </TableCell>
+        <TableCell style={{ width: "1em" }} />
         <TableCell>
           <configItem.type
             property={property}
@@ -43,7 +44,7 @@ export const Settings = ({ config, properties, setProp }: any) => {
 
   return (
     <TableContainer>
-      <Table size="small">
+      <Table size="small" padding="none">
         <TableBody>{settingsRows}</TableBody>
       </Table>
     </TableContainer>

@@ -4,7 +4,6 @@ import { customStyles } from "../../../data/customStyles";
 import { TextSettings } from "./TextSettings";
 import { StringSetting } from "../../Settings";
 import { TextDocumentation } from "./TextDocumentation";
-import { documentation } from "../../../data/documentation";
 import { registerCustomComponent } from "../../../data/components";
 
 export const Text = ({ text, customStyleName }: any) => {

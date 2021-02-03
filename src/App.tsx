@@ -90,19 +90,36 @@ export default class App extends Component {
           }}
         >
           <BrowserRouter basename="/idling-engine">
-            <div>
+            <div
+              style={{ position: "absolute", width: "100%", height: "100%" }}
+            >
               <OptionsDrawer />
               <StyleDrawer />
-              <Header />
-              <Switch>
-                <Route path="/edit" render={() => <Edit />} />
-                <Route path="/code" render={() => <Code />} />
-                <Route path="/play" render={() => <Play />} />
-                <Route path="/documentation" render={() => <Documentation />} />
-                <Route path="/">
-                  <Redirect to="/edit" />
-                </Route>
-              </Switch>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Header />
+                <div style={{ position: "relative", flexGrow: 1 }}>
+                  <Switch>
+                    <Route path="/edit" render={() => <Edit />} />
+                    <Route path="/code" render={() => <Code />} />
+                    <Route path="/play" render={() => <Play />} />
+                    <Route
+                      path="/documentation"
+                      render={() => <Documentation />}
+                    />
+                    <Route path="/">
+                      <Redirect to="/edit" />
+                    </Route>
+                  </Switch>
+                </div>
+              </div>
             </div>
           </BrowserRouter>
         </Context.Provider>

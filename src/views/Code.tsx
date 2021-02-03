@@ -110,8 +110,7 @@ export function Code() {
       container
       style={{
         position: "absolute",
-        top: "37px",
-        bottom: "0px",
+        height: "100%",
         width: "100%",
       }}
     >

@@ -4,7 +4,6 @@ import { StringSetting } from "../../Settings";
 import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";
-import { documentation } from "../../../data/documentation";
 import { VariableTextDocumentation } from "./VariableTextDocumentation";
 import { registerCustomComponent } from "../../../data/components";
 

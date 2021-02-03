@@ -12,3 +12,7 @@
 .markdown-container a:visited {
   color: blue;
 }
+
+.MuiTableCell-head {
+  font-weight: 600 !important;
+}

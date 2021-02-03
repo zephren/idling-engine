@@ -1,4 +1,3 @@
-import { Paper, Grid } from "@material-ui/core";
 import { store } from "../../lib/context";
 import { Toolbox } from "../../components/Toolbox";
 import { SettingsPanel } from "../../components/SettingsPanel";
@@ -29,36 +28,42 @@ function Content() {
   store.editorQuery = query;
 
   return (
-    <Grid container>
-      <Grid item xs className={classes.gameArea}>
-        <HashRouter>
-          <Frame data={data.gameData.layout}>
-            {/*This is the default layout*/}
-            <Element is={Container} padding={5} canvas>
-              <Text
-                text={"Start dragging components in (and delete this one)"}
-              />
-            </Element>
-          </Frame>
-        </HashRouter>
-      </Grid>
-      <Grid item xs={3}>
-        <Paper className={undefined}>
-          <Toolbox />
-          <SettingsPanel />
-        </Paper>
-      </Grid>
-    </Grid>
+    <>
+      <div style={{ position: "absolute", width: "80%", height: "100%" }}>
+        <div className={classes.gameArea}>
+          <HashRouter>
+            <Frame data={data.gameData.layout}>
+              {/*This is the default layout*/}
+              <Element is={Container} padding={5} canvas>
+                <Text
+                  text={"Start dragging components in (and delete this one)"}
+                />
+              </Element>
+            </Frame>
+          </HashRouter>
+        </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          right: "0%",
+          width: "20%",
+          height: "100%",
+          overflowY: "auto",
+        }}
+      >
+        <Toolbox />
+        <SettingsPanel />
+      </div>
+    </>
   );
 }
 
 export function Edit() {
   return (
-    <div>
-      <Editor resolver={components}>
-        <AutoSave />
-        <Content />
-      </Editor>
-    </div>
+    <Editor resolver={components}>
+      <AutoSave />
+      <Content />
+    </Editor>
   );
 }

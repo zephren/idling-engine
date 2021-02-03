@@ -12,7 +12,6 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
-import { documentation } from "../../../data/documentation";
 import { PathContainerDocumentation } from "./PathContainerDocumentation";
 import { registerCustomComponent } from "../../../data/components";
 

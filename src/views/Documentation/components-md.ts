@@ -12,9 +12,9 @@ export function getComponents() {
   return componentsDocs;
 }
 
-export default () => {
+export default function components() {
   return `
 # Components
 ${getComponents().join("\n\n")}
 `;
-};
+}

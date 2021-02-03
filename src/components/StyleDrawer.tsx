@@ -75,11 +75,11 @@ export const StyleDrawer = () => {
                   value={selectedStyle}
                   items={Object.keys(component).map((id) => ({
                     value: id,
-                    name: component[id]._name,
+                    name: component[id].styleName,
                   }))}
                   label="Styles"
                   onChange={(event: any) => {
-                    updateSettings(selectedComponent, "");
+                    updateSettings(selectedComponent, event.target.value);
                   }}
                 />
               </Box>
@@ -89,7 +89,9 @@ export const StyleDrawer = () => {
                     const id = uuid();
 
                     component[id] = {
-                      _name: `New Style ${Object.keys(component).length + 1}`,
+                      styleName: `New Style ${
+                        Object.keys(component).length + 1
+                      }`,
                     };
 
                     updateSettings(selectedComponent, id);
@@ -107,7 +109,7 @@ export const StyleDrawer = () => {
               <Settings
                 config={[
                   {
-                    property: "_name",
+                    property: "styleName",
                     type: StringSetting,
                   },
                   ...supportedComponents[selectedComponent].styleProperties,

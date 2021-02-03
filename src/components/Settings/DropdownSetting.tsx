@@ -1,6 +1,6 @@
-import { IconButton } from "@material-ui/core";
+import { Box, IconButton } from "@material-ui/core";
 import { Dropdown } from "../Controls/Dropdown";
-import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
+import ClearIcon from "@material-ui/icons/Clear";
 
 interface Props {
   property: any;
@@ -16,21 +16,26 @@ export const DropdownSetting = ({
   setProp,
 }: Props) => {
   return (
-    <>
-      <Dropdown
-        value={value || ""}
-        items={itemsFn()}
-        onChange={(event: any) => {
-          setProp((props: any) => (props[property] = event.target.value));
-        }}
-      />
-      <IconButton
-        onClick={() => {
-          setProp((props: any) => (props[property] = null));
-        }}
-      >
-        <SettingsBackupRestoreIcon />
-      </IconButton>
-    </>
+    <Box display="flex" alignItems="flex-end">
+      <Box flexGrow={1}>
+        <Dropdown
+          value={value || ""}
+          items={itemsFn()}
+          onChange={(event: any) => {
+            setProp((props: any) => (props[property] = event.target.value));
+          }}
+        />
+      </Box>
+      <Box>
+        <IconButton
+          size="small"
+          onClick={() => {
+            setProp((props: any) => (props[property] = null));
+          }}
+        >
+          <ClearIcon />
+        </IconButton>
+      </Box>
+    </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Container, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Container, makeStyles, Paper } from "@material-ui/core";
 import ReactMarkdown from "react-markdown";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { documentation } from "../../data/documentation";

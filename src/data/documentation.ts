@@ -3,7 +3,7 @@ class Documentation {
 
   addComponent(component: any) {
     this.components[component.componentName] = {
-      name: component.componentName,
+      componentName: component.componentName,
       component,
     };
   }

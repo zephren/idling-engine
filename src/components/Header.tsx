@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { AppBar, Button, Toolbar } from "@material-ui/core";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Context, store } from "../lib/context";
@@ -19,65 +19,67 @@ export const Header = () => {
   }
 
   return (
-    <div>
-      <Button
-        onClick={() => {
-          store.state.optionsDrawerOpen = true;
-          store.update();
-        }}
-      >
-        <MenuIcon />
-      </Button>
-      <Button
-        onClick={() => {
-          navigate("/edit");
-        }}
-        variant={path.includes("/edit") ? "contained" : undefined}
-        color="primary"
-      >
-        Edit
-      </Button>
-      <Button
-        onClick={() => {
-          let file = store.state.localSettings.lastCodeFile;
+    <AppBar position="static" color="transparent">
+      <Toolbar>
+        <Button
+          onClick={() => {
+            store.state.optionsDrawerOpen = true;
+            store.update();
+          }}
+        >
+          <MenuIcon />
+        </Button>
+        <Button
+          onClick={() => {
+            navigate("/edit");
+          }}
+          variant={path.includes("/edit") ? "contained" : undefined}
+          color="primary"
+        >
+          Edit
+        </Button>
+        <Button
+          onClick={() => {
+            let file = store.state.localSettings.lastCodeFile;
 
-          if (file) {
-            file = `/${file}`;
-          }
+            if (file) {
+              file = `/${file}`;
+            }
 
-          navigate(`/code${file}`);
-        }}
-        variant={path.includes("/code") ? "contained" : undefined}
-        color="primary"
-      >
-        Code
-      </Button>
-      <Button
-        onClick={() => {
-          openStyleDrawer();
-        }}
-      >
-        Styling
-      </Button>
-      <Button
-        onClick={() => {
-          saveGameData();
-          navigate("/play");
-        }}
-        variant={path.includes("/play") ? "contained" : undefined}
-        color="primary"
-      >
-        Play
-      </Button>
-      <Button
-        onClick={() => {
-          navigate("/documentation");
-        }}
-        variant={path.includes("/documentation") ? "contained" : undefined}
-        color="primary"
-      >
-        Documentation
-      </Button>
-    </div>
+            navigate(`/code${file}`);
+          }}
+          variant={path.includes("/code") ? "contained" : undefined}
+          color="primary"
+        >
+          Code
+        </Button>
+        <Button
+          onClick={() => {
+            openStyleDrawer();
+          }}
+        >
+          Styling
+        </Button>
+        <Button
+          onClick={() => {
+            saveGameData();
+            navigate("/play");
+          }}
+          variant={path.includes("/play") ? "contained" : undefined}
+          color="primary"
+        >
+          Play
+        </Button>
+        <Button
+          onClick={() => {
+            navigate("/documentation");
+          }}
+          variant={path.includes("/documentation") ? "contained" : undefined}
+          color="primary"
+        >
+          Documentation
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };

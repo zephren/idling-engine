@@ -1,7 +1,7 @@
 import { Box, Button, IconButton } from "@material-ui/core";
 import { customStyles } from "../../data/customStyles";
 import { Dropdown } from "../Controls/Dropdown";
-import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
+import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import { openStyleDrawer } from "../../actions/styleDrawer";
 
@@ -44,7 +44,7 @@ export const StyleSetting = ({
           value={value || ""}
           items={Object.keys(customStyles[componentName]).map((id) => ({
             value: id,
-            name: customStyles[componentName][id]._name,
+            name: customStyles[componentName][id].styleName,
           }))}
           onChange={(event: any) => {
             setProp((props: any) => (props[property] = event.target.value));
@@ -53,13 +53,17 @@ export const StyleSetting = ({
       </Box>
       <Box>
         <IconButton
+          size="small"
           onClick={() => {
             setProp((props: any) => (props[property] = null));
           }}
         >
-          <SettingsBackupRestoreIcon />
+          <ClearIcon />
         </IconButton>
+      </Box>
+      <Box>
         <IconButton
+          size="small"
           onClick={() => {
             openStyleDrawer({
               componentName,

@@ -1,3 +1,4 @@
+import { store } from "../lib/context";
 import { dataStorage } from "../lib/dataStorage";
 import { data } from "./data";
 
@@ -5,11 +6,9 @@ interface AnyObject {
   [key: string]: any;
 }
 
-export function setUpdateUIFunction(fn: any) {
-  game.update = fn;
-}
-
 export const game = {
+  running: true,
+
   // Settings
   settings: {
     tickInterval: 1000,
@@ -35,16 +34,13 @@ export const game = {
     console.log("game.configure not defined");
   },
 
-  // Initialize
+  // Initialized state
   isInitialized: false,
   isGameDataInitialized: false,
 
+  // initialize
   _initialize: (loadedGameData: any) => {
     console.log("game.initialize not defined");
-  },
-
-  _initializeGameData: () => {
-    console.log("game.initializeGameData not defined");
   },
 
   get initialize() {
@@ -59,6 +55,11 @@ export const game = {
     };
   },
 
+  // initializeGameData
+  _initializeGameData: () => {
+    console.log("game.initializeGameData not defined");
+  },
+
   get initializeGameData() {
     return this._initializeGameData;
   },
@@ -71,14 +72,30 @@ export const game = {
     };
   },
 
-  // Tick
-  tick: () => {
+  // tick
+  _tick: () => {
     console.log("game.tick not defined");
   },
 
-  // Update
+  get tick() {
+    return this._tick;
+  },
+
+  set tick(fn) {
+    this._tick = () => {
+      if (game.running || store.state.localSettings.flags.tickWhileEditing) {
+        fn();
+      }
+    };
+  },
+
+  // update
   update: () => {
     console.log("game.update not defined");
+  },
+
+  setUpdateUIFunction: (fn: any) => {
+    game.update = fn;
   },
 };
 

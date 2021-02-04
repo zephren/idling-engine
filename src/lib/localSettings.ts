@@ -2,7 +2,16 @@ import { store } from "./context";
 import { dataStorage } from "./dataStorage";
 
 export function loadLocalSettings() {
-  store.state.localSettings = dataStorage.get("localSettings", undefined);
+  const storedLocalSettings = dataStorage.get("localSettings", undefined);
+
+  // Apply the stored settings or just use the defaults
+  if (storedLocalSettings) {
+    console.log("storedLocalSettings", storedLocalSettings);
+    store.state.localSettings = Object.assign(
+      store.state.localSettings,
+      storedLocalSettings
+    );
+  }
 }
 
 export function saveLocalSettings() {

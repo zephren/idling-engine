@@ -3,10 +3,10 @@ import { store } from "../lib/context";
 import { saveLocalSettings } from "../lib/localSettings";
 
 export function openStyleDrawer(options: any = {}) {
-  store.state.localSettings.styleDrawerOpen = true;
-  store.state.localSettings.previousHighlightComponents =
-    store.state.localSettings.highlightComponents;
-  store.state.localSettings.highlightComponents = false;
+  store.state.localSettings.flags.styleDrawerOpen = true;
+  store.state.localSettings.flags.previousHighlightComponents =
+    store.state.localSettings.flags.highlightComponents;
+  store.state.localSettings.flags.highlightComponents = false;
 
   if (options.componentName) {
     store.state.localSettings.styleDrawerComponentName = options.componentName;
@@ -22,9 +22,9 @@ export function openStyleDrawer(options: any = {}) {
 }
 
 export function closeStyleDrawer() {
-  store.state.localSettings.styleDrawerOpen = false;
-  store.state.localSettings.highlightComponents =
-    store.state.localSettings.previousHighlightComponents;
+  store.state.localSettings.flags.styleDrawerOpen = false;
+  store.state.localSettings.flags.highlightComponents =
+    store.state.localSettings.flags.previousHighlightComponents;
 
   saveLocalSettings();
 

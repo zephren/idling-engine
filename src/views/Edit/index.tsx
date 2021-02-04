@@ -12,12 +12,15 @@ import { data } from "../../data/data";
 import { saveGameData } from "../../lib/saveGameData";
 import { useEffect } from "react";
 import { useSharedStyles } from "../../styles/shared";
+import { game } from "../../data/game";
 
 function Content() {
   const { query } = useEditor();
   const classes = useSharedStyles();
 
   useEffect(() => {
+    game.running = false;
+
     return () => {
       saveGameData();
     };

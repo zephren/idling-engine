@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Settings, StringSetting } from "../Settings";
 import { saveLocalSettings } from "../../lib/localSettings";
 import { getToolboxComponents } from "./getToolboxComponents";
+import { toggleLocalSetting } from "../../actions/localSettings";
 
 export const Toolbox = () => {
   const { connectors, actions } = useEditor();
@@ -24,28 +25,40 @@ export const Toolbox = () => {
   return (
     <>
       <Box px={2} py={2}>
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-          spacing={1}
-        >
-          <Box pb={2}>
+        <Grid container direction="column" spacing={1}>
+          <div>
             <Typography>Drag to add</Typography>
-            Highlight components
-            <Switch
-              checked={store.state.localSettings.highlightComponents}
-              onChange={() => {
-                store.state.localSettings.highlightComponents = !store.state
-                  .localSettings.highlightComponents;
-
-                saveLocalSettings();
-
-                store.update();
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
-            />
-          </Box>
+            >
+              Highlight components
+              <Switch
+                checked={store.state.localSettings.flags.highlightComponents}
+                onChange={() => {
+                  toggleLocalSetting("highlightComponents");
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              Tick while editing
+              <Switch
+                checked={store.state.localSettings.flags.tickWhileEditing}
+                onChange={() => {
+                  toggleLocalSetting("tickWhileEditing");
+                }}
+              />
+            </div>
+          </div>
           {getToolboxComponents(connectors).map((component) => {
             return (
               <Grid key={component.name} container direction="column" item>

@@ -5,6 +5,7 @@ import { documentation } from "../../data/documentation";
 import { Breadcrumbs } from "./Breadcrumbs";
 import index from "./index-md";
 import components from "./components-md";
+import game from "./game-md";
 
 const renderers = {
   link: (props: any) => {
@@ -28,8 +29,8 @@ export function Documentation() {
       <Paper className={classes.paper}>
         <BrowserRouter basename="/idling-engine/documentation">
           <div className="markdown-container">
-            {/*Components*/}
             <Switch>
+              {/*Components*/}
               <Route
                 path="/components/:componentName"
                 render={(history) => {
@@ -68,6 +69,25 @@ export function Documentation() {
                     <ReactMarkdown
                       plugins={[]}
                       children={components()}
+                      renderers={renderers}
+                    />
+                  </>
+                )}
+              />
+              {/* Game */}
+              <Route
+                path="/game"
+                render={() => (
+                  <>
+                    <Breadcrumbs
+                      parts={[
+                        ["Documentation", ""],
+                        ["Game", "gmae"],
+                      ]}
+                    />
+                    <ReactMarkdown
+                      plugins={[]}
+                      children={game()}
                       renderers={renderers}
                     />
                   </>

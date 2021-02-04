@@ -47,7 +47,7 @@ export const StyleDrawer = () => {
   return (
     <div>
       <Drawer
-        open={store.state.localSettings.styleDrawerOpen}
+        open={store.state.localSettings.flags.styleDrawerOpen}
         onClose={() => {
           closeStyleDrawer();
         }}

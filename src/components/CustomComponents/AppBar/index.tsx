@@ -93,6 +93,7 @@ const AppBarSettings = () => {
       {tabs.map((tab: any, index: number) => {
         return (
           <Settings
+            key={index}
             config={[
               {
                 type: StringSetting,

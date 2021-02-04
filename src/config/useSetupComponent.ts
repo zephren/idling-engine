@@ -23,7 +23,7 @@ function componentClass(
 ) {
   return [
     ...additonalClasses,
-    editing && store.state.localSettings.highlightComponents
+    editing && store.state.localSettings.flags.highlightComponents
       ? sharedClasses.componentEditing
       : "",
     selected ? sharedClasses.componentSelected : "",

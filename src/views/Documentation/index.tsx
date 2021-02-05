@@ -6,6 +6,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import index from "./index-md";
 import components from "./components-md";
 import game from "./game-md";
+import customComponents from "./customComponents-md";
 
 const renderers = {
   link: (props: any) => {
@@ -82,12 +83,31 @@ export function Documentation() {
                     <Breadcrumbs
                       parts={[
                         ["Documentation", ""],
-                        ["Game", "gmae"],
+                        ["Game", "game"],
                       ]}
                     />
                     <ReactMarkdown
                       plugins={[]}
                       children={game()}
+                      renderers={renderers}
+                    />
+                  </>
+                )}
+              />
+              {/* Custom Components */}
+              <Route
+                path="/customComponents"
+                render={() => (
+                  <>
+                    <Breadcrumbs
+                      parts={[
+                        ["Documentation", ""],
+                        ["Custom Components", "customComponents"],
+                      ]}
+                    />
+                    <ReactMarkdown
+                      plugins={[]}
+                      children={customComponents()}
                       renderers={renderers}
                     />
                   </>

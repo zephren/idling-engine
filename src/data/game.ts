@@ -7,7 +7,7 @@ interface AnyObject {
 }
 
 export const game = {
-  running: true,
+  running: false,
 
   // Settings
   settings: {
@@ -19,9 +19,6 @@ export const game = {
 
   // Actions
   actions: {} as AnyObject,
-
-  // Conditionals
-  conditionals: {} as AnyObject,
 
   // Data sources
   dataSources: {} as AnyObject,
@@ -89,7 +86,10 @@ export const game = {
     };
   },
 
-  // update
+  /**
+   * Update the UI
+   * Set by the system
+   */
   update: () => {
     console.log("game.update not defined");
   },

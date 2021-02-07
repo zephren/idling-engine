@@ -23,7 +23,6 @@ game.tick = () => {
 };
 
 // Define actions using game.actions ...
-// Define conditionals using game.conditionals ...
 
 game.actions.buttonClick = () => {
   game.data.counter++;

@@ -67,12 +67,18 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
         const result = await axios.get(component.url);
 
         console.log(result.status);
+
         if (result.status === 200) {
           component.status = "Ok";
           component.ok = true;
         }
       } catch (err) {
-        component.status = `Failed (${err.response.status})`;
+        if (err.response) {
+          component.status = `Failed (${err.response.status})`;
+        } else {
+          component.status = `Failed (${err.message})`;
+        }
+
         component.ok = false;
       }
 
@@ -89,7 +95,7 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
 
     await Promise.all(requests);
 
-    update();
+    update(123);
   }
 
   return (
@@ -132,7 +138,7 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
           }}
         />
         <Button
-          onClick={() => {
+          onClick={async () => {
             const component = {
               url: newComponentUrl,
               status: "New",
@@ -140,7 +146,7 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
 
             data.customComponents.push(component);
 
-            checkComponent(component);
+            await checkComponent(component);
 
             setNewComponentUrl("");
           }}

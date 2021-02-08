@@ -4,12 +4,17 @@ export async function loadCustomComponents() {
   const loadingPromises = [];
   const errors: any = {};
 
+  console.log("Loading custom components");
+  console.log("data", data);
+
   for (const customComponent of data.customComponents) {
     if (!customComponent.url) {
       continue;
     }
 
     const p = new Promise((resolve: any) => {
+      console.log(`Loading custom component ${customComponent.url}`);
+
       const s = document.createElement("script");
       s.type = "text/javascript";
       s.src = customComponent.url;
@@ -27,6 +32,8 @@ export async function loadCustomComponents() {
 
     loadingPromises.push(p);
   }
+
+  console.log("data.customComponents", data.customComponents, loadingPromises);
 
   await Promise.all(loadingPromises);
 

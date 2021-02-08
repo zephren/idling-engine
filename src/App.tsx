@@ -25,10 +25,11 @@ export default class App extends Component {
     // without being tied to the context
     store.update = this.update;
 
-    await loadCustomComponents();
-
     // Load the game configuration
     loadGameData();
+
+    await loadCustomComponents();
+
     game.setUpdateUIFunction(store.update);
     executeCode();
 

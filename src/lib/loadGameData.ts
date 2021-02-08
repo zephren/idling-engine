@@ -36,7 +36,7 @@ export function loadGameData() {
 
       data.gameData = storedGameData;
       data.customComponents = storedGameData.customComponents || [];
-
+      console.log("Game data loaded");
       return storedGameData;
     }
 

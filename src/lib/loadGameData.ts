@@ -21,31 +21,51 @@ function loadComponentProperties(baseStyles: any) {
   }
 }
 
-export function loadGameData() {
-  try {
-    let storedGameData = dataStorage.get("gameData");
+export function validateLayout(layoutData: any) {
+  const layout = JSON.parse(layoutData);
+  console.log(layout, Object.keys(layout));
 
-    if (storedGameData) {
-      if (storedGameData.baseStyles) {
-        loadComponentProperties(storedGameData.baseStyles);
-      }
-
-      if (storedGameData.customStyles) {
-        Object.assign(customStyles, storedGameData.customStyles);
-      }
-
-      data.gameData = storedGameData;
-      data.customComponents = storedGameData.customComponents || [];
-      console.log("Game data loaded");
-      return storedGameData;
+  for (const id of Object.keys(layout)) {
+    if (id === "ROOT") {
+      continue;
     }
 
-    console.warn("No game data loaded");
-  } catch (err) {
-    console.error(err);
+    console.log(id);
+
+    const {
+      type: { resolvedName },
+    } = layout[id];
+
+    if (!components[resolvedName]) {
+      throw new Error(`Unknown component ${resolvedName}`);
+    }
   }
+}
 
-  data.gameData = initialGameData;
+export function loadGameData() {
+  let storedGameData = dataStorage.get("gameData");
 
-  return null;
+  if (storedGameData) {
+    if (storedGameData.baseStyles) {
+      loadComponentProperties(storedGameData.baseStyles);
+    }
+
+    if (storedGameData.customStyles) {
+      Object.assign(customStyles, storedGameData.customStyles);
+    }
+
+    data.gameData = storedGameData;
+    data.customComponents = storedGameData.customComponents || [];
+
+    validateLayout(data.gameData.layout);
+
+    console.log("Game data loaded");
+
+    return;
+  } else {
+    console.warn("Starting new game data");
+
+    data.gameData = initialGameData;
+    return;
+  }
 }

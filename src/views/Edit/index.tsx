@@ -34,6 +34,7 @@ function Content() {
     <>
       <div style={{ position: "absolute", width: "80%", height: "100%" }}>
         <div className={classes.gameArea}>
+          {/*Router for the components in the game*/}
           <HashRouter>
             <Frame data={data.gameData.layout}>
               {/*This is the default layout*/}

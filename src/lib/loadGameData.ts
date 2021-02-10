@@ -36,10 +36,30 @@ export function validateLayout(layoutData: any) {
       type: { resolvedName },
     } = layout[id];
 
+    console.log(resolvedName, components[resolvedName]);
     if (!components[resolvedName]) {
-      throw new Error(`Unknown component ${resolvedName}`);
+      const error: any = new Error(`Unknown component ${resolvedName}`);
+      error.resolve = () => {
+        alert(1);
+      };
+
+      throw error;
     }
   }
+}
+
+// This needs to be able to run before loading the game data,
+// so that any custom components can be loaded first
+export function loadCustomComponentData() {
+  let storedGameData = dataStorage.get("gameData");
+
+  if (storedGameData) {
+    data.customComponents = storedGameData.customComponents || [];
+
+    return;
+  }
+
+  data.customComponents = [];
 }
 
 export function loadGameData() {
@@ -55,7 +75,6 @@ export function loadGameData() {
     }
 
     data.gameData = storedGameData;
-    data.customComponents = storedGameData.customComponents || [];
 
     validateLayout(data.gameData.layout);
 

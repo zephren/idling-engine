@@ -19,10 +19,10 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import HelpOutlinedIcon from "@material-ui/icons/HelpOutlined";
 import ErrorIcon from "@material-ui/icons/Error";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUpdate } from "../../config/useUpdate";
 import { data } from "../../data/data";
-import { saveGameData } from "../../lib/saveGameData";
+import { saveCustomComponents, saveGameData } from "../../lib/saveGameData";
 
 function CustomComponent({ component, components, update }: any) {
   let icon = null;
@@ -95,8 +95,14 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
 
     await Promise.all(requests);
 
+    // Need to use a different value... can't quite recall why
     update(123);
   }
+
+  // Did mount / unmount
+  useEffect(() => {
+    checkComponentUrls();
+  }, []);
 
   return (
     <Dialog open={true} onClose={onClose}>
@@ -119,6 +125,7 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
               {data.customComponents.map((component) => {
                 return (
                   <CustomComponent
+                    key={component.url}
                     component={component}
                     components={data.customComponents}
                     update={update}
@@ -166,7 +173,9 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
       <DialogActions>
         <Button
           onClick={() => {
-            onClose();
+            if (onClose) {
+              onClose();
+            }
           }}
           color="primary"
         >
@@ -174,7 +183,7 @@ export const CustomComponentsDialog = ({ onClose }: any) => {
         </Button>
         <Button
           onClick={() => {
-            saveGameData();
+            saveCustomComponents();
             window.location.reload();
           }}
           color="primary"

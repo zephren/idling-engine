@@ -37,5 +37,5 @@ export async function loadCustomComponents() {
 
   await Promise.all(loadingPromises);
 
-  console.log(errors);
+  console.log("Load custom components errors", errors);
 }

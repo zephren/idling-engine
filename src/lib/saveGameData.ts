@@ -42,3 +42,14 @@ export function saveGameData() {
 
   dataStorage.set("gameData", data.gameData);
 }
+
+/**
+ * Get the gameData and only update the customComponents
+ */
+export function saveCustomComponents() {
+  const gameData = dataStorage.get("gameData");
+
+  gameData.customComponents = data.customComponents;
+  console.log(gameData.customComponents);
+  dataStorage.set("gameData", gameData);
+}

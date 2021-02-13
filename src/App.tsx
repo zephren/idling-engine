@@ -17,9 +17,13 @@ import { CustomComponentsDialog } from "./components/OptionsDrawer/CustomCompone
 loadLocalSettings();
 
 export default class App extends Component {
-  state = {
+  state: {
+    ready: boolean;
+    errors: any[];
+    showCustomComponentsDialog: boolean;
+  } = {
     ready: false,
-    error: null,
+    errors: [],
     showCustomComponentsDialog: false,
   };
 
@@ -32,14 +36,13 @@ export default class App extends Component {
     loadCustomComponentData();
     await loadCustomComponents();
 
-    try {
-      // Load the game configuration
-      loadGameData();
-    } catch (error) {
-      // console.error(error);
+    // Load the game configuration
+    const { errors } = loadGameData();
+    if (errors) {
       this.setState({
-        error,
+        errors,
       });
+
       return;
     }
 
@@ -57,13 +60,32 @@ export default class App extends Component {
   };
 
   render() {
-    if (this.state.error) {
-      const { resolve } = this.state.error as any;
+    const { errors } = this.state;
+
+    if (errors.length) {
+      const { resolve } = errors as any;
 
       return (
         <div>
           <div>
             There was an error loading your configured custom components
+            {errors.map((error) => {
+              const { message, resolve } = error;
+              return (
+                <div key={error.message}>
+                  "{message}"
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      resolve();
+                      // window.location.reload();
+                    }}
+                  >
+                    Remove References
+                  </Button>
+                </div>
+              );
+            })}
           </div>
           <div>
             Option one is to fix URL of the missing component
@@ -90,15 +112,6 @@ export default class App extends Component {
           <div>
             Option two is to remove all instances of the component that is
             causing the issue
-            <Button
-              variant="contained"
-              onClick={() => {
-                resolve();
-                window.location.reload();
-              }}
-            >
-              Apply
-            </Button>
           </div>
         </div>
       );

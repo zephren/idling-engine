@@ -22,13 +22,9 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { data } from "../data/data";
 import { useContext, useEffect, useState } from "react";
 import { Context, store } from "../lib/context";
-import { executeCode, game } from "../data/game";
-import { v4 as uuid } from "uuid";
-import { initialCode } from "../data/initial/code";
+import { addCodeFile, executeCode, game } from "../data/game";
 import { saveLocalSettings } from "../lib/localSettings";
 import { saveGameData } from "../lib/saveGameData";
-
-// let files: any[] = [];
 
 const useStyles = makeStyles((theme: Theme) => ({
   fileName: {
@@ -77,14 +73,6 @@ export function Code() {
     setSelectedFiles({});
   }
 
-  function addFile(name: string, code: string) {
-    files.push({
-      id: uuid(),
-      name,
-      code,
-    });
-  }
-
   // Did mount / unmount
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,11 +87,6 @@ export function Code() {
       game.initialize(game.data);
     };
   }, []);
-
-  if (files.length === 0) {
-    addFile("main", "//main\n" + initialCode.main);
-    addFile("gameData", "//gameData\n" + initialCode.gameData);
-  }
 
   return (
     <Grid
@@ -172,7 +155,7 @@ export function Code() {
             onClick={() => {
               const name = `New File ${files.length}`;
 
-              addFile(name, `//${name}`);
+              addCodeFile(name, `//${name}`);
 
               update(!updateValue);
             }}

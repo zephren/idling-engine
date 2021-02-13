@@ -1,6 +1,7 @@
 import { store } from "../lib/context";
 import { dataStorage } from "../lib/dataStorage";
 import { data } from "./data";
+import { v4 as uuid } from "uuid";
 
 interface AnyObject {
   [key: string]: any;
@@ -113,6 +114,14 @@ function tick() {
   }, game.settings.tickInterval);
 }
 
+export function addCodeFile(name: string, code: string) {
+  data.gameData.codeFiles.push({
+    id: uuid(),
+    name,
+    code,
+  });
+}
+
 export function executeCode() {
   const files: any = data.gameData.codeFiles;
 
@@ -124,6 +133,7 @@ export function executeCode() {
   const lines = finalCode.split("\n");
   const numberWidth = Math.floor(Math.log(lines.length));
 
+  console.groupCollapsed("GAME CODE");
   console.log(
     lines
       .map((line, index) => {
@@ -134,6 +144,7 @@ export function executeCode() {
       })
       .join("\n")
   );
+  console.groupEnd();
 
   try {
     // Stop anything currently executing

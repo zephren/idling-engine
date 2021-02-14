@@ -1,8 +1,7 @@
 import { Box, Button, Drawer, Typography } from "@material-ui/core";
 import { store } from "../lib/context";
-import { Settings, StringSetting } from "./Settings";
+import { Settings, StringSetting, Dropdown } from "../core";
 import { customStyles } from "../data/customStyles";
-import { Dropdown } from "./Controls/Dropdown";
 import * as components from "./CustomComponents";
 import { v4 as uuid } from "uuid";
 import { closeStyleDrawer } from "../actions/styleDrawer";

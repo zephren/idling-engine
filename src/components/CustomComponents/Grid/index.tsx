@@ -3,7 +3,7 @@ import { useSetupComponent } from "../../../config/useSetupComponent";
 import { GridContainerSettings, GridItemSettings } from "./GridSettings";
 import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
-import { StringSetting } from "../../Settings";
+import { StringSetting } from "../../../core";
 import { checkVisibility } from "../../../lib/checkVisibility";
 import { GridContainerDocumentation } from "./GridContainerDocumentation";
 import { GridItemDocumentation } from "./GridItemDocumentation";

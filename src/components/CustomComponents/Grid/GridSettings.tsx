@@ -1,7 +1,6 @@
 import { useNode } from "@craftjs/core";
 import { game } from "../../../data/game";
-import { Settings, StyleSetting } from "../../Settings";
-import { DropdownSetting } from "../../Settings/DropdownSetting";
+import { Settings, StyleSetting, DropdownSetting } from "../../../core";
 
 const sizes = [
   { name: "3", value: 3 },

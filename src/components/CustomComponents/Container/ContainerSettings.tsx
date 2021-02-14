@@ -1,7 +1,6 @@
 import { useNode } from "@craftjs/core";
-import { Settings } from "../../Settings";
+import { Settings, DropdownSetting } from "../../../core";
 import { game } from "../../../data/game";
-import { DropdownSetting } from "../../Settings/DropdownSetting";
 
 export const ContainerSettings = () => {
   const {

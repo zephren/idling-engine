@@ -1,6 +1,6 @@
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { game } from "../../../data/game";
-import { StringSetting } from "../../Settings";
+import { StringSetting } from "../../../core";
 import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";

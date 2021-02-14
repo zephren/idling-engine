@@ -1,5 +1,5 @@
 import { useNode } from "@craftjs/core";
-import { Settings, StringSetting, StyleSetting } from "../../Settings";
+import { Settings, StringSetting, StyleSetting } from "../../../core";
 
 export const VariableTextSettings = () => {
   const {

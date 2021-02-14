@@ -5,7 +5,7 @@ import { useSetupComponent } from "../../../config/useSetupComponent";
 import { ButtonSettings } from "./ButtonSettings";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
-import { StringSetting } from "../../Settings";
+import { StringSetting } from "../../../core";
 import { ButtonDocumentation } from "./ButtonDocumentation";
 import { registerCustomComponent } from "../../../data/components";
 

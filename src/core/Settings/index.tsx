@@ -6,11 +6,14 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-export { CustomRepeatSetting } from "./CustomRepeatSetting";
-export { DropdownSetting } from "./DropdownSetting";
-export { SliderSetting } from "./SliderSetting";
-export { StringSetting } from "./StringSetting";
-export { StyleSetting } from "./StyleSetting";
+import { CustomRepeatSetting } from "./CustomRepeatSetting";
+
+export * from "./CustomRepeatSetting";
+export * from "./DropdownSetting";
+export * from "./SliderSetting";
+export * from "./StringSetting";
+export * from "./StyleSetting";
+export * from "./SwitchSetting";
 
 export const Settings = ({ config, properties, setProp }: any) => {
   const settingsRows = [];

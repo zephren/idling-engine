@@ -1,8 +1,11 @@
 import { useNode } from "@craftjs/core";
-import { Settings, StyleSetting } from "../../Settings";
-import { StringSetting } from "../../Settings";
+import {
+  Settings,
+  StyleSetting,
+  StringSetting,
+  DropdownSetting,
+} from "../../../core";
 import { game } from "../../../data/game";
-import { DropdownSetting } from "../../Settings/DropdownSetting";
 
 export const ButtonSettings = () => {
   const {

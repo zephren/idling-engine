@@ -5,8 +5,7 @@ import {
 } from "@material-ui/core";
 import { Element, useNode } from "@craftjs/core";
 import { useHistory } from "react-router-dom";
-import { Settings, StyleSetting } from "../../Settings";
-import { StringSetting } from "../../Settings";
+import { Settings, StyleSetting, StringSetting } from "../../../core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useSetupComponent } from "../../../config/useSetupComponent";

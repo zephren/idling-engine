@@ -11,8 +11,12 @@ import { useHistory } from "react-router-dom";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { registerCustomComponent } from "../../../data/components";
 import { game } from "../../../data/game";
-import { DropdownSetting, Settings, StringSetting } from "../../Settings";
-import { SwitchSetting } from "../../Settings/SwitchSetting";
+import {
+  DropdownSetting,
+  Settings,
+  StringSetting,
+  SwitchSetting,
+} from "../../../core";
 import { AppBarDocumentation } from "./AppBarDocumentation";
 import { ToolBarTabs } from "./ToolBarTabs";
 

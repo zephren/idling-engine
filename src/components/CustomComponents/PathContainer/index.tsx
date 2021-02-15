@@ -12,7 +12,7 @@ import { useSetupComponent } from "../../../config/useSetupComponent";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
 import { PathContainerDocumentation } from "./PathContainerDocumentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -113,4 +113,4 @@ PathContainer.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(PathContainer);
+pluginRegistry.registerCustomComponent(PathContainer);

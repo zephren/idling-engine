@@ -7,7 +7,7 @@ import { useCustomStyle } from "../../../config/useCustomStyle";
 import { customStyles } from "../../../data/customStyles";
 import { StringSetting } from "../../../core";
 import { ButtonDocumentation } from "./ButtonDocumentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 
 export const Button = ({
   size,
@@ -83,4 +83,4 @@ Button.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(Button);
+pluginRegistry.registerCustomComponent(Button);

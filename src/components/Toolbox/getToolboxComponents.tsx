@@ -1,11 +1,9 @@
 import { EventConnectors } from "@craftjs/core";
-import { components } from "../../data/components";
+import { pluginRegistry } from "../../lib/PluginRegistry";
 
 export const getToolboxComponents = (connectors: EventConnectors) => {
   return [
-    ...Object.keys(components).reduce((acc: any[], componentName: any) => {
-      const component = components[componentName];
-
+    ...pluginRegistry.componentsArray.reduce((acc: any[], component) => {
       if (component.toolboxItem) {
         acc.push(component.toolboxItem(connectors));
       }

@@ -37,4 +37,4 @@ ErrorPlaceholder.styleProperties = [] as any;
 // ErrorPlaceholder.documentation = TextDocumentation;
 
 // Do not register this component
-// registerCustomComponent();
+// pluginRegistry.registerCustomComponent();

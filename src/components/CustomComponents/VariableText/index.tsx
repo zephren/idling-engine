@@ -5,7 +5,7 @@ import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";
 import { VariableTextDocumentation } from "./VariableTextDocumentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 
 export const VariableText = ({
   dataProperty,
@@ -69,4 +69,4 @@ VariableText.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(VariableText);
+pluginRegistry.registerCustomComponent(VariableText);

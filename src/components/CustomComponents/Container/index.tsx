@@ -1,7 +1,7 @@
 import { Element } from "@craftjs/core";
 import { Container as MUIContainer } from "@material-ui/core";
 import { useSetupComponent } from "../../../config/useSetupComponent";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 import { checkVisibility } from "../../../lib/checkVisibility";
 import { Text } from "../Text";
 import { ContainerDocumentation } from "./ContainerDocumentation";
@@ -58,4 +58,4 @@ Container.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(Container);
+pluginRegistry.registerCustomComponent(Container);

@@ -8,7 +8,7 @@ import { checkVisibility } from "../../../lib/checkVisibility";
 import { GridContainerDocumentation } from "./GridContainerDocumentation";
 import { GridItemDocumentation } from "./GridItemDocumentation";
 import { documentation } from "../../../data/documentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 import { Element } from "@craftjs/core";
 import { Text } from "../Text";
 
@@ -131,7 +131,7 @@ GridContainer.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(GridContainer);
+pluginRegistry.registerCustomComponent(GridContainer);
 
 GridItem.toolboxItem = (connectors: any) => {
   return {
@@ -147,4 +147,4 @@ GridItem.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(GridItem);
+pluginRegistry.registerCustomComponent(GridItem);

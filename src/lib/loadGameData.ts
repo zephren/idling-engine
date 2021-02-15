@@ -1,6 +1,6 @@
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../data/components";
+import { pluginRegistry } from "../lib/PluginRegistry";
 import { dataStorage } from "./dataStorage";
 import { initialCode } from "../data/initial/code";
 import { addCodeFile } from "../data/game";
@@ -16,7 +16,7 @@ function setupNewGameData() {
 
 function loadComponentProperties(baseStyles: any) {
   for (const componentName in baseStyles) {
-    const component = components[componentName];
+    const component = pluginRegistry.components[componentName];
     const baseStyle = baseStyles[componentName];
 
     if (component && baseStyle) {
@@ -68,7 +68,7 @@ export function validateLayout(layoutData: any) {
       type: { resolvedName },
     } = layout[id];
 
-    if (!components[resolvedName]) {
+    if (!pluginRegistry.components[resolvedName]) {
       const error = {
         message: `Unknown component ${resolvedName}`,
         resolve: () => {

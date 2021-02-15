@@ -19,7 +19,7 @@ import { game } from "../../../data/game";
 import { Button } from "../Button";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { TableDocumentation } from "./TableDocumentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 
 const TableRows = ({ items, columnNames }: any) => {
   const rows = [];
@@ -229,4 +229,4 @@ Table.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(Table);
+pluginRegistry.registerCustomComponent(Table);

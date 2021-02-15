@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSetupComponent } from "../../../config/useSetupComponent";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 import { game } from "../../../data/game";
 import {
   DropdownSetting,
@@ -210,4 +210,4 @@ AppBar.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(AppBar);
+pluginRegistry.registerCustomComponent(AppBar);

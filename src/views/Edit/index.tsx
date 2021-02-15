@@ -6,7 +6,7 @@ import { Container, Text } from "../../components/CustomComponents";
 
 import { Editor, Frame, Element, useEditor } from "@craftjs/core";
 import { AutoSave } from "./AutoSave";
-import { components } from "../../data/components";
+import { pluginRegistry } from "../../lib/PluginRegistry";
 import { HashRouter } from "react-router-dom";
 import { data } from "../../data/data";
 import { saveGameData } from "../../lib/saveGameData";
@@ -65,7 +65,7 @@ function Content() {
 
 export function Edit() {
   return (
-    <Editor resolver={components}>
+    <Editor resolver={pluginRegistry.components}>
       <AutoSave />
       <Content />
     </Editor>

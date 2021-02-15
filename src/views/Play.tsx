@@ -1,7 +1,7 @@
 import { Editor, Frame } from "@craftjs/core";
 import { useEffect } from "react";
 import { HashRouter, useHistory } from "react-router-dom";
-import { components } from "../data/components";
+import { pluginRegistry } from "../lib/PluginRegistry";
 import { data } from "../data/data";
 import { game } from "../data/game";
 import { useSharedStyles } from "../styles/shared";
@@ -22,7 +22,7 @@ export function Play() {
 
   return (
     <div className={classes.gameArea}>
-      <Editor resolver={components} enabled={false}>
+      <Editor resolver={pluginRegistry.components} enabled={false}>
         <HashRouter>
           <Frame data={data.gameData.layout}></Frame>
         </HashRouter>

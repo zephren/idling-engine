@@ -4,7 +4,7 @@ import { customStyles } from "../../../data/customStyles";
 import { TextSettings } from "./TextSettings";
 import { StringSetting } from "../../../core";
 import { TextDocumentation } from "./TextDocumentation";
-import { registerCustomComponent } from "../../../data/components";
+import { pluginRegistry } from "../../../lib/PluginRegistry";
 
 export const Text = ({ text, customStyleName }: any) => {
   const { refFn, componentClassName } = useSetupComponent();
@@ -57,4 +57,4 @@ Text.toolboxItem = (connectors: any) => {
   };
 };
 
-registerCustomComponent(Text);
+pluginRegistry.registerCustomComponent(Text);

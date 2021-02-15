@@ -1,7 +1,7 @@
 import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { components } from "../data/components";
+import { pluginRegistry } from "../lib/PluginRegistry";
 import { dataStorage } from "./dataStorage";
 
 export function saveGameData() {
@@ -16,9 +16,9 @@ export function saveGameData() {
 
   const baseStyles: any = {};
 
-  for (const componentName in components) {
+  for (const componentName in pluginRegistry.components) {
     // Kinda hacky but works
-    const component = (components as any)[componentName];
+    const component = (pluginRegistry.components as any)[componentName];
 
     baseStyles[componentName] = component.baseStyle;
   }

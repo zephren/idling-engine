@@ -13,6 +13,7 @@ import { loadLocalSettings } from "./lib/localSettings";
 import { loadCustomComponentData, loadGameData } from "./lib/loadGameData";
 import { loadCustomComponents } from "./lib/loadCustomComponents";
 import { CustomComponentsDialog } from "./components/OptionsDrawer/CustomComponentsDialog";
+import { gameManager } from "./lib/GameManager";
 
 loadLocalSettings();
 
@@ -32,12 +33,17 @@ export default class App extends Component {
     // without being tied to the context
     store.update = this.update;
 
+    await gameManager.init();
+
+    const games = await gameManager.getAll();
+    console.log("ALL GAMES", games);
+
     // Load custom components
-    loadCustomComponentData();
+    await loadCustomComponentData(localStorage.lastGameId);
     await loadCustomComponents();
 
     // Load the game configuration
-    const { errors } = loadGameData();
+    const { errors } = await loadGameData(localStorage.lastGameId);
     if (errors) {
       this.setState({
         errors,

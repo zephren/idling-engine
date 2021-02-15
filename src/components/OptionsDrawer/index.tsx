@@ -16,6 +16,32 @@ import { ImportExportDialog } from "./ImportExportDialog";
 import { ConfirmResetDialog } from "./ConfirmResetDialog";
 import { CustomComponentsDialog } from "./CustomComponentsDialog";
 import { game } from "../../data/game";
+import { gameManager } from "../../lib/GameManager";
+import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
+import AddIcon from "@material-ui/icons/Add";
+
+let games: any[] = [];
+
+function getGames() {
+  setTimeout(async () => {
+    games = await gameManager.getAll();
+    getGames();
+  }, 2000);
+}
+getGames();
+
+function listGames() {
+  return games.map((game: any) => {
+    return (
+      <ListItem button onClick={() => {}}>
+        <ListItemIcon>
+          <VideogameAssetIcon />
+        </ListItemIcon>
+        <ListItemText primary="Game ABC" secondary={game.id} />
+      </ListItem>
+    );
+  });
+}
 
 export const OptionsDrawer = () => {
   const [showImportExprt, setShowImportExport] = useState(false);
@@ -87,6 +113,24 @@ export const OptionsDrawer = () => {
             <ListItemText
               primary="Custom Components"
               secondary="Custom components for your game"
+            />
+          </ListItem>
+          <Divider />
+          {/* Games */}
+          {listGames()}
+          <ListItem
+            button
+            onClick={() => {
+              delete localStorage.lastGameId;
+              window.location.reload();
+            }}
+          >
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Create New Game"
+              secondary="Start building a new game"
             />
           </ListItem>
           <Divider />

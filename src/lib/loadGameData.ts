@@ -4,6 +4,7 @@ import { pluginRegistry } from "../lib/PluginRegistry";
 import { dataStorage } from "./dataStorage";
 import { initialCode } from "../data/initial/code";
 import { addCodeFile } from "../data/game";
+import { gameManager } from "./GameManager";
 
 function setupNewGameData() {
   data.gameData = {
@@ -85,8 +86,8 @@ export function validateLayout(layoutData: any) {
 
 // This needs to be able to run before loading the game data,
 // so that any custom components can be loaded first
-export function loadCustomComponentData() {
-  let storedGameData = dataStorage.get("gameData");
+export async function loadCustomComponentData(gameId: string) {
+  let storedGameData = await gameManager.load(gameId);
 
   if (storedGameData) {
     data.customComponents = storedGameData.customComponents || [];
@@ -97,8 +98,8 @@ export function loadCustomComponentData() {
   data.customComponents = [];
 }
 
-export function loadGameData() {
-  let storedGameData = dataStorage.get("gameData");
+export async function loadGameData(gameId: string) {
+  let storedGameData = await gameManager.load(gameId);
 
   if (storedGameData) {
     if (storedGameData.baseStyles) {

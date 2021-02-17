@@ -3,21 +3,20 @@ import "./lib/log";
 import { Edit, Play, Code, Documentation } from "./views";
 import { Context, store } from "./lib/context";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Button, CssBaseline, ThemeProvider } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { Header } from "./components/Header";
-import { theme } from "./styles/theme";
-import { game, executeCode } from "./data/game";
 import { OptionsDrawer } from "./components/OptionsDrawer";
 import { StyleDrawer } from "./components/StyleDrawer";
 import { loadLocalSettings } from "./lib/localSettings";
-import { loadCustomComponentData, loadGameData } from "./lib/loadGameData";
-import { loadCustomComponents } from "./lib/loadCustomComponents";
 import { CustomComponentsDialog } from "./components/OptionsDrawer/CustomComponentsDialog";
-import { gameManager } from "./lib/GameManager";
+import { initializeApp } from "./lib/initializeApp";
+import { ProviderContext, withSnackbar } from "notistack";
 
 loadLocalSettings();
 
-export default class App extends Component {
+interface Props extends ProviderContext {}
+
+class App extends Component<Props> {
   state: {
     ready: boolean;
     errors: any[];
@@ -29,35 +28,19 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
+    alert('equate a lie number to a "file"');
     // This allows components to update the state
     // without being tied to the context
     store.update = this.update;
+    store.enqueueSnackbar = this.props.enqueueSnackbar;
 
-    await gameManager.init();
+    const { errors } = await initializeApp();
 
-    const games = await gameManager.getAll();
-    console.log("ALL GAMES", games);
-
-    // Load custom components
-    await loadCustomComponentData(localStorage.lastGameId);
-    await loadCustomComponents();
-
-    // Load the game configuration
-    const { errors } = await loadGameData(localStorage.lastGameId);
     if (errors) {
-      this.setState({
-        errors,
-      });
-
-      return;
+      this.setState({ errors });
+    } else {
+      this.setState({ ready: true });
     }
-
-    game.setUpdateUIFunction(store.update);
-    executeCode();
-
-    this.setState({
-      ready: true,
-    });
   }
 
   update = () => {
@@ -128,50 +111,48 @@ export default class App extends Component {
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Context.Provider
-          value={{
-            state: store.state,
-            update: this.update,
-            editorQuery: store.editorQuery,
-          }}
-        >
-          <BrowserRouter basename="/idling-engine">
+      <Context.Provider
+        value={{
+          state: store.state,
+          editorQuery: store.editorQuery,
+          enqueueSnackbar: store.enqueueSnackbar,
+          update: this.update,
+        }}
+      >
+        <BrowserRouter basename="/idling-engine">
+          <div style={{ position: "absolute", width: "100%", height: "100%" }}>
+            <OptionsDrawer />
+            <StyleDrawer />
             <div
-              style={{ position: "absolute", width: "100%", height: "100%" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+              }}
             >
-              <OptionsDrawer />
-              <StyleDrawer />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                <Header />
-                <div style={{ position: "relative", flexGrow: 1 }}>
-                  <Switch>
-                    <Route path="/edit" render={() => <Edit />} />
-                    <Route path="/code" render={() => <Code />} />
-                    <Route path="/play" render={() => <Play />} />
-                    <Route
-                      path="/documentation"
-                      render={() => <Documentation />}
-                    />
-                    <Route path="/">
-                      <Redirect to="/edit" />
-                    </Route>
-                  </Switch>
-                </div>
+              <Header />
+              <div style={{ position: "relative", flexGrow: 1 }}>
+                <Switch>
+                  <Route path="/edit" render={() => <Edit />} />
+                  <Route path="/code" render={() => <Code />} />
+                  <Route path="/play" render={() => <Play />} />
+                  <Route
+                    path="/documentation"
+                    render={() => <Documentation />}
+                  />
+                  <Route path="/">
+                    <Redirect to="/edit" />
+                  </Route>
+                </Switch>
               </div>
             </div>
-          </BrowserRouter>
-        </Context.Provider>
-      </ThemeProvider>
+          </div>
+        </BrowserRouter>
+      </Context.Provider>
     );
   }
 }
+
+export default withSnackbar(App);

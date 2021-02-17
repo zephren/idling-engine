@@ -22,6 +22,7 @@ function Content() {
     game.running = false;
 
     return () => {
+      game.running = false;
       saveGameData();
     };
   }, []);

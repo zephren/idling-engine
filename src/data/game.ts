@@ -103,14 +103,27 @@ export const game = {
 let currentTimeout: any = null;
 
 // Tick
-function tick() {
-  currentTimeout = setTimeout(() => {
+// Slightly more complex than setTimeout
+// But more performant
+let runningInterval: any = null;
+let ticking = false;
+function startTicking() {
+  if (runningInterval) {
+    clearInterval(runningInterval);
+  }
+
+  runningInterval = setInterval(async () => {
     try {
-      game.tick();
+      if (!ticking) {
+        ticking = true;
+        await game.tick();
+      }
     } catch (err) {
       console.error(err);
     }
-    tick();
+
+    // Always set to false once done
+    ticking = false;
   }, game.settings.tickInterval);
 }
 
@@ -147,11 +160,6 @@ export function executeCode() {
   console.groupEnd();
 
   try {
-    // Stop anything currently executing
-    if (currentTimeout) {
-      clearTimeout(currentTimeout);
-    }
-
     // eslint-disable-next-line no-eval
     eval(finalCode);
 
@@ -165,7 +173,7 @@ export function executeCode() {
 
     game.configure(game.settings);
 
-    tick();
+    startTicking();
   } catch (err) {
     err.message = "GAME SCRIPT ERROR: " + err.message;
     console.error(err);

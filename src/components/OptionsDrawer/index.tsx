@@ -5,48 +5,80 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@material-ui/core";
 import LoopIcon from "@material-ui/icons/Loop";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import AppsIcon from "@material-ui/icons/Apps";
+import SettingsIcon from "@material-ui/icons/Settings";
 import packageJson from "../../../package.json";
 import { store } from "../../lib/context";
 import { useState } from "react";
 import { ImportExportDialog } from "./ImportExportDialog";
 import { ConfirmResetDialog } from "./ConfirmResetDialog";
 import { CustomComponentsDialog } from "./CustomComponentsDialog";
+import { GameSettingsDialog } from "./GameSettingsDialog";
 import { game } from "../../data/game";
 import { gameManager } from "../../lib/GameManager";
 import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
 import AddIcon from "@material-ui/icons/Add";
+import { useUpdate } from "../../config/useUpdate";
+import { data } from "../../data/data";
 
-let games: any[] = [];
+function listGames(games: any[] | null) {
+  if (games) {
+    return games.map((game: any) => {
+      return (
+        <ListItem
+          key={game.id}
+          button
+          onClick={() => {
+            // No need to reload
+            if (localStorage.lastGameId === game.id) {
+              return;
+            }
 
-function getGames() {
-  setTimeout(async () => {
-    games = await gameManager.getAll();
-    getGames();
-  }, 2000);
+            localStorage.lastGameId = game.id;
+
+            window.location.reload();
+          }}
+        >
+          <ListItemIcon>
+            <VideogameAssetIcon />
+          </ListItemIcon>
+          <ListItemText primary={game.name} secondary={game.id} />
+        </ListItem>
+      );
+    });
+  }
 }
-getGames();
 
-function listGames() {
-  return games.map((game: any) => {
-    return (
-      <ListItem button onClick={() => {}}>
-        <ListItemIcon>
-          <VideogameAssetIcon />
-        </ListItemIcon>
-        <ListItemText primary="Game ABC" secondary={game.id} />
-      </ListItem>
-    );
-  });
+function ButtonOption({ Icon, onClick, primary, secondary }: any) {
+  return (
+    <ListItem button onClick={onClick}>
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
+      <ListItemText primary={primary} secondary={secondary} />
+    </ListItem>
+  );
 }
 
 export const OptionsDrawer = () => {
+  const update = useUpdate();
+  const [games, setGames] = useState(null);
   const [showImportExprt, setShowImportExport] = useState(false);
   const [showConfirmReset, setShowConfirmReset] = useState(false);
   const [showCustomComponents, setShowCustomComponents] = useState(false);
+  const [showGameSettings, setShowGameSettings] = useState(false);
+  const { gameData } = data;
+
+  if (!games) {
+    (async () => {
+      console.log("Getting games");
+      setGames(await gameManager.getAll());
+    })();
+  }
 
   return (
     <div>
@@ -58,81 +90,56 @@ export const OptionsDrawer = () => {
         }}
       >
         <List>
-          {/* Initialize Game Data */}
-          <ListItem
-            button
-            onClick={() => {
-              game.initializeGameData();
-            }}
-          >
-            <ListItemIcon>
-              <LoopIcon />
-            </ListItemIcon>
-            <ListItemText primary="Initialize Game Data" />
-          </ListItem>
-          {/* Reset Game Configuration */}
-          <ListItem
-            button
-            onClick={() => {
-              setShowConfirmReset(true);
-            }}
-          >
-            <ListItemIcon>
-              <LoopIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Reset Game Configuration"
-              secondary="Reset all game configuration"
-            />
-          </ListItem>
-          {/* Import / Export */}
-          <ListItem
-            button
-            onClick={() => {
-              setShowImportExport(true);
-            }}
-          >
-            <ListItemIcon>
-              <ImportExportIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Import / Export"
-              secondary="Import or export your game data"
-            />
-          </ListItem>
-          {/* Custom Components */}
-          <ListItem
-            button
-            onClick={() => {
-              setShowCustomComponents(true);
-            }}
-          >
-            <ListItemIcon>
-              <AppsIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Custom Components"
-              secondary="Custom components for your game"
-            />
+          <ListItem onClick={() => {}}>
+            <Typography variant="h4">{gameData.name}</Typography>
           </ListItem>
           <Divider />
+          {/* Settings */}
+          <ButtonOption
+            Icon={SettingsIcon}
+            onClick={() => setShowGameSettings(true)}
+            primary="Game Settings"
+          />
+          {/* Initialize Game Data */}
+          <ButtonOption
+            Icon={LoopIcon}
+            onClick={() => game.initializeGameData()}
+            primary="Initialize Game Data"
+          />
+          {/* Reset Game Configuration */}
+          <ButtonOption
+            Icon={LoopIcon}
+            onClick={() => setShowConfirmReset(true)}
+            primary="Reset Game Configuration"
+            secondary="Reset all game configuration"
+          />
+          {/* Import / Export */}
+          <ButtonOption
+            Icon={ImportExportIcon}
+            onClick={() => setShowImportExport(true)}
+            primary="Import / Export"
+            secondary="Import or export your game data"
+          />
+          {/* Custom Components */}
+          <ButtonOption
+            Icon={AppsIcon}
+            onClick={() => setShowCustomComponents(true)}
+            primary="Custom Components"
+            secondary="Custom components for your game"
+          />
+          <Divider />
           {/* Games */}
-          {listGames()}
-          <ListItem
-            button
+          {listGames(games)}
+          <ButtonOption
+            Icon={AddIcon}
             onClick={() => {
               delete localStorage.lastGameId;
+
               window.location.reload();
             }}
-          >
-            <ListItemIcon>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Create New Game"
-              secondary="Start building a new game"
-            />
-          </ListItem>
+            primary="Create New Game"
+            secondary="Start building a new game"
+          />
           <Divider />
           {/* Version */}
           <ListItem onClick={() => {}}>
@@ -150,6 +157,15 @@ export const OptionsDrawer = () => {
 
       {showConfirmReset && (
         <ConfirmResetDialog onClose={() => setShowConfirmReset(false)} />
+      )}
+
+      {showGameSettings && (
+        <GameSettingsDialog
+          onClose={async () => {
+            setGames(await gameManager.getAll());
+            setShowGameSettings(false);
+          }}
+        />
       )}
 
       {showCustomComponents && (

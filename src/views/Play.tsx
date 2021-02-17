@@ -18,6 +18,10 @@ export function Play() {
       console.error(new Error("No gameData routing to /edit"));
       history.push("/edit");
     }
+
+    return () => {
+      game.running = false;
+    };
   }, [history]);
 
   return (

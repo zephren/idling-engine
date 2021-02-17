@@ -30,6 +30,7 @@ export const store = {
     optionsDrawerOpen: false,
   },
   editorQuery: null as any, // The object to be able to query the editor
+  enqueueSnackbar: (() => {}) as any,
   update: (): void => {
     throw new Error("Update function not defined");
   },

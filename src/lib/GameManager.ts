@@ -92,3 +92,21 @@ class GameManager {
 }
 
 export const gameManager = new GameManager();
+
+// For resetting
+(window as any).resetGameStore = async () => {
+  const result = window.confirm(
+    "Are you sure you want to reset the game store?"
+  );
+
+  if (!result) {
+    return;
+  }
+
+  const transaction = gameManager.db.transaction(["games"], "readwrite");
+  const gamesStore = transaction.objectStore("games");
+  await gamesStore.clear();
+  await transaction.done;
+
+  window.location.reload();
+};

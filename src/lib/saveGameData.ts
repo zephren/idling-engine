@@ -4,17 +4,28 @@ import { data } from "../data/data";
 import { pluginRegistry } from "../lib/PluginRegistry";
 import { dataStorage } from "./dataStorage";
 import { gameManager } from "./GameManager";
-import { v4 as uuid } from "uuid";
 
-export function saveGameData() {
+export async function saveGameData() {
   const { editorQuery } = store;
 
-  if (!editorQuery) {
-    console.error("store.editorQuery not set");
-    return;
-  }
-
   console.debug("Saving game data");
+
+  let layout;
+
+  if (editorQuery) {
+    // Layout is a string
+    layout = editorQuery.serialize();
+
+    // If this condition matches, then there was some error
+    if (layout === "{}") {
+      layout = null;
+    }
+  } else {
+    // This is ok, just need to use what's already there
+    console.warn("store.editorQuery not set");
+
+    layout = data.gameData.layout;
+  }
 
   const baseStyles: any = {};
 
@@ -25,27 +36,15 @@ export function saveGameData() {
     baseStyles[componentName] = component.baseStyle;
   }
 
-  // Layout is a string
-  let layout = editorQuery.serialize();
-
-  // If this condition matches, then there was some error
-  if (layout === "{}") {
-    layout = null;
-  }
-
-  data.gameData = {
-    id: data.gameData.id || uuid(),
+  Object.assign(data.gameData, {
     layout,
     baseStyles,
     customStyles,
     customComponents: data.customComponents,
     codeFiles: data.gameData.codeFiles,
-  };
+  });
 
-  dataStorage.set("gameData", data.gameData);
-  localStorage.lastGameId = data.gameData.id;
-
-  gameManager.save(data.gameData);
+  await gameManager.save(data.gameData);
 }
 
 /**

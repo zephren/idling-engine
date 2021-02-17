@@ -5,9 +5,15 @@ import { dataStorage } from "./dataStorage";
 import { initialCode } from "../data/initial/code";
 import { addCodeFile } from "../data/game";
 import { gameManager } from "./GameManager";
+import { v4 as uuid } from "uuid";
+import { saveGameData } from "./saveGameData";
 
 function setupNewGameData() {
+  localStorage.lastGameId = uuid();
+
   data.gameData = {
+    id: localStorage.lastGameId,
+    name: "New Game",
     codeFiles: [],
   };
 
@@ -29,8 +35,8 @@ function loadComponentProperties(baseStyles: any) {
   }
 }
 
-function cleanMissingComponents(componentName: string) {
-  const gameData = dataStorage.get("gameData");
+async function cleanMissingComponents(componentName: string) {
+  const gameData = await gameManager.load(localStorage.lastGameId);
 
   const layout = JSON.parse(gameData.layout);
   const newLayout: any = {};
@@ -53,7 +59,7 @@ function cleanMissingComponents(componentName: string) {
 
   gameData.layout = JSON.stringify(newLayout);
 
-  dataStorage.set("gameData", gameData);
+  await gameManager.save(gameData);
 }
 
 export function validateLayout(layoutData: any) {
@@ -125,6 +131,9 @@ export async function loadGameData(gameId: string) {
     console.warn("Starting new game data");
 
     setupNewGameData();
+
+    await saveGameData();
+
     return {};
   }
 }

@@ -28,7 +28,6 @@ class App extends Component<Props> {
   };
 
   async componentDidMount() {
-    alert('equate a lie number to a "file"');
     // This allows components to update the state
     // without being tied to the context
     store.update = this.update;

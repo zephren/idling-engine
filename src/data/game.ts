@@ -2,6 +2,7 @@ import { store } from "../lib/context";
 import { dataStorage } from "../lib/dataStorage";
 import { data } from "./data";
 import { v4 as uuid } from "uuid";
+import { logEvents } from "../lib/log";
 
 interface AnyObject {
   [key: string]: any;
@@ -135,12 +136,16 @@ export function addCodeFile(name: string, code: string) {
   });
 }
 
+let fileLineCounts: number[] = [];
+
 export function executeCode() {
   const files: any = data.gameData.codeFiles;
+  fileLineCounts = [];
 
   let finalCode = "";
   for (const file of files) {
-    finalCode += file.code + "\n\n";
+    finalCode += file.code + "\n";
+    fileLineCounts.push(file.code.split("\n").length);
   }
 
   const lines = finalCode.split("\n");
@@ -180,8 +185,61 @@ export function executeCode() {
   }
 }
 
+/**
+ * Save game data on an interval
+ */
 setInterval(() => {
   dataStorage.set("savedGameData", game.data);
 }, 5000);
+
+function handleError(args: any[]) {
+  if (args[0]?.message && args[0]?.stack) {
+    const { message, stack } = args[0];
+    let snackbarMessage = message;
+    let lineNumber = null;
+
+    const stackLines = stack.split("\n");
+
+    // This loop coveres Chrome and FF
+    for (let i = 0; i < 2; i++) {
+      const line = stackLines[i];
+      if (line.includes("eval")) {
+        const matches = line.match(/(\d+):(\d+)/g);
+
+        if (matches.length) {
+          const match = matches[matches.length - 1].split(":");
+          lineNumber = [parseInt(match[0]), parseInt(match[1])];
+          break;
+        }
+      }
+    }
+
+    if (lineNumber) {
+      let lineTotal = 0;
+      for (const index in fileLineCounts) {
+        const fileLineCount = fileLineCounts[index];
+
+        if (lineNumber[0] < lineTotal + fileLineCount) {
+          const actualLine = lineNumber[0] - lineTotal;
+          const col = lineNumber[1];
+          const { name } = data.gameData.codeFiles[index];
+
+          snackbarMessage += ` (Line: ${actualLine}, Col: ${col}) in "${name}"`;
+          break;
+        }
+
+        lineTotal += fileLineCount;
+      }
+    }
+
+    store.enqueueSnackbar(snackbarMessage, {
+      variant: "error",
+      preventDuplicate: true,
+    });
+  }
+}
+
+// Handle script errors
+logEvents.on("error", handleError);
 
 (window as any).game = game;

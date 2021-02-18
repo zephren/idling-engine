@@ -21,9 +21,7 @@ export async function saveGameData() {
       layout = null;
     }
   } else {
-    // This is ok, just need to use what's already there
-    console.warn("store.editorQuery not set");
-
+    // This is ok for the editorQuery to not be available, just need to use what's already there
     layout = data.gameData.layout;
   }
 

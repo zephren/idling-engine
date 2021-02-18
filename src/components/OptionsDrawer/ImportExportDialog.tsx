@@ -8,11 +8,12 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
-import { dataStorage } from "../../lib/dataStorage";
+import { data } from "../../data/data";
+import { gameManager } from "../../lib/GameManager";
 
 export const ImportExportDialog = ({ onClose }: any) => {
   const currentAllGameData = {
-    gameData: dataStorage.get("gameData"),
+    gameData: data.gameData,
   };
 
   const [allGameData, setAllGameData] = useState(
@@ -44,7 +45,8 @@ export const ImportExportDialog = ({ onClose }: any) => {
           onClick={() => {
             const data = JSON.parse(atob(allGameData));
             console.debug("Imported game data", JSON.stringify(data, null, 2));
-            dataStorage.set("gameData", data.gameData);
+            gameManager.save(data.gameData);
+            localStorage.lastGameId = data.gameData.id;
             window.location.reload();
           }}
           color="primary"

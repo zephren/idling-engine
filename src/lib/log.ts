@@ -1,6 +1,9 @@
 // Mutate console for better logging
 
 import { store } from "./context";
+import EventEmitter from "events";
+
+export const logEvents = new EventEmitter();
 
 (() => {
   // console that is going to be modified
@@ -48,30 +51,7 @@ import { store } from "./context";
     if (c.logLevel <= LogLevels.ERROR) {
       co.error("ERROR", ...args);
 
-      if (args[0]?.message && args[0]?.stack) {
-        const { message, stack } = args[0];
-        let snackbarMessage = message;
-
-        const stackLines = stack.split("\n");
-
-        for (let i = 0; i < 2; i++) {
-          const line = stackLines[i];
-          if (line.includes("eval")) {
-            console.log(line);
-            const matches = line.match(/(\d+):(\d+)/g);
-
-            if (matches.length) {
-              const match = matches[matches.length - 1].split(":");
-              snackbarMessage += ` (Line: ${match[0]}, Col: ${match[1]})`;
-            }
-          }
-        }
-
-        store.enqueueSnackbar(snackbarMessage, {
-          variant: "error",
-          preventDuplicate: true,
-        });
-      }
+      logEvents.emit("error", args);
     }
   };
 })();

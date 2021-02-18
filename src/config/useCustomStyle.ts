@@ -7,6 +7,10 @@ export function useCustomStyle(
 ) {
   const [style, setStyle] = useState(null as any);
 
+  if (!styleGroup) {
+    return base;
+  }
+
   let customStyle = null;
   if (customStyleName) {
     customStyle = styleGroup[customStyleName];

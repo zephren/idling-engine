@@ -1,15 +1,21 @@
-indexdb for multiple local saves
-  use `npm install idb`
-
 custom hot keys?
 
 URL to load a game from in the URL?
 
 Load game from url to file (ex github URL)
 
-Something to track progress websocket that reports a score
+
 
 Calculate an elapsed time and make it available somewhere
   * The tick function?
 
 setting data.gameData sets obviously changes the reference and can create complications
+
+
+
+
+
+
+================================
+
+Something to track progress websocket that reports a score

@@ -110,3 +110,13 @@ export const gameManager = new GameManager();
 
   window.location.reload();
 };
+
+(window as any).setGameLayout = async (gameId: string, layout: string) => {
+  const gameData = await gameManager.load(gameId);
+
+  gameData.layout = layout;
+
+  await gameManager.save(gameData);
+
+  window.location.reload();
+};

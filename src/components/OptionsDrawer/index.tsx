@@ -65,7 +65,6 @@ function ButtonOption({ Icon, onClick, primary, secondary }: any) {
 }
 
 export const OptionsDrawer = () => {
-  const update = useUpdate();
   const [games, setGames] = useState(null);
   const [showImportExprt, setShowImportExport] = useState(false);
   const [showConfirmReset, setShowConfirmReset] = useState(false);
@@ -91,7 +90,10 @@ export const OptionsDrawer = () => {
       >
         <List>
           <ListItem onClick={() => {}}>
-            <Typography variant="h4">{gameData.name}</Typography>
+            <div>
+              <Typography variant="h4">{gameData.name}</Typography>
+              <div>{gameData.id}</div>
+            </div>
           </ListItem>
           <Divider />
           {/* Settings */}

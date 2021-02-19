@@ -6,11 +6,13 @@ export function loadLocalSettings() {
 
   // Apply the stored settings or just use the defaults
   if (storedLocalSettings) {
-    console.log("storedLocalSettings", storedLocalSettings);
+    console.groupCollapsed("Stored Local Settings");
+    console.log(JSON.stringify(storedLocalSettings, null, 2));
     store.state.localSettings = Object.assign(
       store.state.localSettings,
       storedLocalSettings
     );
+    console.groupEnd();
   }
 }
 

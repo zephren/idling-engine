@@ -51,8 +51,6 @@ class App extends Component<Props> {
     const { errors } = this.state;
 
     if (errors.length) {
-      const { resolve } = errors as any;
-
       return (
         <div>
           <div>
@@ -66,7 +64,6 @@ class App extends Component<Props> {
                     variant="contained"
                     onClick={() => {
                       resolve();
-                      // window.location.reload();
                     }}
                   >
                     Remove References

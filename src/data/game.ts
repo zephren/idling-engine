@@ -101,8 +101,6 @@ export const game = {
   },
 };
 
-let currentTimeout: any = null;
-
 // Tick
 // Slightly more complex than setTimeout
 // But more performant
@@ -170,7 +168,9 @@ export function executeCode() {
 
     let loadedGameData = dataStorage.get("savedGameData", {});
 
-    console.log("loadedGameData", loadedGameData);
+    console.groupCollapsed("Loaded Game Data");
+    console.log(loadedGameData);
+    console.groupEnd();
 
     if (!game.isInitialized) {
       game.initialize(loadedGameData);

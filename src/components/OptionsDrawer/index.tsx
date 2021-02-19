@@ -22,7 +22,6 @@ import { game } from "../../data/game";
 import { gameManager } from "../../lib/GameManager";
 import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
 import AddIcon from "@material-ui/icons/Add";
-import { useUpdate } from "../../config/useUpdate";
 import { data } from "../../data/data";
 
 function listGames(games: any[] | null) {

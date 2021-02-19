@@ -1,7 +1,6 @@
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 import { pluginRegistry } from "../lib/PluginRegistry";
-import { dataStorage } from "./dataStorage";
 import { initialCode } from "../data/initial/code";
 import { addCodeFile } from "../data/game";
 import { gameManager } from "./GameManager";
@@ -124,7 +123,7 @@ export async function loadGameData(gameId: string) {
       return { errors };
     }
 
-    console.log("Game data loaded");
+    console.debug("Game data loaded");
 
     return {};
   } else {

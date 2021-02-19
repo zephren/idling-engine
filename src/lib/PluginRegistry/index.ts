@@ -16,7 +16,7 @@ class PluginRegistry {
   registerPlugin() {}
 
   registerCustomComponent(Component: any) {
-    console.log(`Registering custom component ${Component.componentName}`);
+    // console.debug(`Registering custom component ${Component.componentName}`);
     this._components[Component.componentName] = Component;
 
     documentation.addComponent(Component);

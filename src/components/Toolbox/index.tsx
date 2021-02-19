@@ -11,7 +11,6 @@ import {
 
 import { useState } from "react";
 import { Settings, StringSetting } from "../../core";
-import { saveLocalSettings } from "../../lib/localSettings";
 import { getToolboxComponents } from "./getToolboxComponents";
 import { toggleLocalSetting } from "../../actions/localSettings";
 

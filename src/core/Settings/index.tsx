@@ -6,8 +6,6 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-import { CustomRepeatSetting } from "./CustomRepeatSetting";
-
 export * from "./CustomRepeatSetting";
 export * from "./DropdownSetting";
 export * from "./SliderSetting";

@@ -4,8 +4,9 @@ export async function loadCustomComponents() {
   const loadingPromises = [];
   const errors: any = {};
 
-  console.log("Loading custom components");
-  console.log("data", data);
+  console.groupCollapsed("Loading Custom Components");
+  console.log(data);
+  console.groupEnd();
 
   for (const customComponent of data.customComponents) {
     if (!customComponent.url) {
@@ -33,9 +34,9 @@ export async function loadCustomComponents() {
     loadingPromises.push(p);
   }
 
-  console.log("data.customComponents", data.customComponents, loadingPromises);
+  // console.log("data.customComponents", data.customComponents, loadingPromises);
 
   await Promise.all(loadingPromises);
 
-  console.log("Load custom components errors", errors);
+  // console.log("Load custom components errors", errors);
 }

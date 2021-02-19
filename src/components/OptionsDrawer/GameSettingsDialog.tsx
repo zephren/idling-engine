@@ -7,7 +7,6 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
-import { useUpdate } from "../../config/useUpdate";
 import { data } from "../../data/data";
 import { saveGameData } from "../../lib/saveGameData";
 

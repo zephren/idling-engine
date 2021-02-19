@@ -2,7 +2,6 @@ import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 import { pluginRegistry } from "../lib/PluginRegistry";
-import { dataStorage } from "./dataStorage";
 import { gameManager } from "./GameManager";
 
 export async function saveGameData() {
@@ -22,6 +21,7 @@ export async function saveGameData() {
     }
   } else {
     // This is ok for the editorQuery to not be available, just need to use what's already there
+    // Just means that the editor was never opened to change anything
     layout = data.gameData.layout;
   }
 

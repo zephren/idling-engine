@@ -1,6 +1,5 @@
 // Mutate console for better logging
 
-import { store } from "./context";
 import EventEmitter from "events";
 
 export const logEvents = new EventEmitter();

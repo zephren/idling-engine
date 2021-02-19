@@ -1,5 +1,5 @@
 export const data = {
-  gameData: null as any,
+  gameConfig: null as any,
   customComponents: [] as any[],
 };
 

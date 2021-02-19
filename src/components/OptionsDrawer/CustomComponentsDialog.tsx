@@ -22,7 +22,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useUpdate } from "../../config/useUpdate";
 import { data } from "../../data/data";
-import { saveCustomComponents } from "../../lib/saveGameData";
+import { saveCustomComponents } from "../../lib/saveGameConfig";
 
 function CustomComponent({ component, components, update }: any) {
   let icon = null;

@@ -2,7 +2,7 @@ import { AppBar, Button, Toolbar } from "@material-ui/core";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Context, store } from "../lib/context";
-import { saveGameData } from "../lib/saveGameData";
+import { saveGameConfig } from "../lib/saveGameConfig";
 import { openStyleDrawer } from "../actions/styleDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import { data } from "../data/data";
@@ -11,7 +11,7 @@ export const Header = () => {
   const history = useHistory();
   const path = history.location.pathname;
   const [updateValue, update] = useState(false);
-  const { gameData } = data;
+  const { gameConfig } = data;
 
   useContext(Context);
 
@@ -65,7 +65,7 @@ export const Header = () => {
           </Button>
           <Button
             onClick={() => {
-              saveGameData();
+              saveGameConfig();
               navigate("/play");
             }}
             variant={path.includes("/play") ? "contained" : undefined}
@@ -83,7 +83,7 @@ export const Header = () => {
             Documentation
           </Button>
         </div>
-        <div>{gameData.name}</div>
+        <div>{gameConfig.name}</div>
       </Toolbar>
     </AppBar>
   );

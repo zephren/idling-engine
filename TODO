@@ -9,7 +9,7 @@ Load game from url to file (ex github URL)
 Calculate an elapsed time and make it available somewhere
   * The tick function?
 
-setting data.gameData sets obviously changes the reference and can create complications
+setting data.gameConfig sets obviously changes the reference and can create complications
 
 
 

@@ -3,6 +3,7 @@ import { dataStorage } from "../lib/dataStorage";
 import { data } from "./data";
 import { v4 as uuid } from "uuid";
 import { logEvents } from "../lib/log";
+import { gameManager } from "../lib/GameManager";
 
 interface AnyObject {
   [key: string]: any;
@@ -127,7 +128,7 @@ function startTicking() {
 }
 
 export function addCodeFile(name: string, code: string) {
-  data.gameData.codeFiles.push({
+  data.gameConfig.codeFiles.push({
     id: uuid(),
     name,
     code,
@@ -136,8 +137,8 @@ export function addCodeFile(name: string, code: string) {
 
 let fileLineCounts: number[] = [];
 
-export function executeCode() {
-  const files: any = data.gameData.codeFiles;
+export async function executeCode() {
+  const files: any = data.gameConfig.codeFiles;
   fileLineCounts = [];
 
   let finalCode = "";
@@ -166,7 +167,7 @@ export function executeCode() {
     // eslint-disable-next-line no-eval
     eval(finalCode);
 
-    let loadedGameData = dataStorage.get("savedGameData", {});
+    let loadedGameData = await gameManager.loadGameData(data.gameConfig.id);
 
     console.groupCollapsed("Loaded Game Data");
     console.log(loadedGameData);
@@ -189,7 +190,7 @@ export function executeCode() {
  * Save game data on an interval
  */
 setInterval(() => {
-  dataStorage.set("savedGameData", game.data);
+  gameManager.saveGameData(data.gameConfig.id, game.data);
 }, 5000);
 
 function handleError(args: any[]) {
@@ -222,7 +223,7 @@ function handleError(args: any[]) {
         if (lineNumber[0] < lineTotal + fileLineCount) {
           const actualLine = lineNumber[0] - lineTotal;
           const col = lineNumber[1];
-          const { name } = data.gameData.codeFiles[index];
+          const { name } = data.gameConfig.codeFiles[index];
 
           snackbarMessage += ` (Line: ${actualLine}, Col: ${col}) in "${name}"`;
           break;

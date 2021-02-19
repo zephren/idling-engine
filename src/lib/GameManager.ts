@@ -1,6 +1,6 @@
 import { openDB } from "idb";
 
-const version = 6;
+const version = 10;
 
 class GameManager {
   db: any;
@@ -10,7 +10,7 @@ class GameManager {
   });
 
   async init() {
-    const db = await openDB("GameData", version, {
+    const db = await openDB("GameConfig", version, {
       upgrade: this._upgrade,
       blocked: this._blocked,
       blocking: this._blocking,
@@ -33,13 +33,17 @@ class GameManager {
   }
 
   _upgrade(db: any, oldVersion: any, newVersion: any, transaction: any) {
-    console.log("UPGRADE!");
+    console.debug("UPGRADE DATABASE", version);
 
-    const gameStore = db.createObjectStore("games", { keyPath: "id" });
+    if (!db.objectStoreNames.contains("games")) {
+      db.createObjectStore("games", { keyPath: "id" });
+    }
 
-    gameStore.transaction.oncomplete = function (event: any) {
-      Promise.resolve(this.ready);
-    };
+    if (!db.objectStoreNames.contains("gameData")) {
+      db.createObjectStore("gameData", {
+        keyPath: "id",
+      });
+    }
   }
 
   _blocked() {}
@@ -48,6 +52,9 @@ class GameManager {
 
   _terminated() {}
 
+  /**
+   * GAME CONFIG
+   */
   async getAll() {
     await this.ready;
 
@@ -62,14 +69,14 @@ class GameManager {
     return games;
   }
 
-  async save(gameData: any) {
+  async save(gameConfig: any) {
     await this.ready;
 
-    // console.log("INDEX DB SAVE", gameData.id, gameData);
+    // console.log("INDEX DB SAVE", gameConfig.id, gameConfig);
 
     const transaction = this.db.transaction(["games"], "readwrite");
     const gamesStore = transaction.objectStore("games");
-    await gamesStore.put(gameData);
+    await gamesStore.put(gameConfig);
 
     await transaction.done;
   }
@@ -88,6 +95,55 @@ class GameManager {
     await transaction.done;
 
     return game;
+  }
+
+  async delete(gameId: string) {
+    if (!gameId) {
+      return;
+    }
+
+    await this.ready;
+
+    const transaction = this.db.transaction(["games"], "readwrite");
+    const gamesStore = transaction.objectStore("games");
+    await gamesStore.delete(gameId);
+
+    await transaction.done;
+  }
+
+  /**
+   * GAME DATA
+   */
+  async saveGameData(gameId: string, gameData: any) {
+    if (!gameId) {
+      return;
+    }
+
+    await this.ready;
+
+    gameData.id = gameId;
+
+    const transaction = this.db.transaction(["gameData"], "readwrite");
+    const gamesDataStore = transaction.objectStore("gameData");
+    await gamesDataStore.put(gameData);
+
+    await transaction.done;
+  }
+
+  async loadGameData(gameId: string) {
+    if (!gameId) {
+      return;
+    }
+
+    await this.ready;
+
+    const transaction = this.db.transaction(["gameData"], "readwrite");
+    const gamesDataStore = transaction.objectStore("gameData");
+    const gameData = await gamesDataStore.get(gameId);
+
+    await transaction.done;
+
+    return gameData;
   }
 }
 
@@ -112,11 +168,11 @@ export const gameManager = new GameManager();
 };
 
 (window as any).setGameLayout = async (gameId: string, layout: string) => {
-  const gameData = await gameManager.load(gameId);
+  const gameConfig = await gameManager.load(gameId);
 
-  gameData.layout = layout;
+  gameConfig.layout = layout;
 
-  await gameManager.save(gameData);
+  await gameManager.save(gameConfig);
 
   window.location.reload();
 };

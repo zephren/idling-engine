@@ -24,7 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import { Context, store } from "../lib/context";
 import { addCodeFile, executeCode, game } from "../data/game";
 import { saveLocalSettings } from "../lib/localSettings";
-import { saveGameData } from "../lib/saveGameData";
+import { saveGameConfig } from "../lib/saveGameConfig";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fileName: {
@@ -40,15 +40,15 @@ export function Code() {
   const [selectedFiles, setSelectedFiles]: [any, any] = useState({});
   useContext(Context);
 
-  let files = data.gameData.codeFiles;
+  let files = data.gameConfig.codeFiles;
 
   function save() {
-    saveGameData();
+    saveGameConfig();
   }
 
   function setFiles(newFiles: string[]) {
     files = newFiles;
-    data.gameData.codeFiles = newFiles;
+    data.gameConfig.codeFiles = newFiles;
   }
 
   function handleFileClick(id: string, index: number) {
@@ -83,8 +83,9 @@ export function Code() {
       // Update the code when navigating away
       clearInterval(interval);
       save();
-      executeCode();
-      game.initialize(game.data);
+      executeCode().then(() => {
+        game.initialize(game.data);
+      });
     };
   }, []);
 

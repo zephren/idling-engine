@@ -1,16 +1,16 @@
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { pluginRegistry } from "../lib/PluginRegistry";
+import { pluginRegistry } from "./PluginRegistry";
 import { initialCode } from "../data/initial/code";
 import { addCodeFile } from "../data/game";
 import { gameManager } from "./GameManager";
 import { v4 as uuid } from "uuid";
-import { saveGameData } from "./saveGameData";
+import { saveGameConfig } from "./saveGameConfig";
 
 function setupNewGameData() {
   localStorage.lastGameId = uuid();
 
-  data.gameData = {
+  data.gameConfig = {
     id: localStorage.lastGameId,
     name: "New Game",
     codeFiles: [],
@@ -103,7 +103,7 @@ export async function loadCustomComponentData(gameId: string) {
   data.customComponents = [];
 }
 
-export async function loadGameData(gameId: string) {
+export async function loadGameConfig(gameId: string) {
   let storedGameData = await gameManager.load(gameId);
 
   if (storedGameData) {
@@ -115,9 +115,9 @@ export async function loadGameData(gameId: string) {
       Object.assign(customStyles, storedGameData.customStyles);
     }
 
-    data.gameData = storedGameData;
+    data.gameConfig = storedGameData;
 
-    const errors = validateLayout(data.gameData.layout);
+    const errors = validateLayout(data.gameConfig.layout);
 
     if (errors.length) {
       return { errors };
@@ -131,7 +131,7 @@ export async function loadGameData(gameId: string) {
 
     setupNewGameData();
 
-    await saveGameData();
+    await saveGameConfig();
 
     return {};
   }

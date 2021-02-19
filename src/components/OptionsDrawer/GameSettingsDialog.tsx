@@ -8,11 +8,11 @@ import {
 } from "@material-ui/core";
 import { useState } from "react";
 import { data } from "../../data/data";
-import { saveGameData } from "../../lib/saveGameData";
+import { saveGameConfig } from "../../lib/saveGameConfig";
 
 export const GameSettingsDialog = ({ onClose }: any) => {
-  const { gameData } = data;
-  const [name, setName] = useState(gameData.name);
+  const { gameConfig } = data;
+  const [name, setName] = useState(gameConfig.name);
 
   return (
     <Dialog open={true} onClose={onClose}>
@@ -33,12 +33,12 @@ export const GameSettingsDialog = ({ onClose }: any) => {
         <Button onClick={onClose}>Cancel</Button>
         <Button
           onClick={async () => {
-            // Need to re-get the gameData as the reference to the object could have changed
-            const { gameData } = data;
+            // Need to re-get the gameConfig as the reference to the object could have changed
+            const { gameConfig } = data;
 
-            gameData.name = name;
+            gameConfig.name = name;
 
-            await saveGameData();
+            await saveGameConfig();
             onClose();
           }}
           color="primary"

@@ -12,12 +12,12 @@ import { data } from "../../data/data";
 import { gameManager } from "../../lib/GameManager";
 
 export const ImportExportDialog = ({ onClose }: any) => {
-  const currentAllGameData = {
-    gameData: data.gameData,
+  const currentAllGameConfig = {
+    gameConfig: data.gameConfig,
   };
 
-  const [allGameData, setAllGameData] = useState(
-    btoa(JSON.stringify(currentAllGameData))
+  const [allGameConfig, setAllGameConfig] = useState(
+    btoa(JSON.stringify(currentAllGameConfig))
   );
 
   return (
@@ -33,9 +33,9 @@ export const ImportExportDialog = ({ onClose }: any) => {
           label="Current Game Data"
           multiline
           rows={4}
-          value={allGameData}
+          value={allGameConfig}
           onChange={(event) => {
-            setAllGameData(event.target.value);
+            setAllGameConfig(event.target.value);
           }}
           variant="filled"
         />
@@ -43,10 +43,10 @@ export const ImportExportDialog = ({ onClose }: any) => {
       <DialogActions>
         <Button
           onClick={() => {
-            const data = JSON.parse(atob(allGameData));
+            const data = JSON.parse(atob(allGameConfig));
             console.debug("Imported game data", JSON.stringify(data, null, 2));
-            gameManager.save(data.gameData);
-            localStorage.lastGameId = data.gameData.id;
+            gameManager.save(data.gameConfig);
+            localStorage.lastGameId = data.gameConfig.id;
             window.location.reload();
           }}
           color="primary"

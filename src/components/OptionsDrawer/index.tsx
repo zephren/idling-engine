@@ -69,7 +69,7 @@ export const OptionsDrawer = () => {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
   const [showCustomComponents, setShowCustomComponents] = useState(false);
   const [showGameSettings, setShowGameSettings] = useState(false);
-  const { gameData } = data;
+  const { gameConfig } = data;
 
   if (!games) {
     (async () => {
@@ -90,8 +90,8 @@ export const OptionsDrawer = () => {
         <List>
           <ListItem onClick={() => {}}>
             <div>
-              <Typography variant="h4">{gameData.name}</Typography>
-              <div>{gameData.id}</div>
+              <Typography variant="h4">{gameConfig.name}</Typography>
+              <div>{gameConfig.id}</div>
             </div>
           </ListItem>
           <Divider />
@@ -111,8 +111,8 @@ export const OptionsDrawer = () => {
           <ButtonOption
             Icon={LoopIcon}
             onClick={() => setShowConfirmReset(true)}
-            primary="Reset Game Configuration"
-            secondary="Reset all game configuration"
+            primary="Delete Game Configuration"
+            secondary="Delete the currently loaded game"
           />
           {/* Import / Export */}
           <ButtonOption

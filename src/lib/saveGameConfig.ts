@@ -1,10 +1,10 @@
 import { store } from "./context";
 import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
-import { pluginRegistry } from "../lib/PluginRegistry";
+import { pluginRegistry } from "./PluginRegistry";
 import { gameManager } from "./GameManager";
 
-export async function saveGameData() {
+export async function saveGameConfig() {
   const { editorQuery } = store;
 
   console.debug("Saving game data");
@@ -22,7 +22,7 @@ export async function saveGameData() {
   } else {
     // This is ok for the editorQuery to not be available, just need to use what's already there
     // Just means that the editor was never opened to change anything
-    layout = data.gameData.layout;
+    layout = data.gameConfig.layout;
   }
 
   const baseStyles: any = {};
@@ -34,20 +34,20 @@ export async function saveGameData() {
     baseStyles[componentName] = component.baseStyle;
   }
 
-  Object.assign(data.gameData, {
+  Object.assign(data.gameConfig, {
     layout,
     baseStyles,
     customStyles,
     customComponents: data.customComponents,
-    codeFiles: data.gameData.codeFiles,
+    codeFiles: data.gameConfig.codeFiles,
   });
 
-  await gameManager.save(data.gameData);
+  await gameManager.save(data.gameConfig);
 }
 
 /**
  * Get the gameData and only update the customComponents
  */
 export async function saveCustomComponents() {
-  gameManager.save(data.gameData);
+  gameManager.save(data.gameConfig);
 }

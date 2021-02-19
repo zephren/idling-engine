@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { saveGameData } from "../../lib/saveGameData";
+import { saveGameConfig } from "../../lib/saveGameConfig";
 
 export const AutoSave = () => {
   // Did mount / unmount
@@ -7,7 +7,7 @@ export const AutoSave = () => {
     console.debug("Starting autosave");
 
     const interval = setInterval(() => {
-      saveGameData();
+      saveGameConfig();
     }, 2000);
 
     return () => {

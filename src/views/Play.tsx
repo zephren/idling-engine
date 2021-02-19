@@ -14,8 +14,8 @@ export function Play() {
     game.running = true;
 
     // If there is no game data, then switch to the editor
-    if (!data.gameData) {
-      console.error(new Error("No gameData routing to /edit"));
+    if (!data.gameConfig) {
+      console.error(new Error("No gameConfig routing to /edit"));
       history.push("/edit");
     }
 
@@ -28,7 +28,7 @@ export function Play() {
     <div className={classes.gameArea}>
       <Editor resolver={pluginRegistry.components} enabled={false}>
         <HashRouter>
-          <Frame data={data.gameData.layout}></Frame>
+          <Frame data={data.gameConfig.layout}></Frame>
         </HashRouter>
       </Editor>
     </div>

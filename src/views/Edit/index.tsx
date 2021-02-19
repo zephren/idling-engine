@@ -9,7 +9,7 @@ import { AutoSave } from "./AutoSave";
 import { pluginRegistry } from "../../lib/PluginRegistry";
 import { HashRouter } from "react-router-dom";
 import { data } from "../../data/data";
-import { saveGameData } from "../../lib/saveGameData";
+import { saveGameConfig } from "../../lib/saveGameConfig";
 import { useEffect } from "react";
 import { useSharedStyles } from "../../styles/shared";
 import { game } from "../../data/game";
@@ -23,7 +23,7 @@ function Content() {
 
     return () => {
       game.running = false;
-      saveGameData();
+      saveGameConfig();
     };
   }, []);
 
@@ -37,7 +37,7 @@ function Content() {
         <div className={classes.gameArea}>
           {/*Router for the components in the game*/}
           <HashRouter>
-            <Frame data={data.gameData.layout}>
+            <Frame data={data.gameConfig.layout}>
               {/*This is the default layout*/}
               <Element is={Container} padding={5} canvas>
                 <Text

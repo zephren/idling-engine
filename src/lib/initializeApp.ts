@@ -2,7 +2,7 @@ import { executeCode, game } from "../data/game";
 import { store } from "./context";
 import { gameManager } from "./GameManager";
 import { loadCustomComponents } from "./loadCustomComponents";
-import { loadCustomComponentData, loadGameData } from "./loadGameData";
+import { loadCustomComponentData, loadGameConfig } from "./loadGameConfig";
 import { pluginRegistry } from "./PluginRegistry";
 
 export async function initializeApp() {
@@ -21,14 +21,14 @@ export async function initializeApp() {
   console.groupEnd();
 
   // Load the game configuration
-  const { errors } = await loadGameData(localStorage.lastGameId);
+  const { errors } = await loadGameConfig(localStorage.lastGameId);
 
   if (errors) {
     return { errors };
   }
 
   game.setUpdateUIFunction(store.update);
-  executeCode();
+  await executeCode();
 
   return {};
 }

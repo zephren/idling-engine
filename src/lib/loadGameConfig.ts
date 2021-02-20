@@ -89,13 +89,17 @@ export function validateLayout(layoutData: any) {
   return errors;
 }
 
+export async function loadCustomComponentDataById(gameId: string) {
+  let storedGameConfig = await gameManager.load(gameId);
+
+  return loadCustomComponentData(storedGameConfig);
+}
+
 // This needs to be able to run before loading the game data,
 // so that any custom components can be loaded first
-export async function loadCustomComponentData(gameId: string) {
-  let storedGameData = await gameManager.load(gameId);
-
-  if (storedGameData) {
-    data.customComponents = storedGameData.customComponents || [];
+export async function loadCustomComponentData(storedGameConfig: any) {
+  if (storedGameConfig) {
+    data.customComponents = storedGameConfig.customComponents || [];
 
     return;
   }
@@ -103,25 +107,29 @@ export async function loadCustomComponentData(gameId: string) {
   data.customComponents = [];
 }
 
-export async function loadGameConfig(gameId: string) {
-  let storedGameData = await gameManager.load(gameId);
+export async function loadGameConfigById(gameId: string) {
+  let storedGameConfig = await gameManager.load(gameId);
 
-  if (storedGameData) {
-    if (storedGameData.baseStyles) {
-      loadComponentProperties(storedGameData.baseStyles);
+  return loadGameConfig(storedGameConfig);
+}
+
+export async function loadGameConfig(storedGameConfig: any) {
+  if (storedGameConfig) {
+    if (storedGameConfig.baseStyles) {
+      loadComponentProperties(storedGameConfig.baseStyles);
     }
 
-    if (storedGameData.customStyles) {
-      Object.assign(customStyles, storedGameData.customStyles);
+    if (storedGameConfig.customStyles) {
+      Object.assign(customStyles, storedGameConfig.customStyles);
     }
 
-    data.gameConfig = storedGameData;
-
-    const errors = validateLayout(data.gameConfig.layout);
+    const errors = validateLayout(storedGameConfig.layout);
 
     if (errors.length) {
       return { errors };
     }
+
+    data.gameConfig = storedGameConfig;
 
     console.debug("Game data loaded");
 

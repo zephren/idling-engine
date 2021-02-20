@@ -47,6 +47,24 @@ class App extends Component<Props> {
     this.setState({});
   };
 
+  renderPlay() {
+    return <Play />;
+  }
+
+  renderEditRoutes() {
+    return (
+      <Switch>
+        <Route path="/edit" render={() => <Edit />} />
+        <Route path="/code" render={() => <Code />} />
+        <Route path="/play" render={() => <Play />} />
+        <Route path="/documentation" render={() => <Documentation />} />
+        <Route path="/">
+          <Redirect to="/edit" />
+        </Route>
+      </Switch>
+    );
+  }
+
   render() {
     const { errors } = this.state;
 
@@ -112,6 +130,7 @@ class App extends Component<Props> {
           state: store.state,
           editorQuery: store.editorQuery,
           enqueueSnackbar: store.enqueueSnackbar,
+          urlParams: store.urlParams,
           update: this.update,
         }}
       >
@@ -130,18 +149,9 @@ class App extends Component<Props> {
             >
               <Header />
               <div style={{ position: "relative", flexGrow: 1 }}>
-                <Switch>
-                  <Route path="/edit" render={() => <Edit />} />
-                  <Route path="/code" render={() => <Code />} />
-                  <Route path="/play" render={() => <Play />} />
-                  <Route
-                    path="/documentation"
-                    render={() => <Documentation />}
-                  />
-                  <Route path="/">
-                    <Redirect to="/edit" />
-                  </Route>
-                </Switch>
+                {store.state.mode === "play"
+                  ? this.renderPlay()
+                  : this.renderEditRoutes()}
               </div>
             </div>
           </div>

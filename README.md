@@ -1,3 +1,7 @@
+# Exmple game
+
+http://localhost:3000/idling-engine/edit?gameConfig=https://cdn.jsdelivr.net/gh/zephren/idling-engine@main/exampleBase64-gameConfig#/main
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

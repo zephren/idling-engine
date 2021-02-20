@@ -67,7 +67,7 @@ function Content() {
 export function Edit() {
   return (
     <Editor resolver={pluginRegistry.components}>
-      <AutoSave />
+      {store.state.mode !== "play" ? <AutoSave /> : null}
       <Content />
     </Editor>
   );

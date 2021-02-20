@@ -1,9 +1,25 @@
+import axios from "axios";
 import { executeCode, game } from "../data/game";
 import { store } from "./context";
 import { gameManager } from "./GameManager";
 import { loadCustomComponents } from "./loadCustomComponents";
-import { loadCustomComponentData, loadGameConfig } from "./loadGameConfig";
+import {
+  loadCustomComponentData,
+  loadCustomComponentDataById,
+  loadGameConfig,
+  loadGameConfigById,
+} from "./loadGameConfig";
 import { pluginRegistry } from "./PluginRegistry";
+
+async function loadComponents() {
+  // Load custom components
+  await loadCustomComponents();
+
+  console.groupCollapsed("Custom Components");
+  console.log(Object.keys(pluginRegistry.components).join("\n"));
+  console.log(pluginRegistry.components);
+  console.groupEnd();
+}
 
 export async function initializeApp() {
   await gameManager.init();
@@ -11,17 +27,26 @@ export async function initializeApp() {
   // const games = await gameManager.getAll();
   // console.log('All Gmaes', games)
 
-  // Load custom components
-  await loadCustomComponentData(localStorage.lastGameId);
-  await loadCustomComponents();
+  let errors;
 
-  console.groupCollapsed("Custom Components");
-  console.log(Object.keys(pluginRegistry.components).join("\n"));
-  console.log(pluginRegistry.components);
-  console.groupEnd();
+  if (store.urlParams.gameConfig) {
+    store.state.mode = "play";
 
-  // Load the game configuration
-  const { errors } = await loadGameConfig(localStorage.lastGameId);
+    const gameConfigBase64 = (await axios.get(store.urlParams.gameConfig)).data;
+    const gameConfigJson = atob(gameConfigBase64);
+    const { gameConfig } = JSON.parse(gameConfigJson);
+
+    loadCustomComponentData(gameConfig);
+    loadComponents();
+
+    errors = (await loadGameConfig(gameConfig)).errors;
+  } else {
+    await loadCustomComponentDataById(localStorage.lastGameId);
+    loadComponents();
+
+    // Load the game configuration
+    errors = (await loadGameConfigById(localStorage.lastGameId)).errors;
+  }
 
   if (errors) {
     return { errors };

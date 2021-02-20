@@ -11,6 +11,7 @@ import LoopIcon from "@material-ui/icons/Loop";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import AppsIcon from "@material-ui/icons/Apps";
 import SettingsIcon from "@material-ui/icons/Settings";
+import DeleteIcon from "@material-ui/icons/Delete";
 import packageJson from "../../../package.json";
 import { store } from "../../lib/context";
 import { useState } from "react";
@@ -109,7 +110,7 @@ export const OptionsDrawer = () => {
           />
           {/* Reset Game Configuration */}
           <ButtonOption
-            Icon={LoopIcon}
+            Icon={DeleteIcon}
             onClick={() => setShowConfirmReset(true)}
             primary="Delete Game Configuration"
             secondary="Delete the currently loaded game"

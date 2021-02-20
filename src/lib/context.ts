@@ -14,6 +14,11 @@ export interface LocalSettings {
   styleDrawerStyleId: string;
 }
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+const urlParams = {
+  gameConfig: urlSearchParams.get("gameConfig"),
+};
+
 export const store = {
   state: {
     localSettings: {
@@ -28,7 +33,9 @@ export const store = {
       styleDrawerStyleId: "",
     } as LocalSettings,
     optionsDrawerOpen: false,
+    mode: "",
   },
+  urlParams,
   editorQuery: null as any, // The object to be able to query the editor
   enqueueSnackbar: (() => {}) as any,
   update: (): void => {

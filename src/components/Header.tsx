@@ -15,6 +15,10 @@ export const Header = () => {
 
   useContext(Context);
 
+  if (store.state.mode === "play") {
+    return null;
+  }
+
   function navigate(path: string) {
     history.push(path);
     update(!updateValue);

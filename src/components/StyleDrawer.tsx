@@ -1,11 +1,11 @@
 import { Box, Button, Drawer, Typography } from "@material-ui/core";
 import { store } from "../lib/context";
 import { Settings, StringSetting, Dropdown } from "../core";
-import { customStyles } from "../data/customStyles";
 import * as components from "./CustomComponents";
 import { v4 as uuid } from "uuid";
 import { closeStyleDrawer } from "../actions/styleDrawer";
 import { useUpdate } from "../config/useUpdate";
+import { data } from "../data/data";
 
 const supportedComponents: any = {
   [components.Button.name]: components.Button,
@@ -17,6 +17,7 @@ const supportedComponents: any = {
 
 export const StyleDrawer = () => {
   const update = useUpdate();
+  const { customStyles } = data.gameConfig;
 
   let {
     styleDrawerComponentName: selectedComponent,

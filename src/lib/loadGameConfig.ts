@@ -1,4 +1,3 @@
-import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 import { pluginRegistry } from "./PluginRegistry";
 import { initialCode } from "../data/initial/code";
@@ -14,6 +13,7 @@ function setupNewGameData() {
     id: localStorage.lastGameId,
     name: "New Game",
     codeFiles: [],
+    customStyles: {},
   };
 
   addCodeFile("main", "//main\n" + initialCode.main);
@@ -117,10 +117,6 @@ export async function loadGameConfig(storedGameConfig: any) {
   if (storedGameConfig) {
     if (storedGameConfig.baseStyles) {
       loadComponentProperties(storedGameConfig.baseStyles);
-    }
-
-    if (storedGameConfig.customStyles) {
-      Object.assign(customStyles, storedGameConfig.customStyles);
     }
 
     const errors = validateLayout(storedGameConfig.layout);

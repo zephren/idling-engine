@@ -10,9 +10,9 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { useCustomStyle } from "../../../config/useCustomStyle";
-import { customStyles } from "../../../data/customStyles";
 import { PathContainerDocumentation } from "./PathContainerDocumentation";
 import { pluginRegistry } from "../../../lib/PluginRegistry";
+import { data } from "../../../data/data";
 
 export const useStyles = makeStyles((theme: Theme) => ({
   main: {
@@ -21,6 +21,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const PathContainer = ({ path, children, customStyleName }: any) => {
+  const { customStyles } = data.gameConfig;
   const history = useHistory();
   const classes = useStyles();
 

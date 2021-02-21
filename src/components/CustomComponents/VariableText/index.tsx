@@ -1,17 +1,18 @@
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { game } from "../../../data/game";
 import { StringSetting } from "../../../core";
-import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { VariableTextSettings } from "./VariableTextSettings";
 import { VariableTextDocumentation } from "./VariableTextDocumentation";
 import { pluginRegistry } from "../../../lib/PluginRegistry";
+import { data } from "../../../data/data";
 
 export const VariableText = ({
   dataProperty,
   subProperty,
   customStyleName,
 }: any) => {
+  const { customStyles } = data.gameConfig;
   const { refFn, componentClassName } = useSetupComponent();
 
   const style = useCustomStyle(

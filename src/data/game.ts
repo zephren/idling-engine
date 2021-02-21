@@ -1,5 +1,4 @@
 import { store } from "../lib/context";
-import { dataStorage } from "../lib/dataStorage";
 import { data } from "./data";
 import { v4 as uuid } from "uuid";
 import { logEvents } from "../lib/log";
@@ -101,31 +100,6 @@ export const game = {
     game.update = fn;
   },
 };
-
-// Tick
-// Slightly more complex than setTimeout
-// But more performant
-let runningInterval: any = null;
-let ticking = false;
-function startTicking() {
-  if (runningInterval) {
-    clearInterval(runningInterval);
-  }
-
-  runningInterval = setInterval(async () => {
-    try {
-      if (!ticking) {
-        ticking = true;
-        await game.tick();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-
-    // Always set to false once done
-    ticking = false;
-  }, game.settings.tickInterval);
-}
 
 export function addCodeFile(name: string, code: string) {
   data.gameConfig.codeFiles.push({
@@ -238,6 +212,45 @@ function handleError(args: any[]) {
       preventDuplicate: true,
     });
   }
+}
+
+/**
+ * Anything other than the game tick
+ */
+export function startGameTimers() {
+  /**
+   * Save game data on an interval
+   */
+  setInterval(() => {
+    gameManager.saveGameData(data.gameConfig.id, game.data);
+  }, 5000);
+}
+
+/**
+ * Tick
+ * Slightly more complex than setTimeout, but more performant
+ * and no recursive stack track from callbacks
+ */
+let runningInterval: any = null;
+let ticking = false;
+function startTicking() {
+  if (runningInterval) {
+    clearInterval(runningInterval);
+  }
+
+  runningInterval = setInterval(async () => {
+    try {
+      if (!ticking) {
+        ticking = true;
+        await game.tick();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    // Always set to false once done
+    ticking = false;
+  }, game.settings.tickInterval);
 }
 
 // Handle script errors

@@ -1,5 +1,4 @@
 import { store } from "./context";
-import { customStyles } from "../data/customStyles";
 import { data } from "../data/data";
 import { pluginRegistry } from "./PluginRegistry";
 import { gameManager } from "./GameManager";
@@ -37,9 +36,7 @@ export async function saveGameConfig() {
   Object.assign(data.gameConfig, {
     layout,
     baseStyles,
-    customStyles,
     customComponents: data.customComponents,
-    codeFiles: data.gameConfig.codeFiles,
   });
 
   await gameManager.save(data.gameConfig);

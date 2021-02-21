@@ -1,12 +1,13 @@
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { useSetupComponent } from "../../../config/useSetupComponent";
-import { customStyles } from "../../../data/customStyles";
 import { TextSettings } from "./TextSettings";
 import { StringSetting } from "../../../core";
 import { TextDocumentation } from "./TextDocumentation";
 import { pluginRegistry } from "../../../lib/PluginRegistry";
+import { data } from "../../../data/data";
 
 export const Text = ({ text, customStyleName }: any) => {
+  const { customStyles } = data.gameConfig;
   const { refFn, componentClassName } = useSetupComponent();
 
   const style = useCustomStyle(

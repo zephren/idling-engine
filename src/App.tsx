@@ -11,6 +11,7 @@ import { loadLocalSettings } from "./lib/localSettings";
 import { CustomComponentsDialog } from "./components/OptionsDrawer/CustomComponentsDialog";
 import { initializeApp } from "./lib/initializeApp";
 import { ProviderContext, withSnackbar } from "notistack";
+import { startGameTimers } from "./data/game";
 
 loadLocalSettings();
 
@@ -28,6 +29,7 @@ class App extends Component<Props> {
   };
 
   async componentDidMount() {
+    // alert("Why arnt styles part of the game config");
     // This allows components to update the state
     // without being tied to the context
     store.update = this.update;
@@ -39,6 +41,7 @@ class App extends Component<Props> {
       this.setState({ errors });
     } else {
       this.setState({ ready: true });
+      startGameTimers();
     }
   }
 

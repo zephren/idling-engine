@@ -1,7 +1,6 @@
 import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { GridContainerSettings, GridItemSettings } from "./GridSettings";
-import { customStyles } from "../../../data/customStyles";
 import { useCustomStyle } from "../../../config/useCustomStyle";
 import { StringSetting } from "../../../core";
 import { checkVisibility } from "../../../lib/checkVisibility";
@@ -11,6 +10,7 @@ import { documentation } from "../../../data/documentation";
 import { pluginRegistry } from "../../../lib/PluginRegistry";
 import { Element } from "@craftjs/core";
 import { Text } from "../Text";
+import { data } from "../../../data/data";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const GridContainer = ({ children, visibilitySource }: any) => {
+  const { customStyles } = data.gameConfig;
   const classes = useStyles();
   const { refFn, componentClassName, enabled } = useSetupComponent({
     additionalClasses: [classes.root],
@@ -58,6 +59,7 @@ export const GridItem = ({
   visibilitySource,
   customStyleName,
 }: any) => {
+  const { customStyles } = data.gameConfig;
   const { refFn, componentClassName, enabled } = useSetupComponent();
 
   const style = useCustomStyle(

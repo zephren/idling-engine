@@ -16,24 +16,51 @@ const onClickDismiss = (key: any) => () => {
   notistackRef.current.closeSnackbar(key);
 };
 
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <SnackbarProvider
-      maxSnack={5}
-      ref={notistackRef}
-      autoHideDuration={null}
-      action={(key) => (
-        <Button onClick={onClickDismiss(key)} color="secondary">
-          Dismiss
-        </Button>
-      )}
-    >
-      <App />
-    </SnackbarProvider>
-  </ThemeProvider>,
-  document.getElementById("root")
-);
+function checkIndexedDB() {
+  return new Promise((resolve: any, reject: any) => {
+    const errorMessage =
+      "IndexedBD not available. Unsuppored in FF private browsing.";
+
+    try {
+      const db = indexedDB.open("isAvailable");
+      db.onerror = function () {
+        reject(errorMessage);
+      };
+      db.onsuccess = function () {
+        resolve();
+      };
+    } catch (err) {
+      reject(errorMessage);
+    }
+  });
+}
+
+(async () => {
+  try {
+    await checkIndexedDB();
+
+    ReactDOM.render(
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <SnackbarProvider
+          maxSnack={5}
+          ref={notistackRef}
+          autoHideDuration={null}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)} color="secondary">
+              Dismiss
+            </Button>
+          )}
+        >
+          <App />
+        </SnackbarProvider>
+      </ThemeProvider>,
+      document.getElementById("root")
+    );
+  } catch (e) {
+    ReactDOM.render(<div>{e}</div>, document.getElementById("root"));
+  }
+})();
 
 // import reportWebVitals from "./reportWebVitals";
 // If you want to start measuring performance in your app, pass a function

@@ -1,4 +1,4 @@
-import { customStyles } from "../data/customStyles";
+import { data } from "../data/data";
 import { store } from "../lib/context";
 import { saveLocalSettings } from "../lib/localSettings";
 
@@ -9,6 +9,8 @@ export function openStyleDrawer(options: any = {}) {
   store.state.localSettings.flags.highlightComponents = false;
 
   if (options.componentName) {
+    const { customStyles } = data.gameConfig;
+
     store.state.localSettings.styleDrawerComponentName = options.componentName;
     store.state.localSettings.styleDrawerStyleId = options.styleId || "";
 

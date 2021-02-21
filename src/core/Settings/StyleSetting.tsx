@@ -1,9 +1,9 @@
 import { Box, Button, IconButton } from "@material-ui/core";
-import { customStyles } from "../../data/customStyles";
 import { Dropdown } from "../Controls/Dropdown";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import { openStyleDrawer } from "../../actions/styleDrawer";
+import { data } from "../../data/data";
 
 // const customStyles: any = {};
 // const openStyleDrawer: any = () => {};
@@ -21,6 +21,8 @@ export const StyleSetting = ({
   componentName,
   setProp,
 }: Props) => {
+  const { customStyles } = data.gameConfig;
+
   if (
     !customStyles[componentName] ||
     Object.keys(customStyles[componentName]).length === 0

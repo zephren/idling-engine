@@ -4,10 +4,10 @@ import { game } from "../../../data/game";
 import { useSetupComponent } from "../../../config/useSetupComponent";
 import { ButtonSettings } from "./ButtonSettings";
 import { useCustomStyle } from "../../../config/useCustomStyle";
-import { customStyles } from "../../../data/customStyles";
 import { StringSetting } from "../../../core";
 import { ButtonDocumentation } from "./ButtonDocumentation";
 import { pluginRegistry } from "../../../lib/PluginRegistry";
+import { data } from "../../../data/data";
 
 export const Button = ({
   size,
@@ -18,6 +18,7 @@ export const Button = ({
   actionContext,
   customStyleName,
 }: any) => {
+  const { customStyles } = data.gameConfig;
   const { refFn, componentClassName } = useSetupComponent();
 
   const style = useCustomStyle(

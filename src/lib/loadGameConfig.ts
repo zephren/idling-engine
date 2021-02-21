@@ -14,6 +14,9 @@ function setupNewGameData() {
     name: "New Game",
     codeFiles: [],
     customStyles: {},
+    settings: {
+      saveManager: "savePluginIndexedDb",
+    },
   };
 
   addCodeFile("main", "//main\n" + initialCode.main);
@@ -62,6 +65,10 @@ async function cleanMissingComponents(componentName: string) {
 }
 
 export function validateLayout(layoutData: any) {
+  if (!layoutData) {
+    return [];
+  }
+
   const layout = JSON.parse(layoutData);
   const errors = [];
 
@@ -126,6 +133,8 @@ export async function loadGameConfig(storedGameConfig: any) {
     }
 
     data.gameConfig = storedGameConfig;
+
+    data.gameConfig.settings = data.gameConfig.settings || {};
 
     console.debug("Game data loaded");
 

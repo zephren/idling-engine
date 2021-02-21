@@ -1,3 +1,5 @@
+dropdown for selecting plugins
+
 custom hot keys?
 
 Calculate an elapsed time and make it available somewhere
@@ -5,7 +7,8 @@ Calculate an elapsed time and make it available somewhere
 
 setting data.gameConfig sets obviously changes the reference and can create complications
 
-allow configuration of the save method
+allow configuration of the save method (via plugin)
+  register plugin as a category
 
 allow plugins to create game settings
 

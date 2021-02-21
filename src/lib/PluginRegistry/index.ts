@@ -5,6 +5,10 @@ class PluginRegistry {
   _components: any = {};
   _componentsArray: any[] = [];
 
+  _pluginCategories: any = {
+    saveManager: new Map<string, any>(),
+  };
+
   get components() {
     return this._components;
   }
@@ -13,7 +17,13 @@ class PluginRegistry {
     return this._componentsArray;
   }
 
-  registerPlugin() {}
+  registerPlugin(plugin: any, category: string) {
+    if (!this._pluginCategories[category]) {
+      throw new Error(`Invalid plugin category: ${category}`);
+    }
+
+    this._pluginCategories[category].set(plugin.pluginName, plugin);
+  }
 
   registerCustomComponent(Component: any) {
     // console.debug(`Registering custom component ${Component.componentName}`);
@@ -22,6 +32,10 @@ class PluginRegistry {
     documentation.addComponent(Component);
 
     this.componentsArray.push(Component);
+  }
+
+  getPlugin(category: string, pluginName: string) {
+    return this._pluginCategories[category].get(pluginName);
   }
 }
 

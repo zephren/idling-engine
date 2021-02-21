@@ -3,10 +3,13 @@ import { data } from "./data";
 import { v4 as uuid } from "uuid";
 import { logEvents } from "../lib/log";
 import { gameManager } from "../lib/GameManager";
+import { pluginRegistry } from "../lib/PluginRegistry";
 
 interface AnyObject {
   [key: string]: any;
 }
+
+let savePlugin: any = null;
 
 export const game = {
   running: false,
@@ -141,7 +144,13 @@ export async function executeCode() {
     // eslint-disable-next-line no-eval
     eval(finalCode);
 
-    let loadedGameData = await gameManager.loadGameData(data.gameConfig.id);
+    const pluginName =
+      data.gameConfig.settings.saveManager || "savePluginIndexedDb";
+    const SavePlugin = pluginRegistry.getPlugin("saveManager", pluginName);
+    savePlugin = new SavePlugin();
+    savePlugin.init();
+
+    let loadedGameData = await savePlugin.loadGameData(data.gameConfig.id);
 
     console.groupCollapsed("Loaded Game Data");
     console.log(loadedGameData);
@@ -164,7 +173,7 @@ export async function executeCode() {
  * Save game data on an interval
  */
 setInterval(() => {
-  gameManager.saveGameData(data.gameConfig.id, game.data);
+  savePlugin.saveGameData(data.gameConfig.id, game.data);
 }, 5000);
 
 function handleError(args: any[]) {

@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+// Include pluin things first to load the registry and then internal plugins
+import "./lib/PluginRegistry";
+import "./plugins";
 import { SnackbarProvider } from "notistack";
 import { theme } from "./styles/theme";
 import App from "./App";
